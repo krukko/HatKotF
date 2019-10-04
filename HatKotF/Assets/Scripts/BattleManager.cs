@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
-    public Player player = AddComponent(Player); Player();
+    //public Player player = AddComponent(Player); Player();
     public Enemy enemy = new Enemy();
     private BattleButton battleButton;
     public EmotionList emotionList;
@@ -16,7 +16,7 @@ public class BattleManager : MonoBehaviour
 
     public void Start()
     {
-        player.ResetHP();
+        //player.ResetHP();
         enemy.ResetHP();
     }
 
