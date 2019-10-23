@@ -120,8 +120,6 @@ public class CameraController : MonoBehaviour
                 angleToRotate = 45;
             }
 
-            //cameraHelper.rotation = Quaternion.AngleAxis(angleToRotate, Vector3.up);
-
             cameraHelper.Rotate(0, angleToRotate * Time.deltaTime * 20, 0);
 
         }
@@ -129,6 +127,7 @@ public class CameraController : MonoBehaviour
         {
             WallCheck();
 
+            //reset cameraHelpers rotation
             if (!isColliding)
             {
                 cameraHelper.rotation = target.rotation;
@@ -154,7 +153,7 @@ public class CameraController : MonoBehaviour
 
                 if(Physics.Raycast(transform.position, direction, out hit, 0.5f, collisionMask))
                 {
-                    print("move for buffer amount");                 
+                    print("move away from collision for buffer amount");                 
                 }
             }
         }
@@ -165,7 +164,7 @@ public class CameraController : MonoBehaviour
         Ray ray = new Ray(target.position, -target.forward);
         RaycastHit hit;
 
-        if (Physics.SphereCast(ray, 0.7f, out hit, desiredDistance, collisionMask))
+        if (Physics.SphereCast(ray, 0.7f, desiredDistance, collisionMask))
         {
             isColliding = true;
         }
