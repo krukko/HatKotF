@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     public LayerMask collisionMask;
 
     private Camera SpringCamera;
+    private Rigidbody rBod;
 
     public float Stiffness = 1800.0f;
     public float Damping = 600.0f;
@@ -31,6 +32,8 @@ public class CameraController : MonoBehaviour
         cameraHelper.rotation = target.rotation;
 
         defaultOffset = DesiredOffset;
+
+        rBod = transform.gameObject.GetComponent<Rigidbody>();
     }
 
     private void LateUpdate()
@@ -101,6 +104,7 @@ public class CameraController : MonoBehaviour
             Vector3 newPos = hit.point + wallNormal;
 
             Vector3 colDirection = cameraHelper.position - hit.point;
+            Vector3 pushDirection = -colDirection.normalized;
             Vector3 wallNormalDirection = cameraHelper.position - newPos;
 
             // get positive or negative angle between colDirection vector and wallnormaldirection vector
@@ -121,7 +125,6 @@ public class CameraController : MonoBehaviour
             }
 
             cameraHelper.Rotate(0, angleToRotate * Time.deltaTime * 20, 0);
-
         }
         else
         {
@@ -133,29 +136,34 @@ public class CameraController : MonoBehaviour
                 cameraHelper.rotation = target.rotation;
             }
 
-            Vector3 direction = Vector3.zero;
+            //Vector3 direction = Vector3.zero;
 
-            for(int i = 0; i < 4; i++)
-            {
-                switch(i)
-                {
-                    case 0: direction = transform.up;
-                        break;
-                    case 1: direction = -transform.up;
-                        break;
-                    case 2: direction = transform.right;
-                        break;
-                    case 3: direction = -transform.right;
-                        break;
-                    default:
-                        break;
-                }
+            //for(int i = 0; i < 4; i++)
+            //{
+            //    switch(i)
+            //    {
+            //        case 0: direction = transform.up;
+            //            break;
+            //        case 1: direction = -transform.up;
+            //            break;
+            //        case 2: direction = transform.right;
+            //            break;
+            //        case 3: direction = -transform.right;
+            //            break;
+            //        default:
+            //            break;
+            //    }
 
-                if(Physics.Raycast(transform.position, direction, out hit, 0.5f, collisionMask))
-                {
-                    print("move away from collision for buffer amount");                 
-                }
-            }
+            //    if(Physics.Raycast(transform.position, direction, out hit, 0.5f, collisionMask))
+            //    {
+            //        //print("move away from collision for buffer amount");
+            //        //Vector3 dir = hit.point - transform.position;
+
+            //        //dir = -dir.normalized;
+
+            //        //rBod.AddForce(dir * wallPush);
+            //    }
+            //}
         }
     }
 
