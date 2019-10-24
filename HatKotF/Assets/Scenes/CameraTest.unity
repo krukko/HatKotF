@@ -898,9 +898,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866fcbef77f877d4cbbf38c93b2b8421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 7
-  jumpSpeed: 13
-  maxVelocity: 5
+  acceleration: 10
+  jumpSpeed: 15
+  maxVelocity: 8
   turningSpeed: 200
   collisionMask:
     serializedVersion: 2
@@ -934,7 +934,7 @@ CapsuleCollider:
   m_Radius: 1
   m_Height: 7
   m_Direction: 1
-  m_Center: {x: 0, y: -2.05, z: 0}
+  m_Center: {x: 0, y: -1.8, z: 0}
 --- !u!4 &318319921
 Transform:
   m_ObjectHideFlags: 0
@@ -1069,8 +1069,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401677942}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.0112, y: 4, z: 0.0782}
-  m_LocalScale: {x: 0.04522333, y: 8, z: 0.0043639997}
+  m_LocalPosition: {x: -0.0112, y: 7.235, z: 0.07701}
+  m_LocalScale: {x: 0.042836443, y: 14.472, z: 0.0043639997}
   m_Children: []
   m_Father: {fileID: 200937966}
   m_RootOrder: 18
@@ -1509,7 +1509,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102119077}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.88, z: 0.31}
+  m_LocalPosition: {x: 0, y: -1, z: 0.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 318319921}
@@ -1991,9 +1991,11 @@ MonoBehaviour:
   Damping: 600
   Mass: 50
   wallPush: 0.7
-  DesiredOffset: {x: 12.74, y: 7.81, z: 0}
+  rotationSpeed: 12
+  DesiredOffset: {x: 10, y: 8, z: 0}
   defaultOffset: {x: 0, y: 0, z: 0}
   LookAtOffset: {x: 0, y: 2, z: 0}
+  rotateAroundPlayer: 1
 --- !u!54 &1444481011
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2763,8 +2765,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140708744}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.009666666, y: 4, z: 0.07266666}
-  m_LocalScale: {x: 0.045223333, y: 8, z: 0.004364}
+  m_LocalPosition: {x: 0.01095, y: 7.549, z: 0.07266666}
+  m_LocalScale: {x: 0.047792017, y: 15.096, z: 0.004364}
   m_Children: []
   m_Father: {fileID: 200937966}
   m_RootOrder: 13

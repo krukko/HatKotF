@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
     public float Damping = 600.0f;
     public float Mass = 50.0f;
     public float wallPush = 0.5f;
+    public float rotationSpeed = 5f;
     private float desiredDistance;
 
     public Vector3 DesiredOffset = new Vector3(7.5f, 4.5f, 0f);
@@ -24,9 +25,12 @@ public class CameraController : MonoBehaviour
     private Vector3 cameraVelocity = Vector3.zero;
 
     private bool isColliding = false;
+    public bool rotateAroundPlayer = true;
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         SpringCamera = Camera.main;
 
         cameraHelper.rotation = target.rotation;
@@ -38,7 +42,18 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (rotateAroundPlayer && Input.GetKey(KeyCode.Mouse1))
+        {
+            Quaternion cameraTurnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
+
+            DesiredOffset = cameraTurnAngle * DesiredOffset;
+        }
+        else
+        {
+            DesiredOffset = defaultOffset;
+        }
         SpringFollow();
+
     }
 
     private void SpringFollow()
@@ -96,7 +111,7 @@ public class CameraController : MonoBehaviour
         Debug.DrawRay(cameraHelper.position, rayDir, Color.red);
 
         //Check if anything occluding player
-        if (Physics.Linecast(cameraHelper.position, _returnPosition, out hit, collisionMask))
+        if (Physics.SphereCast(cameraHelper.position, 0.5f, rayDir, out hit, desiredDistance, collisionMask))
         {
             isColliding = true;
 
@@ -110,11 +125,11 @@ public class CameraController : MonoBehaviour
             float angleToRotate = Vector3.SignedAngle(colDirection, wallNormalDirection, Vector3.up);
             angleToRotate = Mathf.Clamp(angleToRotate, -85, 85);
 
-            if(angleToRotate < 0)
+            if (angleToRotate < 0)
             {
                 angleToRotate -= 5;
             }
-            else if(angleToRotate >0)
+            else if (angleToRotate > 0)
             {
                 angleToRotate += 5;
             }
