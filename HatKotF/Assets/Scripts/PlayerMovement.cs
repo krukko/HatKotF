@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
-                print("jump");
                 Jump();
             }
         }      

@@ -104,7 +104,6 @@ public class CameraController : MonoBehaviour
             Vector3 newPos = hit.point + wallNormal;
 
             Vector3 colDirection = cameraHelper.position - hit.point;
-            Vector3 pushDirection = -colDirection.normalized;
             Vector3 wallNormalDirection = cameraHelper.position - newPos;
 
             // get positive or negative angle between colDirection vector and wallnormaldirection vector
