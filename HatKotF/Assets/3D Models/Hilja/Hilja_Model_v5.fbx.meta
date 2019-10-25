@@ -3,32 +3,7 @@ guid: 3575d6e4358c22a4791cc73da837b19b
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hilja_Bag_Material
-    second: {fileID: 2100000, guid: 0ee3a69e7808281489f14249bc94540e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hilja_Body_Material
-    second: {fileID: 2100000, guid: b6abd5c664b66e640969496c7e12bc68, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hilja_Eye_Material
-    second: {fileID: 2100000, guid: 140a6582a44e886468a246994132cf72, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hilja_Hair_Material
-    second: {fileID: 2100000, guid: 4bd08825b49c38044b937dcdd1430ab4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hilja_Iris_material
-    second: {fileID: 2100000, guid: 401552bb5e3b4ff458e282d0d6ff80c0, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0

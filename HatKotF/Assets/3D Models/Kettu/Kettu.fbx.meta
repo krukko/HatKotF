@@ -3,7 +3,12 @@ guid: 620801832108b514197612e0c7c23182
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kettu_Body_Material
+    second: {fileID: 2100000, guid: 0c24a421e1681344fbf78129843618fe, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
