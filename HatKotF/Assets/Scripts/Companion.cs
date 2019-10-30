@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class Companion : MonoBehaviour
 {
-
-    public bool happyUnlocked = false;
-    public bool sadUnlocked = false;
-    public bool angryUnlocked = false;
-    public bool fearfulUnlocked = false;
-    public bool disgustUnlocked = false;
+    
 
     // Start is called before the first frame update
     void Start()

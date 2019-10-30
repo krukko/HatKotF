@@ -31,6 +31,8 @@ public class EmotionList : MonoBehaviour
 
     public int currentEmotionID;
 
+    BattleManager battleManager;
+
     void Start()
     {
         NewEmotions();
@@ -48,8 +50,8 @@ public class EmotionList : MonoBehaviour
             string printFace = GiveExpression(randomEmotion);
             string printNro = GiveID(randomEmotion).ToString();
 
-            dialogueText.text = printLine;
-            faceText.text = printFace;
+            //dialogueText.text = printLine;
+            //faceText.text = printFace;
 
             Sprite showThisSprite = GiveFace(randomEmotion);
             shownSprite.GetComponent<SpriteRenderer>().sprite = showThisSprite;
@@ -75,7 +77,7 @@ public class EmotionList : MonoBehaviour
 
         disgusted = new Emotion("disgusted", 5, "XP", disgustedSprite);
         emotions.Add(disgusted);
-        Debug.Log("Emotions created and added to list.");
+        //Debug.Log("Emotions created and added to list.");
     }
 
     //Give the emotions dialogue options
@@ -125,6 +127,7 @@ public class EmotionList : MonoBehaviour
     {
         int number = emotion.GiveID();
         return number;
+        
     }
 
     //Get choose a random emotion

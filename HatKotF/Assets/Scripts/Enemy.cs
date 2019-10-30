@@ -9,6 +9,10 @@ public class Enemy : MonoBehaviour
     public int enemyCurrentHP;
     public int ExpValue;
 
+    public int attack;
+    public int defense;
+    public int armor;
+
     public Slider healthBar;
 
     private void Start()
@@ -16,12 +20,6 @@ public class Enemy : MonoBehaviour
         this.enemyCurrentHP = this.enemyMaxHP;
         this.healthBar.maxValue = this.enemyMaxHP;
     }
-
-    //public Enemy()
-    //{
-    //    this.enemyMaxHP = 5;
-    //    this.enemyCurrentHP = 5;
-    //}
 
     public int GiveHP()
     {
@@ -43,7 +41,8 @@ public class Enemy : MonoBehaviour
     {
         if (this.enemyCurrentHP <= 0) {
             return false;
-        } else
+        }
+        else
         {
             return true;
         }

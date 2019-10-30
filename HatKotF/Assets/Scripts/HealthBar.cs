@@ -12,7 +12,6 @@ public class HealthBar : MonoBehaviour
     {
         //player.currentHP -= damage;
         this.healthBar.value = player.currentHP;
-        Debug.Log("Lost HP.");
     }
 
 }
