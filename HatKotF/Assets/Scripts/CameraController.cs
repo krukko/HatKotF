@@ -5,27 +5,35 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform target;
-    public LayerMask layerMask;
+    public Transform cameraHelper;
+    public LayerMask collisionMask;
 
     private Camera SpringCamera;
+    private Rigidbody rBod;
 
     public float Stiffness = 1800.0f;
     public float Damping = 600.0f;
     public float Mass = 50.0f;
+    public float wallPush = 0.5f;
+    private float desiredDistance;
 
-    public Vector3 DesiredOffset = new Vector3(0.0f, 3.5f, -4.0f);
-    public Vector3 LookAtOffset = new Vector3(0.0f, 3.1f, 0.0f);
+    public Vector3 DesiredOffset = new Vector3(7.5f, 4.5f, 0f);
+    public Vector3 defaultOffset;
+    public Vector3 LookAtOffset = new Vector3(0.0f, 2f, 0.0f);
     private Vector3 desiredPosition = Vector3.zero;
     private Vector3 cameraVelocity = Vector3.zero;
+
+    private bool isColliding = false;
 
     private void Start()
     {
         SpringCamera = Camera.main;
-    }
 
-    private void Update()
-    {
-        CheckCollision();
+        cameraHelper.rotation = target.rotation;
+
+        defaultOffset = DesiredOffset;
+
+        rBod = transform.gameObject.GetComponent<Rigidbody>();
     }
 
     private void LateUpdate()
@@ -33,40 +41,30 @@ public class CameraController : MonoBehaviour
         SpringFollow();
     }
 
-    //TODO: if moving backwards rise camera higher to see more ground (expand FoV if possible)
-    //TODO: when looking up expand FoV (can player look up?)
-    //TODO: swing camera away from possibly occluding object (tag objects to not swing away from)
-    //TODO: look down when approaching cliffs?
-
-    //TODO: change desired position according to players direction
-    //
-    // change x/z offset when moving left/right
-    // expand desired offset when moving backwards
-    // 
-
     private void SpringFollow()
     {
-        Vector3 stretch = SpringCamera.transform.position - desiredPosition;
+        Vector3 stretch = SpringCamera.transform.position - desiredPosition; // how much camera "streches" when moving/stopping
         Vector3 force = -Stiffness * stretch - Damping * cameraVelocity;
         Vector3 acceleration = force / Mass;
 
         cameraVelocity += acceleration * Time.deltaTime;
 
-        SpringCamera.transform.position += cameraVelocity * Time.deltaTime;
+        CheckCollision(SpringCamera.transform.position += cameraVelocity * Time.deltaTime);
 
-        //Set target's position to matrix
+        //Set cameraHelper's position to matrix
         Matrix4x4 CamMat = new Matrix4x4();
-        CamMat.SetRow(0, new Vector4(-target.forward.x, -target.forward.y, -target.forward.z));
-        CamMat.SetRow(1, new Vector4(target.up.x, target.up.y, target.up.z));
+        CamMat.SetRow(0, new Vector4(-cameraHelper.forward.x, -cameraHelper.forward.y, -cameraHelper.forward.z));
+        CamMat.SetRow(1, new Vector4(cameraHelper.up.x, cameraHelper.up.y, cameraHelper.up.z));
         Vector3 modifyRight = Vector3.Cross(CamMat.GetRow(1), CamMat.GetRow(0));                    //get cross product of player's -forward and y-axis = players right
         CamMat.SetRow(2, new Vector4(modifyRight.x, modifyRight.y, modifyRight.z));
 
-
         //Set desired position and desired lookAt position
-        desiredPosition = target.position + TransformNormal(DesiredOffset, CamMat);
-        Vector3 lookAt = target.position + TransformNormal(LookAtOffset, CamMat);
+        desiredPosition = cameraHelper.position + TransformNormal(DesiredOffset, CamMat);
+        Vector3 lookAt = cameraHelper.position + TransformNormal(LookAtOffset, CamMat);
 
-        SpringCamera.transform.LookAt(lookAt, target.up);
+        SpringCamera.transform.LookAt(lookAt, cameraHelper.up);
+
+        desiredDistance = Vector3.Distance(target.position, DesiredOffset);
     }
 
     Vector3 TransformNormal(Vector3 normal, Matrix4x4 matrix)
@@ -86,67 +84,100 @@ public class CameraController : MonoBehaviour
     }
 
     //check camera collisions and push away from possible collision
-    private void CheckCollision()
+    private void CheckCollision(Vector3 _returnPosition)
     {
-        float desiredDistance = Vector3.Distance(target.position, desiredPosition); // what is distance between target and desired camera position
-        int stepCount = 4;                                                          // how many raycast "crosses" there will be - one more added later
-        float stepIncremental = desiredDistance / stepCount / 10;                   // distance between steps
+        float desiredDistance = Vector3.Distance(cameraHelper.position, SpringCamera.transform.position); // what is distance between target and desired camera position
+        int stepCount = 4;                                                                   // how many raycast "crosses" there will be - one more added later
+        float stepIncremental = desiredDistance / stepCount / 10;                            // distance between steps
 
         RaycastHit hit;
-        Vector3 rayDir = transform.position - target.position;
+        Vector3 rayDir = SpringCamera.transform.position - cameraHelper.position;
 
-        Debug.DrawRay(target.position, rayDir, Color.red);
+        Debug.DrawRay(cameraHelper.position, rayDir, Color.red);
 
         //Check if anything occluding player
-        if (Physics.Raycast(target.position, rayDir, out hit, desiredDistance, layerMask))
+        if (Physics.Linecast(cameraHelper.position, _returnPosition, out hit, collisionMask))
         {
-            Debug.Log("player occluded");
+            isColliding = true;
 
-            transform.position = hit.point;
+            Vector3 wallNormal = hit.normal * wallPush;
+            Vector3 newPos = hit.point + wallNormal;
+
+            Vector3 colDirection = cameraHelper.position - hit.point;
+            Vector3 wallNormalDirection = cameraHelper.position - newPos;
+
+            // get positive or negative angle between colDirection vector and wallnormaldirection vector
+            float angleToRotate = Vector3.SignedAngle(colDirection, wallNormalDirection, Vector3.up);
+            angleToRotate = Mathf.Clamp(angleToRotate, -85, 85);
+
+            if(angleToRotate < 0)
+            {
+                angleToRotate -= 5;
+            }
+            else if(angleToRotate >0)
+            {
+                angleToRotate += 5;
+            }
+            else
+            {
+                angleToRotate = 45;
+            }
+
+            cameraHelper.Rotate(0, angleToRotate * Time.deltaTime * 20, 0);
         }
         else
         {
-            // for each step draw raycast cross to check up, down and side occlusion
-            for (int i = 0; i < stepCount + 1; i++)
+            WallCheck();
+
+            //reset cameraHelpers rotation
+            if (!isColliding)
             {
-                for (int j = 0; j < 4; j++)
-                {
-                    Vector3 dir = Vector3.zero;
-                    Vector3 secondOrigin = target.position + rayDir * i * stepIncremental;
-
-                    switch (j)
-                    {
-                        case 0:
-                            dir = transform.up;
-                            break;
-                        case 1:
-                            dir = -transform.up;
-                            break;
-                        case 2:
-                            dir = transform.right;
-                            break;
-                        case 3:
-                            dir = -transform.right;
-                            break;
-                        default:
-                            break;
-                    }
-
-                    Debug.DrawRay(secondOrigin, dir * 1, Color.blue);
-
-                    if (Physics.Raycast(target.position, rayDir, out hit, desiredDistance, layerMask))
-                    {
-                        transform.position = hit.point;
-                    }
-                }
+                cameraHelper.rotation = target.rotation;
             }
 
-            // TODO: instead of transform.position change desiredOffset 
+            //Vector3 direction = Vector3.zero;
 
-            // move camera to 1 step closer to player than hit point
-            // move camera to other side if side ray hits something
-            // move camera up or down if occlusion hit (tilt camera more?)
+            //for(int i = 0; i < 4; i++)
+            //{
+            //    switch(i)
+            //    {
+            //        case 0: direction = transform.up;
+            //            break;
+            //        case 1: direction = -transform.up;
+            //            break;
+            //        case 2: direction = transform.right;
+            //            break;
+            //        case 3: direction = -transform.right;
+            //            break;
+            //        default:
+            //            break;
+            //    }
+
+            //    if(Physics.Raycast(transform.position, direction, out hit, 0.5f, collisionMask))
+            //    {
+            //        //print("move away from collision for buffer amount");
+            //        //Vector3 dir = hit.point - transform.position;
+
+            //        //dir = -dir.normalized;
+
+            //        //rBod.AddForce(dir * wallPush);
+            //    }
+            //}
         }
+    }
 
+    private void WallCheck()
+    {
+        Ray ray = new Ray(target.position, -target.forward);
+        RaycastHit hit;
+
+        if (Physics.SphereCast(ray, 0.7f, desiredDistance, collisionMask))
+        {
+            isColliding = true;
+        }
+        else
+        {
+            isColliding = false;
+        }
     }
 }
