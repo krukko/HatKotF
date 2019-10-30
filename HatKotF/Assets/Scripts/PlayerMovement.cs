@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    //TODO: add running and animations
+
     private void FixedUpdate()
     {
         float inputHorizontal = Input.GetAxis("Horizontal"); ;

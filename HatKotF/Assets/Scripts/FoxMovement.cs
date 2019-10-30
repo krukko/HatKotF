@@ -5,35 +5,37 @@ using UnityEngine.AI;
 
 public class FoxMovement : MonoBehaviour
 {
-    public float followSpeed;
-    public float targetDistance;
+    public float speed = 1.0f;
     public float followDistance;
     public float waitingDistance;
+
+    private float targetDistance;
+    private float oldTargetDistance;
 
     public LayerMask collisionMask;
     public Transform targetToFollow;
     private Rigidbody rBod;
-    private CapsuleCollider col;
+
+    public GameObject destination;
+
+    private Vector3 destinationPosition;
+    private bool isWaiting = false;
 
     private void Start()
     {
-        col = GetComponent<CapsuleCollider>();
         rBod = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        if(!IsGrounded())
-        {
-
-        }
-
         if (targetToFollow)
         {
             targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
 
+
             if (targetDistance > followDistance)
             {
+                oldTargetDistance = targetDistance;
                 Follow();
             }
             else
@@ -45,30 +47,26 @@ public class FoxMovement : MonoBehaviour
 
     private void Follow()
     {
-        Vector3 difference = transform.position - targetToFollow.position;
-        float mult = followDistance / difference.magnitude;
-
-        transform.position -= difference;
-        transform.position += difference * mult;
+        targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
 
         Vector3 direction = targetToFollow.position - transform.position;
-
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position, step);
     }
 
     private void Idle()
     {
-        // check direction of destination
+        destinationPosition = destinationPosition - targetToFollow.position;
 
-        // calculate line from player to destination
+        destinationPosition = Vector3.Normalize(destinationPosition);
 
-        // move fox to line at given distance from player
+        Vector3 waitingPosition = targetToFollow.position + (5 * new Vector3(destinationPosition.x, 0, destinationPosition.x));
 
-        // sit down and idle
-    }
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(destinationPosition), 0.1f);
 
-    private bool IsGrounded()
-    {
-        return Physics.CheckCapsule(col.bounds.center, new Vector3(col.bounds.center.x, col.bounds.min.y - 0.1f, col.bounds.center.z), 0.2f, collisionMask);
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, waitingPosition, step);
     }
 }

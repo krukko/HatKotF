@@ -133,36 +133,6 @@ public class CameraController : MonoBehaviour
 
             //reset cameraHelpers rotation
             if (!isColliding) cameraHelper.rotation = target.rotation;
-            
-
-            //Vector3 direction = Vector3.zero;
-
-            //for(int i = 0; i < 4; i++)
-            //{
-            //    switch(i)
-            //    {
-            //        case 0: direction = transform.up;
-            //            break;
-            //        case 1: direction = -transform.up;
-            //            break;
-            //        case 2: direction = transform.right;
-            //            break;
-            //        case 3: direction = -transform.right;
-            //            break;
-            //        default:
-            //            break;
-            //    }
-
-            //    if(Physics.Raycast(transform.position, direction, out hit, 0.5f, collisionMask))
-            //    {
-            //        //print("move away from collision for buffer amount");
-            //        //Vector3 dir = hit.point - transform.position;
-
-            //        //dir = -dir.normalized;
-
-            //        //rBod.AddForce(dir * wallPush);
-            //    }
-            //}
         }
     }
 
