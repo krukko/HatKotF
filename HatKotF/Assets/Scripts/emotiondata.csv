@@ -1,7 +1,31 @@
 ID;EmotionName;Face;Dialogue
 0;happy;:);My code works!
+01;peaceful;^v^;I feel peaceful
+02;proud;^U^;I feel proud
+03;accepted;:3;I feel accepted
+04;optimistic;:DD;I feel optimistic
 1;sad;:(;I don't have any more cookies.
+11;lonely;:c;I feel lonely.
+12;guilty:='n'=;I feel guilty
+13;despair;:C;I feel despair
+14;hurt;D,,:;I feel hurt
 2;angry;>:(;RAAAAAAAHHHHHHH!!!!
+21;let down;:/;I feel let down
+22;humiliated;=o'n'o=;I feel humiliated
+23;bitter;>:P;I feel bitter
+24;frustrated;>:O;I feel frustrated
 3;fearful;:{;What if the code doesn't work?!
+31;scared;:OnO;I feel scared
+32;weak;>n<;I feel weak
+33;rejected;:''C;I feel rejected
+34;threatened;O'_'o;I feel threatened
 4;surprised;:O;Someone is playing this?!
+41;startled;OoO;I feel startled
+42;confused;O.o;I feel confused
+43;amazed;:OO;I feel amazed
+44;excited;\^O^/;I feel excited
 5;disgusted;XP;What an ugly screen.
+51;disapproving;o'_'o;I feel disapproving
+52;disappointed;://;I feel disappointed
+53;awful;>n<;I feel awful
+54;repelled; Q_Q;I feel repelled

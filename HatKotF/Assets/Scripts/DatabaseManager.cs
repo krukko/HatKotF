@@ -52,6 +52,6 @@ public class DatabaseManager : MonoBehaviour
     private static void ReadSingleRow(IDataRecord record)
     {
         //Make a list that contains all of these List(string ID, string dialogue)
-        Debug.Log(String.Format("{0}, {1}", record[0], record[4]));
+        //Debug.Log(String.Format("{0}, {1}", record[0], record[4]));
     }
 }
