@@ -48,10 +48,8 @@ public class CameraController : MonoBehaviour
 
             DesiredOffset = cameraTurnAngle * DesiredOffset;
         }
-        else
-        {
-            DesiredOffset = defaultOffset;
-        }
+        else   DesiredOffset = defaultOffset;
+        
         SpringFollow();
 
     }
@@ -102,13 +100,9 @@ public class CameraController : MonoBehaviour
     private void CheckCollision(Vector3 _returnPosition)
     {
         float desiredDistance = Vector3.Distance(cameraHelper.position, SpringCamera.transform.position); // what is distance between target and desired camera position
-        int stepCount = 4;                                                                   // how many raycast "crosses" there will be - one more added later
-        float stepIncremental = desiredDistance / stepCount / 10;                            // distance between steps
 
         RaycastHit hit;
         Vector3 rayDir = SpringCamera.transform.position - cameraHelper.position;
-
-        Debug.DrawRay(cameraHelper.position, rayDir, Color.red);
 
         //Check if anything occluding player
         if (Physics.SphereCast(cameraHelper.position, 0.5f, rayDir, out hit, desiredDistance, collisionMask))
@@ -125,19 +119,12 @@ public class CameraController : MonoBehaviour
             float angleToRotate = Vector3.SignedAngle(colDirection, wallNormalDirection, Vector3.up);
             angleToRotate = Mathf.Clamp(angleToRotate, -85, 85);
 
-            if (angleToRotate < 0)
-            {
-                angleToRotate -= 5;
-            }
-            else if (angleToRotate > 0)
-            {
-                angleToRotate += 5;
-            }
-            else
-            {
-                angleToRotate = 45;
-            }
-
+            if (angleToRotate < 0)   angleToRotate -= 5;
+            
+            else if (angleToRotate > 0)  angleToRotate += 5;
+            
+            else angleToRotate = 45;
+            
             cameraHelper.Rotate(0, angleToRotate * Time.deltaTime * 20, 0);
         }
         else
@@ -145,10 +132,8 @@ public class CameraController : MonoBehaviour
             WallCheck();
 
             //reset cameraHelpers rotation
-            if (!isColliding)
-            {
-                cameraHelper.rotation = target.rotation;
-            }
+            if (!isColliding) cameraHelper.rotation = target.rotation;
+            
 
             //Vector3 direction = Vector3.zero;
 
@@ -184,7 +169,6 @@ public class CameraController : MonoBehaviour
     private void WallCheck()
     {
         Ray ray = new Ray(target.position, -target.forward);
-        RaycastHit hit;
 
         if (Physics.SphereCast(ray, 0.7f, desiredDistance, collisionMask))
         {
