@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BattleButton : MonoBehaviour
@@ -11,11 +12,11 @@ public class BattleButton : MonoBehaviour
     public int ID;
     public string name;
     internal object onClick;
-
-    public Player player = new Player();
-    public Enemy enemy = new Enemy();
+    
     public EmotionList emotionList;
     public BattleManager battleManager;
+
+    GameManager gameManager;
 
     public GameObject resetButton;
 
@@ -26,7 +27,7 @@ public class BattleButton : MonoBehaviour
     public void Start()
     {
         resetButton.SetActive(false);
-        emotionList.OnResetClick();
+        //emotionList.OnResetClick();
 
         endGame = false;
         winGame = false;
@@ -49,48 +50,121 @@ public class BattleButton : MonoBehaviour
         return this.name;
     }
 
-    public void DoWhenClicked(BattleButton button)
+    public int TakeNDigits(int emotionID, int N)
+    {
+        //N = NofDigits;
+        //emotionID = emotionList.currentEmotionID;
+
+        if (emotionList.currentEmotionID <= N)
+        {
+            return (int)Mathf.FloorToInt((emotionList.currentEmotionID / Mathf.Pow(10, N - N)));
+        }
+        else
+        {
+            return emotionList.currentEmotionID;
+        }
+    }
+
+    public void Attack(BattleButton button)
     {
         int buttonNumber = button.giveButtonID();
         int comparableEmotionID = emotionList.currentEmotionID;
 
-        int currentPlayerHP = player.GiveHP();
-        int currentEnemyHP = enemy.GiveHP();
+        int currentPlayerHP = battleManager.player.GiveHP();
+        int currentEnemyHP = battleManager.enemy.GiveHP();
 
-        if(buttonNumber == comparableEmotionID)
+        //TakeNDigits(emotionList.currentEmotionID, NofDigits);
+
+        if(battleManager.battleTier == 1)
         {
-            if(enemy.AmIAlive() == true)
-            {
-                enemy.SetCurrentHP(-1);
+            comparableEmotionID = TakeNDigits(comparableEmotionID, battleManager.battleTier);
 
-            }
-            if (enemy.AmIAlive() == false)
+            if (buttonNumber == comparableEmotionID)
             {
-                winGame = true;
-                endGame = true;
+                if (battleManager.enemy.AmIAlive() == true)
+                {
+                    battleManager.DamageToEnemy();
+                }
+                if (battleManager.enemy.AmIAlive() == false)
+                {
+                    winGame = true;
+                    endGame = true;
+                    Win();
+                }
+                else
+                {
+                    emotionList.GameRoundEmotions();
+                    battleManager.emotionButtons.SetActive(true);
+                }
             }
             else
             {
+                battleManager.DamageToPlayer();
+
+                if (battleManager.player.AmIAlive() == false)
+                {
+                    loseGame = true;
+                    endGame = true;
+                    GameOver();
+                }
+                else
+                {
+                    emotionList.GameRoundEmotions();
+                    //BattleStatus();
+                }
                 emotionList.GameRoundEmotions();
-                battleManager.BattleStatus();
             }
         }
         else
         {
-            player.SetCurrentHP(-1);
-            if (player.AmIAlive() == false)
+
+            int CompareTier1 = TakeNDigits(comparableEmotionID, 1); //the base emotion
+            int compareButton1 = TakeNDigits(comparableEmotionID, buttonNumber); //the int for the first number of the button (to compare with the base emotion)
+            comparableEmotionID = TakeNDigits(comparableEmotionID, battleManager.battleTier);
+
+            if(compareButton1 == CompareTier1)
             {
-                loseGame = true;
-                endGame = true;
-            }
-            else
-            {
-                emotionList.GameRoundEmotions();
-                battleManager.BattleStatus();
+                if(comparableEmotionID == buttonNumber)
+                {
+                     if(battleManager.enemy.AmIAlive() == true)
+                    {
+                        battleManager.DamageToEnemy();
+                    }
+                    if(battleManager.enemy.AmIAlive() == false)
+                    {
+                        winGame = true;
+                        endGame = true;
+                        Win();
+                    }
+                    else
+                    {
+                        emotionList.GameRoundEmotions();
+                        battleManager.emotionButtons.SetActive(true);
+                    }
+                }
+
+                if(comparableEmotionID != buttonNumber)
+                {
+                    battleManager.damageModifier = 0.75f;
+                }
+                else
+                {
+                    battleManager.DamageToPlayer();
+
+                    if(battleManager.player.AmIAlive() == false)
+                    {
+                        loseGame = true;
+                        endGame = true;
+                        GameOver();
+                    }
+                    else
+                    {
+                        emotionList.GameRoundEmotions();
+                    }
+                }
             }
         }
-        emotionList.GameRoundEmotions();
-        battleManager.BattleStatus();
+        
     }
 
     public void ResetClick(Button button)
@@ -99,4 +173,38 @@ public class BattleButton : MonoBehaviour
         emotionList.OnResetClick();
         battleManager.ResetButton();
     }
+
+    public void Win()
+    {
+        //activate after adding the Overworld scene.
+        //SceneManager.LoadScene("Overworld");
+        resetButton.SetActive(true);
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Access GameOver");
+        if (battleManager.isBoss)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+        else
+        {
+            resetButton.SetActive(true);
+            //SceneManager.LoadScene("Overworld"); //Activate this line after overworld has been added!
+        }
+    }
+
+    public void OpenHappy()
+    {
+        //if (gameManager.happyUnlocked == true)
+        //{
+        //    battleManager.happyButtons.SetActive(true);
+        //}
+        //else
+        //{
+
+        //}
+    }
 }
+

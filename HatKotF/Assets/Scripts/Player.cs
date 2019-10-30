@@ -9,6 +9,11 @@ public class Player : MonoBehaviour
     public int currentHP;
     int XP;
 
+    public int attack;
+    public int defense;
+    public int weapon = 0;
+
+
     public Slider healthBar;
 
     private void Start()
@@ -16,12 +21,6 @@ public class Player : MonoBehaviour
         this.currentHP = this.maxHP;
         this.healthBar.maxValue = this.maxHP;
     }
-
-    //public Player()
-    //{
-    //    this.maxHP = 5;
-    //    this.XP = 0;
-    //}
 
     public int GiveHP()
     {
