@@ -54,8 +54,12 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddRelativeForce(movement * acceleration, ForceMode.Impulse);
 
-        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0f, turningSpeed * Input.GetAxis("Mouse X"), 0f) * Time.deltaTime);
-        rb.MoveRotation(rb.rotation * deltaRotation);
+        if(!Input.GetKey(KeyCode.Mouse1))
+        {
+            Quaternion deltaRotation = Quaternion.Euler(new Vector3(0f, turningSpeed * Input.GetAxis("Mouse X"), 0f) * Time.deltaTime);
+            rb.MoveRotation(rb.rotation * deltaRotation);
+        }
+      
     }
 
     private void Jump()
