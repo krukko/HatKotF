@@ -6,24 +6,26 @@ using UnityEngine.AI;
 public class FoxMovement : MonoBehaviour
 {
     public float followSpeed;
-    public float fallSpeed;
     public float targetDistance;
     public float followDistance;
     public float waitingDistance;
 
-    public Vector3 desiredOffset;
-    public Vector3 oldTargetPosition;
-
-    public LayerMask layerMask;
-
+    public LayerMask collisionMask;
     public Transform targetToFollow;
+    private Rigidbody rBod;
+    private CapsuleCollider col;
 
+    private void Start()
+    {
+        col = GetComponent<CapsuleCollider>();
+        rBod = GetComponent<Rigidbody>();
+    }
 
     private void Update()
     {
         if(!IsGrounded())
         {
-           //fall down
+
         }
 
         if (targetToFollow)
@@ -56,15 +58,17 @@ public class FoxMovement : MonoBehaviour
 
     private void Idle()
     {
-        // get circle area around player 
-
         // check direction of destination
 
-        // move towards destination
+        // calculate line from player to destination
+
+        // move fox to line at given distance from player
+
+        // sit down and idle
     }
 
     private bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, 0.5f, layerMask);
+        return Physics.CheckCapsule(col.bounds.center, new Vector3(col.bounds.center.x, col.bounds.min.y - 0.1f, col.bounds.center.z), 0.2f, collisionMask);
     }
 }
