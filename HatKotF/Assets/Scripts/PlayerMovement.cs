@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float acceleration = 10;
+    private float acceleration;
+    public float walkingSpeed = 10;
+    public float runningSpeed = 15;
+    public float slowWalkSpeed = 5;
     public float jumpSpeed = 10;
     public float maxVelocity = 10;
     public float turningSpeed = 30;
@@ -16,13 +19,15 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider col;
     public LayerMask collisionMask;
 
-    private void Start()
+    public bool isRunning, isSneaking;
+
+    private void Awake()
     {
         col = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
     }
 
-    //TODO: add running and animations
+    //TODO: add animations
 
     private void FixedUpdate()
     {
@@ -42,6 +47,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(float _inputHorizontal, float _inputVertical)
     {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            acceleration = runningSpeed;
+        }
+        else if (Input.GetKey(KeyCode.C))
+        {
+            acceleration = slowWalkSpeed;
+        }
+        else
+        {
+            acceleration = walkingSpeed;
+        }
+
         if (rb.velocity.x >= maxVelocity || rb.velocity.x <= -maxVelocity)
         {
             rb.velocity = new Vector3(Mathf.Sign(rb.velocity.x) * maxVelocity, rb.velocity.y, rb.velocity.z);
@@ -72,5 +90,11 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics.CheckCapsule(col.bounds.center, new Vector3(col.bounds.center.x, col.bounds.min.y - 0.1f, col.bounds.center.z), 0.18f, collisionMask);
+    }
+
+    //Use to get Player's acceleration from another script
+    public float GetAcceleration()
+    {
+        return acceleration;
     }
 }

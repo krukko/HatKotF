@@ -9,7 +9,6 @@ public class CameraController : MonoBehaviour
     public LayerMask collisionMask;
 
     private Camera SpringCamera;
-    private Rigidbody rBod;
 
     public float Stiffness = 1800.0f;
     public float Damping = 600.0f;
@@ -36,8 +35,6 @@ public class CameraController : MonoBehaviour
         cameraHelper.rotation = target.rotation;
 
         defaultOffset = DesiredOffset;
-
-        rBod = transform.gameObject.GetComponent<Rigidbody>();
     }
 
     private void LateUpdate()
@@ -68,7 +65,7 @@ public class CameraController : MonoBehaviour
         Matrix4x4 CamMat = new Matrix4x4();
         CamMat.SetRow(0, new Vector4(-cameraHelper.forward.x, -cameraHelper.forward.y, -cameraHelper.forward.z));
         CamMat.SetRow(1, new Vector4(cameraHelper.up.x, cameraHelper.up.y, cameraHelper.up.z));
-        Vector3 modifyRight = Vector3.Cross(CamMat.GetRow(1), CamMat.GetRow(0));                    //get cross product of player's -forward and y-axis = players right
+        Vector3 modifyRight = Vector3.Cross(CamMat.GetRow(1), CamMat.GetRow(0));                    //get cross product of cameraHelper's -forward and y-axis = right vector3
         CamMat.SetRow(2, new Vector4(modifyRight.x, modifyRight.y, modifyRight.z));
 
         //Set desired position and desired lookAt position

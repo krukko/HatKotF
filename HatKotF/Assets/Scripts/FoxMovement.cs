@@ -5,25 +5,25 @@ using UnityEngine.AI;
 
 public class FoxMovement : MonoBehaviour
 {
-    public float speed = 1.0f;
+    private float speed;
+    public float baseSpeed;
+
     public float followDistance;
     public float waitingDistance;
-
     private float targetDistance;
-    private float oldTargetDistance;
 
     public LayerMask collisionMask;
+    PlayerMovement playerMovementScript;
+
     public Transform targetToFollow;
-    private Rigidbody rBod;
+    public GameObject objective; // objective of the player
 
-    public GameObject destination;
+    private Vector3 objectivePosition;
+    private bool isFollowing = false;
 
-    private Vector3 destinationPosition;
-    private bool isWaiting = false;
-
-    private void Start()
+    private void Awake()
     {
-        rBod = GetComponent<Rigidbody>();
+        playerMovementScript = targetToFollow.GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -32,10 +32,18 @@ public class FoxMovement : MonoBehaviour
         {
             targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
 
-
             if (targetDistance > followDistance)
             {
-                oldTargetDistance = targetDistance;
+                isFollowing = true;
+            }
+        
+            if(targetDistance < waitingDistance)
+            {
+                isFollowing = false;
+            }
+
+            if (isFollowing)
+            {
                 Follow();
             }
             else
@@ -47,26 +55,30 @@ public class FoxMovement : MonoBehaviour
 
     private void Follow()
     {
-        targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
+        speed = playerMovementScript.GetAcceleration() + baseSpeed;
 
         Vector3 direction = targetToFollow.position - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
 
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position, step);
+        if(targetDistance > waitingDistance)
+        {
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position, step);
+        }
     }
 
     private void Idle()
     {
-        destinationPosition = destinationPosition - targetToFollow.position;
+        objectivePosition = objective.transform.position - targetToFollow.position;
+        objectivePosition = Vector3.Normalize(objectivePosition);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(objectivePosition), 0.1f);
 
-        destinationPosition = Vector3.Normalize(destinationPosition);
+        if (targetDistance < waitingDistance)
+        {
+            Vector3 waitingPosition = transform.position + (4f * new Vector3(objectivePosition.x, 0, objectivePosition.x));
 
-        Vector3 waitingPosition = targetToFollow.position + (5 * new Vector3(destinationPosition.x, 0, destinationPosition.x));
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(destinationPosition), 0.1f);
-
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, waitingPosition, step);
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, waitingPosition, step);
+        }
     }
 }

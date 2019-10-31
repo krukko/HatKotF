@@ -1297,6 +1297,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: ba9cf4a36177067499538dce9cf2086c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 166966362455f8c40811ad5304727334, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9cf4a36177067499538dce9cf2086c, type: 3}
 --- !u!1 &921832116
@@ -1528,13 +1533,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866fcbef77f877d4cbbf38c93b2b8421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 10
+  walkingSpeed: 8
+  runningSpeed: 16
+  slowWalkSpeed: 4
   jumpSpeed: 15
   maxVelocity: 8
   turningSpeed: 200
   collisionMask:
     serializedVersion: 2
     m_Bits: 311
+  isRunning: 0
+  isSneaking: 0
 --- !u!54 &1031949554
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2538,14 +2547,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149e0a674a24ebb4c98f26038f3a7a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  baseSpeed: 8
   followDistance: 10
-  waitingDistance: 13
+  waitingDistance: 6
   collisionMask:
     serializedVersion: 2
     m_Bits: 1048887
   targetToFollow: {fileID: 1031949552}
-  destination: {fileID: 798001}
+  objective: {fileID: 798001}
 --- !u!4 &2026311666
 Transform:
   m_ObjectHideFlags: 0
