@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     private CapsuleCollider col;
+    private Animator animator;
     public LayerMask collisionMask;
 
     public bool isRunning, isSneaking;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         col = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     //TODO: add animations
@@ -47,17 +49,35 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(float _inputHorizontal, float _inputVertical)
     {
+        if(_inputHorizontal == 0 && _inputVertical == 0)
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isRunning", false);
+        }
+        else
+        {
+            animator.SetBool("isWalking", true);
+            animator.SetFloat("speedMultiplier",_inputVertical);
+            Debug.Log(_inputVertical + " " + animator.speed);
+        }
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            animator.SetBool("isRunning", true);
             acceleration = runningSpeed;
         }
-        else if (Input.GetKey(KeyCode.C))
+        else if (Input.GetKey(KeyCode.LeftControl))
         {
             acceleration = slowWalkSpeed;
         }
         else
         {
             acceleration = walkingSpeed;
+        }
+
+        if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            animator.SetBool("isRunning", false);
         }
 
         if (rb.velocity.x >= maxVelocity || rb.velocity.x <= -maxVelocity)
