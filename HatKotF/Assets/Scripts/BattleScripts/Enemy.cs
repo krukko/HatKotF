@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
 
     public void ResetHP()
     {
-        this.enemyCurrentHP = 5;
+        this.enemyCurrentHP = enemyMaxHP;
     }
 
     public bool AmIAlive()

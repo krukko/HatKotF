@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ClickManager : MonoBehaviour
 {
+    public BattleManager battleManager;
+    BattleButton battleButton;
+    public Timer timer;
+
     [SerializeField]
     private ClickTarget[] targets;
     private int expectedTargetIndex;
@@ -15,31 +19,29 @@ public class ClickManager : MonoBehaviour
 
         for (int i = 0; i < targets.Length; i++)
         {
-            int closureIndex = 1;
+            int closureIndex = i;
             targets[closureIndex].OnTargetClickedEvent += (target) => OnTargetClicked(target, closureIndex);
         }
     }
 
     private void OnTargetClicked(ClickTarget target, int index)
     {
-        Debug.Log(target.name + " has been clicked.");
-
         if(index == expectedTargetIndex)
         {
             expectedTargetIndex++;
             //whatever happens when clicked
-            Debug.Log("Right word clicked. Yay.");
 
-        if(expectedTargetIndex == targets.Length)
+        if(expectedTargetIndex == targets.Length)       //after clicking all required words in correct order, unlock emotion.
             {
-                //unlock the emotion
+                battleManager.UnlockEmotion();
+                battleManager.BackClicked();
+                timer.timeLeft = timer.maxTime;
             }
         }
         else
         {
             expectedTargetIndex = 0;
-            Debug.Log("Wrong word clicked. Boo.");
-            //also, minus time from the timer.
+            timer.timeLeft -= 1;
         }
     }
 }

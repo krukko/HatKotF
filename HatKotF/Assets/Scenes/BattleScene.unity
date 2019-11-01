@@ -215,6 +215,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &9084430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,6 +630,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &121148296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -876,6 +878,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &157952530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1307,6 +1310,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &241155362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1432,7 +1436,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 339616635}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1548,7 +1552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46563b5acc4c4b4887771f709759840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  happyUnlocked: 1
+  happyUnlocked: 0
   sadUnlocked: 0
   angryUnlocked: 0
   fearfulUnlocked: 0
@@ -1565,7 +1569,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &302205167
 GameObject:
@@ -1659,7 +1663,7 @@ GameObject:
   - component: {fileID: 327561984}
   - component: {fileID: 327561986}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Return to Forest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1717,7 +1721,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Reset game
+  m_Text: Return to Forest
 --- !u!222 &327561985
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1772,6 +1776,7 @@ RectTransform:
   m_Children:
   - {fileID: 1591704594}
   - {fileID: 1129050171}
+  - {fileID: 791969378}
   - {fileID: 997062883}
   - {fileID: 286518102}
   - {fileID: 691985914}
@@ -1958,6 +1963,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &355256764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,7 +2071,7 @@ GameObject:
   - component: {fileID: 368598857}
   - component: {fileID: 368598856}
   m_Layer: 5
-  m_Name: Reset
+  m_Name: BackToOverworld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2110,6 +2116,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &368598857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2262,6 +2269,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &371445963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2414,6 +2422,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &372341204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2645,7 +2654,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &409697959
 GameObject:
@@ -2864,6 +2873,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &419176408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3016,6 +3026,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &437851717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3513,7 +3524,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: fff2542e93bbe744ca1cc4080b9f7d38, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e63e4ec546ac85e4a8d3e2f6db1b3603, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3532,7 +3543,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518682986}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -555.9, y: -185.7, z: -2.97}
+  m_LocalPosition: {x: -538.3, y: -185.6, z: 5.2}
   m_LocalScale: {x: 0.89, y: 0.87, z: 1}
   m_Children: []
   m_Father: {fileID: 1114728847}
@@ -3626,12 +3637,12 @@ MonoBehaviour:
     type: 3}
   disgusted: {fileID: 114185974914664406, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
     type: 3}
-  happySprite: {fileID: 21300000, guid: 95ae6144014c79848883910f5eebeeb0, type: 3}
-  sadSprite: {fileID: 21300000, guid: 5e8345d773d5c964a88564b5ca4f17d2, type: 3}
-  angrySprite: {fileID: 21300000, guid: ce290a8ef56539f409807cb314df24aa, type: 3}
-  fearfulSprite: {fileID: 21300000, guid: 7b8b344b9db615844a547055cdbc0f5c, type: 3}
-  surprisedSprite: {fileID: 21300000, guid: 17bd4b1c212efba46b25a677b236655d, type: 3}
-  disgustedSprite: {fileID: 21300000, guid: aa4f46cc40b82294e9cbbd22d73c6183, type: 3}
+  happySprite: {fileID: 21300000, guid: 69a01cbae02655e4e9c277ed6399837d, type: 3}
+  sadSprite: {fileID: 21300000, guid: 4bbc9b3e5dbf3f14c8b288d883e1458d, type: 3}
+  angrySprite: {fileID: 21300000, guid: cdb18e225e287924ab2092409a852025, type: 3}
+  fearfulSprite: {fileID: 21300000, guid: 7ef5e08d05c3c5e4ba8df0020a895c9d, type: 3}
+  surprisedSprite: {fileID: 21300000, guid: 5d4abef7aba47c74b96ae5b96cc56eab, type: 3}
+  disgustedSprite: {fileID: 21300000, guid: 5d4abef7aba47c74b96ae5b96cc56eab, type: 3}
   shownSprite: {fileID: 1370531823}
   dialogueText: {fileID: 2141462860}
   faceText: {fileID: 513931611}
@@ -4007,7 +4018,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4088,7 +4099,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 339616635}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4192,6 +4203,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &702509195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4344,6 +4356,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &745490720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4617,6 +4630,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &766373500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4710,6 +4724,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766373497}
   m_CullTransparentMesh: 0
+--- !u!1 &791969376 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2906087366541585873, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1047526546}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &791969378 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5338112886824221710, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1047526546}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &806402119
 GameObject:
   m_ObjectHideFlags: 0
@@ -5154,6 +5180,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &847610682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5459,6 +5486,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &942199563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5834,7 +5862,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 339616635}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6059,6 +6087,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1032065623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6157,22 +6186,37 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 339616635}
     m_Modifications:
     - target: {fileID: 2906087366541585873, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
         type: 3}
       propertyPath: m_Name
       value: Emotion
       objectReference: {fileID: 0}
+    - target: {fileID: 5338112886824221710, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338112886824221710, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 319
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338112886824221710, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5625681593782003127, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 926.88885
+      value: 405.38885
       objectReference: {fileID: 0}
     - target: {fileID: 5625681593782003127, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 100.31875
+      value: -86.18125
       objectReference: {fileID: 0}
     - target: {fileID: 5625681593782003127, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
         type: 3}
@@ -6182,17 +6226,17 @@ PrefabInstance:
     - target: {fileID: 5625681593782003127, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5625681593782003127, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5625681593782003127, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5625681593782003127, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
         type: 3}
@@ -6202,7 +6246,7 @@ PrefabInstance:
     - target: {fileID: 5625681593782003127, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5625681593782003127, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
         type: 3}
@@ -6218,6 +6262,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685774471277778156, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+        type: 3}
+      propertyPath: m_Text
+      value: gfdgd
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685774471277778156, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685774471277778156, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685774471277778156, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685774471277778156, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685774471277778156, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c6c3eb68247cf14b98d774a5c4e76f2, type: 3}
@@ -6269,7 +6343,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1091599923
 GameObject:
@@ -6468,23 +6542,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1114728848
-MonoBehaviour:
+--- !u!225 &1114728848
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114728843}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f46563b5acc4c4b4887771f709759840, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  happyUnlocked: 0
-  sadUnlocked: 0
-  angryUnlocked: 0
-  fearfulUnlocked: 0
-  disgustUnlocked: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1119391510
 GameObject:
   m_ObjectHideFlags: 0
@@ -6623,6 +6692,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1122051967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6775,6 +6845,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1129050173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7553,6 +7624,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1223184637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7863,6 +7935,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1281515837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8089,6 +8162,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1298722522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8441,6 +8515,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1360774723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8485,11 +8560,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1360774722}
-        m_MethodName: OpenHappy
-        m_Mode: 1
+        m_MethodName: Attack
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1360774722}
+          m_ObjectArgumentAssemblyTypeName: BattleButton, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8593,6 +8668,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1364992009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8740,7 +8816,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: aa4f46cc40b82294e9cbbd22d73c6183, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5bd9349fb9ad51b469a60c2e7203a4a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -8758,13 +8834,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370531823}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -538.9, y: -185.54001, z: -2.06}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -506.4, y: -184.9, z: 6.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1114728847}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1371509693
 GameObject:
   m_ObjectHideFlags: 0
@@ -8824,6 +8900,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1371509696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8976,6 +9053,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1395041817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9365,6 +9443,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1485349033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9663,6 +9742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTime: 10
+  timeLeft: 0
   active: 0
   battleManager: {fileID: 1698897372}
   timeSlider: {fileID: 1591704596}
@@ -9826,6 +9906,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7e726587b025e4f93f736e80358d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleManager: {fileID: 1698897372}
+  timer: {fileID: 1591704595}
   targets:
   - {fileID: 997062887}
   - {fileID: 286518106}
@@ -9842,7 +9924,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1632540163
 GameObject:
@@ -9903,6 +9985,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1632540166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10344,7 +10427,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1698897374
 MonoBehaviour:
@@ -10361,7 +10444,7 @@ MonoBehaviour:
   wordPrefab: {fileID: 2906087366541585873, guid: 4c6c3eb68247cf14b98d774a5c4e76f2,
     type: 3}
   words:
-  - {fileID: 2906087366541585873, guid: 4c6c3eb68247cf14b98d774a5c4e76f2, type: 3}
+  - {fileID: 791969376}
   - {fileID: 2906087366541585873, guid: 4c6c3eb68247cf14b98d774a5c4e76f2, type: 3}
   - {fileID: 2906087366541585873, guid: 4c6c3eb68247cf14b98d774a5c4e76f2, type: 3}
 --- !u!1 &1705588934
@@ -10717,6 +10800,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1805474483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10851,7 +10935,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1849239095
 GameObject:
@@ -11139,6 +11223,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1868746566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11291,6 +11376,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1881587470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11653,6 +11739,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &1959945599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11805,6 +11892,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &2017863335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12192,6 +12280,7 @@ MonoBehaviour:
   resetButton: {fileID: 368598854}
   winGame: 0
   loseGame: 0
+  currentEmotionID: 0
 --- !u!114 &2127163388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12296,7 +12385,7 @@ GameObject:
   - component: {fileID: 2133231662}
   - component: {fileID: 2133231661}
   m_Layer: 8
-  m_Name: green_forest_by_unidcolor-d3cnre4
+  m_Name: bg
   m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

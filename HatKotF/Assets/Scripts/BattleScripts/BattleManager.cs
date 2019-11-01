@@ -41,6 +41,9 @@ public class BattleManager : MonoBehaviour
 
         battleButton = GetComponent<BattleButton>();
 
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         //if (battleTier == 1)
         //{
         //    battleButton.NofDigits = 1;
@@ -54,7 +57,7 @@ public class BattleManager : MonoBehaviour
 
     public void Win()
     {
-        SceneManager.LoadScene("Overworld");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("ForestEdge");
     }
 
     public void GameOver()
@@ -62,18 +65,18 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Access GameOver");
         if (isBoss)
         {
-            SceneManager.LoadScene("GameOver");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
         }
         else
         {
             battleButton.resetButton.SetActive(true);
-            SceneManager.LoadScene("Overworld");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("ForestEdge");
         }
     }
 
     public void DamageToPlayer()
     {
-        int damage = ((enemy.attack) / (player.defense + enemy.armor) + 1);
+        int damage = ((enemy.attack) / (player.defense + enemy.armor));
         player.SetCurrentHP(-damage);
     }
 
@@ -118,7 +121,8 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            //add the load scene when it's been added to the game.
+            UnityEngine.SceneManagement.SceneManager.LoadScene("ForestEdge");
+            Cursor.visible = false;
         }
     }
 
@@ -140,9 +144,15 @@ public class BattleManager : MonoBehaviour
         
     }
 
-    public void UnlockHappy()
+    public void HappyUnlock()
     {
-        
+        emotionButtons.SetActive(false);
+        happyButtons.SetActive(true);
+    }
+
+    public void BackToEmotions() //return from tier2 to tier1 list.
+    {
+        emotionButtons.SetActive(true);
     }
 
     //public void BattleStatus()

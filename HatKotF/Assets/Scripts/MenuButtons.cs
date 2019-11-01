@@ -5,20 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void BeginGame()
     {
-        
+        UnityEngine.SceneManagement.SceneManager.LoadScene("ForestEdge");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MainMenu()
     {
-        
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
-    public void TryAgain()
+    public void CloseGame()
     {
-        SceneManager.LoadScene("BattleScene");
+        Application.Quit();
     }
 }

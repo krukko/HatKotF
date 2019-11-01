@@ -4,8 +4,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleButton : MonoBehaviour
 {
@@ -23,6 +23,8 @@ public class BattleButton : MonoBehaviour
     protected bool endGame;
     public bool winGame;
     public bool loseGame;
+
+    public int currentEmotionID;
 
     public void Start()
     {
@@ -50,6 +52,7 @@ public class BattleButton : MonoBehaviour
         return this.name;
     }
 
+    //for calculating the base emotion in tier2
     public int TakeNDigits(int emotionID, int N)
     {
         //N = NofDigits;
@@ -65,10 +68,23 @@ public class BattleButton : MonoBehaviour
         }
     }
 
+    //Check whether the emotion tier2 has been unlocked.
+    public void CheckEmotionState()
+    {
+        if(emotionList.currentEmotionID == 0)
+        {
+            if (gameManager.happyUnlocked)
+            {
+
+            }
+        }
+    }
+
     public void Attack(BattleButton button)
     {
         int buttonNumber = button.giveButtonID();
         int comparableEmotionID = emotionList.currentEmotionID;
+        currentEmotionID = comparableEmotionID;
 
         int currentPlayerHP = battleManager.player.GiveHP();
         int currentEnemyHP = battleManager.enemy.GiveHP();
@@ -89,7 +105,7 @@ public class BattleButton : MonoBehaviour
                 {
                     winGame = true;
                     endGame = true;
-                    Win();
+                    battleManager.Win();
                 }
                 else
                 {
@@ -105,7 +121,7 @@ public class BattleButton : MonoBehaviour
                 {
                     loseGame = true;
                     endGame = true;
-                    GameOver();
+                    battleManager.GameOver();
                 }
                 else
                 {
@@ -134,7 +150,7 @@ public class BattleButton : MonoBehaviour
                     {
                         winGame = true;
                         endGame = true;
-                        Win();
+                        battleManager.Win();
                     }
                     else
                     {
@@ -155,7 +171,7 @@ public class BattleButton : MonoBehaviour
                     {
                         loseGame = true;
                         endGame = true;
-                        GameOver();
+                        battleManager.GameOver();
                     }
                     else
                     {
@@ -169,42 +185,15 @@ public class BattleButton : MonoBehaviour
 
     public void ResetClick(Button button)
     {
-        Start();
-        emotionList.OnResetClick();
-        battleManager.ResetButton();
-    }
-
-    public void Win()
-    {
-        //activate after adding the Overworld scene.
-        //SceneManager.LoadScene("Overworld");
-        resetButton.SetActive(true);
-    }
-
-    public void GameOver()
-    {
-        Debug.Log("Access GameOver");
-        if (battleManager.isBoss)
-        {
-            SceneManager.LoadScene("GameOver");
-        }
-        else
-        {
-            resetButton.SetActive(true);
-            //SceneManager.LoadScene("Overworld"); //Activate this line after overworld has been added!
-        }
+        UnityEngine.SceneManagement.SceneManager.LoadScene("ForestEdge");
     }
 
     public void OpenHappy()
     {
-        //if (gameManager.happyUnlocked == true)
-        //{
-        //    battleManager.happyButtons.SetActive(true);
-        //}
-        //else
-        //{
-
-        //}
+        if(gameManager.happyUnlocked)
+        {
+            battleManager.happyButtons.SetActive(true);
+        }
     }
 }
 
