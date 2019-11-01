@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4828620519755790500
+--- !u!1 &1995289161241831927
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4828620519755790503}
+  - component: {fileID: 1995289161241831924}
   m_Layer: 20
   m_Name: CameraHelper
   m_TagString: Untagged
@@ -16,21 +16,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4828620519755790503
+--- !u!4 &1995289161241831924
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4828620519755790500}
+  m_GameObject: {fileID: 1995289161241831927}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
-  m_Father: {fileID: 4828620521296360689}
+  m_Father: {fileID: 1995289161714820514}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4828620521296360686
+--- !u!1 &1995289161714820541
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38,40 +38,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4828620521296360689}
-  - component: {fileID: 4828620521296360690}
-  - component: {fileID: 4828620521296360691}
-  - component: {fileID: 4828620521296360688}
+  - component: {fileID: 1995289161714820514}
+  - component: {fileID: 1995289161714820513}
+  - component: {fileID: 1995289161714820512}
+  - component: {fileID: 1995289161714820515}
   m_Layer: 0
-  m_Name: Hilja
+  m_Name: Hilja 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4828620521296360689
+--- !u!4 &1995289161714820514
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4828620521296360686}
+  m_GameObject: {fileID: 1995289161714820541}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 466122602151226018}
-  - {fileID: 4828620519755790503}
+  - {fileID: 6830276343300897777}
+  - {fileID: 1995289161241831924}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &4828620521296360690
+--- !u!136 &1995289161714820513
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4828620521296360686}
+  m_GameObject: {fileID: 1995289161714820541}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -79,13 +79,13 @@ CapsuleCollider:
   m_Height: 6
   m_Direction: 1
   m_Center: {x: 0, y: 3, z: 0}
---- !u!54 &4828620521296360691
+--- !u!54 &1995289161714820512
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4828620521296360686}
+  m_GameObject: {fileID: 1995289161714820541}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -95,21 +95,21 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 2
---- !u!114 &4828620521296360688
+--- !u!114 &1995289161714820515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4828620521296360686}
+  m_GameObject: {fileID: 1995289161714820541}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 866fcbef77f877d4cbbf38c93b2b8421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: 6
+  walkingSpeed: 4
   runningSpeed: 16
-  slowWalkSpeed: 4
+  slowWalkSpeed: 1
   jumpSpeed: 15
   maxVelocity: 8
   turningSpeed: 200
@@ -118,23 +118,13 @@ MonoBehaviour:
     m_Bits: 311
   isRunning: 0
   isSneaking: 0
---- !u!1001 &4828620521490383288
+--- !u!1001 &1995289161940963563
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4828620521296360689}
+    m_TransformParent: {fileID: 1995289161714820514}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: ba9cf4a36177067499538dce9cf2086c,
-        type: 3}
-      propertyPath: m_Name
-      value: Hilja_Model_v5 new
-      objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: ba9cf4a36177067499538dce9cf2086c,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 166966362455f8c40811ad5304727334, type: 2}
     - target: {fileID: -4216859302048453862, guid: ba9cf4a36177067499538dce9cf2086c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -205,11 +195,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: ba9cf4a36177067499538dce9cf2086c,
+        type: 3}
+      propertyPath: m_Name
+      value: Hilja_Model_v5 new
+      objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: ba9cf4a36177067499538dce9cf2086c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 166966362455f8c40811ad5304727334, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9cf4a36177067499538dce9cf2086c, type: 3}
---- !u!4 &466122602151226018 stripped
+--- !u!4 &6830276343300897777 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: ba9cf4a36177067499538dce9cf2086c,
     type: 3}
-  m_PrefabInstance: {fileID: 4828620521490383288}
+  m_PrefabInstance: {fileID: 1995289161940963563}
   m_PrefabAsset: {fileID: 0}

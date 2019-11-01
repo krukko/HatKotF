@@ -6,24 +6,26 @@ using UnityEngine.AI;
 public class FoxMovement : MonoBehaviour
 {
     private float speed;
+    public float sneakAnimationSpeed, walkAnimationSpeed;
     public float baseSpeed;
-
     public float followDistance;
     public float waitingDistance;
     private float targetDistance;
 
-    public LayerMask collisionMask;
-    PlayerMovement playerMovementScript;
-
-    public Transform targetToFollow;
-    public GameObject objective; // objective of the player
-
     private Vector3 objectivePosition;
     private bool isFollowing = false;
+
+    public LayerMask collisionMask;
+    public Transform targetToFollow;
+    public GameObject objective; // objective of the player
+    private Animator animator;
+
+    PlayerMovement playerMovementScript;
 
     private void Awake()
     {
         playerMovementScript = targetToFollow.GetComponent<PlayerMovement>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -36,14 +38,15 @@ public class FoxMovement : MonoBehaviour
             {
                 isFollowing = true;
             }
-        
-            if(targetDistance < waitingDistance)
+
+            if (targetDistance < waitingDistance)
             {
                 isFollowing = false;
             }
 
             if (isFollowing)
             {
+                animator.SetBool("isWaiting", false);
                 Follow();
             }
             else
@@ -57,10 +60,35 @@ public class FoxMovement : MonoBehaviour
     {
         speed = playerMovementScript.GetAcceleration() + baseSpeed;
 
+        if (speed == (playerMovementScript.walkingSpeed + baseSpeed))
+        {
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isRunning", false);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isRunning", true);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            animator.SetBool("isRunning", false);
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            animator.SetFloat("speedMultiplier", sneakAnimationSpeed);
+        }
+        else
+        {
+            animator.SetFloat("speedMultiplier", walkAnimationSpeed);
+        }
+
         Vector3 direction = targetToFollow.position - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
 
-        if(targetDistance > waitingDistance)
+        if (targetDistance > waitingDistance)
         {
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position, step);
@@ -79,6 +107,11 @@ public class FoxMovement : MonoBehaviour
 
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, waitingPosition, step);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isWaiting", true);
         }
     }
 }
