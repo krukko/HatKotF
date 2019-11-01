@@ -9,7 +9,6 @@ public class CameraController : MonoBehaviour
     public LayerMask collisionMask;
 
     private Camera SpringCamera;
-    private Rigidbody rBod;
 
     public float Stiffness = 1800.0f;
     public float Damping = 600.0f;
@@ -36,8 +35,6 @@ public class CameraController : MonoBehaviour
         cameraHelper.rotation = target.rotation;
 
         defaultOffset = DesiredOffset;
-
-        rBod = transform.gameObject.GetComponent<Rigidbody>();
     }
 
     private void LateUpdate()
@@ -68,7 +65,7 @@ public class CameraController : MonoBehaviour
         Matrix4x4 CamMat = new Matrix4x4();
         CamMat.SetRow(0, new Vector4(-cameraHelper.forward.x, -cameraHelper.forward.y, -cameraHelper.forward.z));
         CamMat.SetRow(1, new Vector4(cameraHelper.up.x, cameraHelper.up.y, cameraHelper.up.z));
-        Vector3 modifyRight = Vector3.Cross(CamMat.GetRow(1), CamMat.GetRow(0));                    //get cross product of player's -forward and y-axis = players right
+        Vector3 modifyRight = Vector3.Cross(CamMat.GetRow(1), CamMat.GetRow(0));                    //get cross product of cameraHelper's -forward and y-axis = right vector3
         CamMat.SetRow(2, new Vector4(modifyRight.x, modifyRight.y, modifyRight.z));
 
         //Set desired position and desired lookAt position
@@ -133,36 +130,6 @@ public class CameraController : MonoBehaviour
 
             //reset cameraHelpers rotation
             if (!isColliding) cameraHelper.rotation = target.rotation;
-            
-
-            //Vector3 direction = Vector3.zero;
-
-            //for(int i = 0; i < 4; i++)
-            //{
-            //    switch(i)
-            //    {
-            //        case 0: direction = transform.up;
-            //            break;
-            //        case 1: direction = -transform.up;
-            //            break;
-            //        case 2: direction = transform.right;
-            //            break;
-            //        case 3: direction = -transform.right;
-            //            break;
-            //        default:
-            //            break;
-            //    }
-
-            //    if(Physics.Raycast(transform.position, direction, out hit, 0.5f, collisionMask))
-            //    {
-            //        //print("move away from collision for buffer amount");
-            //        //Vector3 dir = hit.point - transform.position;
-
-            //        //dir = -dir.normalized;
-
-            //        //rBod.AddForce(dir * wallPush);
-            //    }
-            //}
         }
     }
 

@@ -5,35 +5,48 @@ using UnityEngine.AI;
 
 public class FoxMovement : MonoBehaviour
 {
-    public float followSpeed;
-    public float targetDistance;
+    private float speed;
+    public float sneakAnimationSpeed, walkAnimationSpeed;
+    public float baseSpeed;
     public float followDistance;
     public float waitingDistance;
+    private float targetDistance;
+
+    private Vector3 objectivePosition;
+    private bool isFollowing = false;
 
     public LayerMask collisionMask;
     public Transform targetToFollow;
-    private Rigidbody rBod;
-    private CapsuleCollider col;
+    public GameObject objective; // objective of the player
+    private Animator animator;
 
-    private void Start()
+    PlayerMovement playerMovementScript;
+
+    private void Awake()
     {
-        col = GetComponent<CapsuleCollider>();
-        rBod = GetComponent<Rigidbody>();
+        playerMovementScript = targetToFollow.GetComponent<PlayerMovement>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        if(!IsGrounded())
-        {
-
-        }
-
         if (targetToFollow)
         {
             targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
 
             if (targetDistance > followDistance)
             {
+                isFollowing = true;
+            }
+
+            if (targetDistance < waitingDistance)
+            {
+                isFollowing = false;
+            }
+
+            if (isFollowing)
+            {
+                animator.SetBool("isWaiting", false);
                 Follow();
             }
             else
@@ -45,30 +58,60 @@ public class FoxMovement : MonoBehaviour
 
     private void Follow()
     {
-        Vector3 difference = transform.position - targetToFollow.position;
-        float mult = followDistance / difference.magnitude;
+        speed = playerMovementScript.GetAcceleration() + baseSpeed;
 
-        transform.position -= difference;
-        transform.position += difference * mult;
+        if (speed == (playerMovementScript.walkingSpeed + baseSpeed))
+        {
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isRunning", false);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isRunning", true);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            animator.SetBool("isRunning", false);
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            animator.SetFloat("speedMultiplier", sneakAnimationSpeed);
+        }
+        else
+        {
+            animator.SetFloat("speedMultiplier", walkAnimationSpeed);
+        }
 
         Vector3 direction = targetToFollow.position - transform.position;
-
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+
+        if (targetDistance > waitingDistance)
+        {
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position, step);
+        }
     }
 
     private void Idle()
     {
-        // check direction of destination
+        objectivePosition = objective.transform.position - targetToFollow.position;
+        objectivePosition = Vector3.Normalize(objectivePosition);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(objectivePosition), 0.1f);
 
-        // calculate line from player to destination
+        if (targetDistance < waitingDistance)
+        {
+            Vector3 waitingPosition = transform.position + (4f * new Vector3(objectivePosition.x, 0, objectivePosition.x));
 
-        // move fox to line at given distance from player
-
-        // sit down and idle
-    }
-
-    private bool IsGrounded()
-    {
-        return Physics.CheckCapsule(col.bounds.center, new Vector3(col.bounds.center.x, col.bounds.min.y - 0.1f, col.bounds.center.z), 0.2f, collisionMask);
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, waitingPosition, step);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isWaiting", true);
+        }
     }
 }

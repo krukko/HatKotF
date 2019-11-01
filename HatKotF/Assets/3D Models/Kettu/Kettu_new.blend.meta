@@ -1,52 +1,27 @@
 fileFormatVersion: 2
-guid: ba9cf4a36177067499538dce9cf2086c
+guid: 14fd44218fe9d4644a421c16f65f8685
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
   - first:
-      74: -1641531421888130078
-    second: Hilja_Armature|Hilja_Idle
+      74: 1989289236423521904
+    second: Default Take
   - first:
-      74: -9115216861929913676
-    second: Hilja_Armature|Hilja_Run
+      74: 5649927631477354792
+    second: Kettu_Run
   - first:
-      74: 6103836542050225238
-    second: Hilja_Armature|Hilja_T-Pose
+      74: 6984660083021476260
+    second: Kettu_SitDown
   - first:
-      74: 5746102083965411614
-    second: Hilja_Armature|Hilja_TimidIdle
+      74: 2453451250761430857
+    second: Kettu_SitIdle
   - first:
-      74: -6500308839111567003
-    second: Hilja_Armature|Hilja_TimidWalk
+      74: 3313327665092318039
+    second: Kettu_T-Pose
   - first:
-      74: -8552629773024365146
-    second: Hilja_Armature|Hilja_Walk
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hilja_Bag_Material
-    second: {fileID: 2100000, guid: c404200a5be16364195d635f38a5235e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hilja_Body_Material
-    second: {fileID: 2100000, guid: b6abd5c664b66e640969496c7e12bc68, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hilja_Eye_Material
-    second: {fileID: 2100000, guid: 3145f9af57d169041af0c49b4b9bdcc4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hilja_Hair_Material
-    second: {fileID: 2100000, guid: 38c0b6e1904a341468da166b232fb36e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hilja_Iris_material
-    second: {fileID: 2100000, guid: 3145f9af57d169041af0c49b4b9bdcc4, type: 2}
+      74: -1597120711009218663
+    second: Kettu_Walk
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -75,11 +50,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Hilja_Armature|Hilja_Idle
-      takeName: Hilja_Armature|Hilja_Idle
-      internalID: -1641531421888130078
+      name: Default Take
+      takeName: Default Take
+      internalID: 1989289236423521904
       firstFrame: 0
-      lastFrame: 180
+      lastFrame: 238
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -104,11 +79,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Hilja_Armature|Hilja_Run
-      takeName: Hilja_Armature|Hilja_Run
-      internalID: -9115216861929913676
-      firstFrame: 0
-      lastFrame: 50
+      name: Kettu_Run
+      takeName: Kettu_Run
+      internalID: 5649927631477354792
+      firstFrame: -1
+      lastFrame: 79
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -133,11 +108,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Hilja_Armature|Hilja_T-Pose
-      takeName: Hilja_Armature|Hilja_T-Pose
-      internalID: 6103836542050225238
-      firstFrame: 0
-      lastFrame: 1
+      name: Kettu_SitDown
+      takeName: Kettu_SitDown
+      internalID: 6984660083021476260
+      firstFrame: -1
+      lastFrame: 79
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -162,11 +137,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Hilja_Armature|Hilja_TimidIdle
-      takeName: Hilja_Armature|Hilja_TimidIdle
-      internalID: 5746102083965411614
-      firstFrame: 0
-      lastFrame: 180
+      name: Kettu_SitIdle
+      takeName: Kettu_SitIdle
+      internalID: 2453451250761430857
+      firstFrame: -1
+      lastFrame: 239
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -191,18 +166,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Hilja_Armature|Hilja_TimidWalk
-      takeName: Hilja_Armature|Hilja_TimidWalk
-      internalID: -6500308839111567003
-      firstFrame: 0
-      lastFrame: 80
+      name: Kettu_T-Pose
+      takeName: Kettu_T-Pose
+      internalID: 3313327665092318039
+      firstFrame: -1
+      lastFrame: 0
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -220,11 +195,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Hilja_Armature|Hilja_Walk
-      takeName: Hilja_Armature|Hilja_Walk
-      internalID: -8552629773024365146
-      firstFrame: 0
-      lastFrame: 80
+      name: Kettu_Walk
+      takeName: Kettu_Walk
+      internalID: -1597120711009218663
+      firstFrame: -1
+      lastFrame: 79
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
