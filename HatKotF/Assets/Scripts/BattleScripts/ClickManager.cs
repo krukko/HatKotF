@@ -33,7 +33,7 @@ public class ClickManager : MonoBehaviour
 
         if(expectedTargetIndex == targets.Length)       //after clicking all required words in correct order, unlock emotion.
             {
-                battleManager.UnlockEmotion();
+                //battleManager.UnlockEmotion();
                 battleManager.BackClicked();
                 timer.timeLeft = timer.maxTime;
             }
