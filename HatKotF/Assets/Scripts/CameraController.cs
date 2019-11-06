@@ -45,8 +45,8 @@ public class CameraController : MonoBehaviour
 
             DesiredOffset = cameraTurnAngle * DesiredOffset;
         }
-        else   DesiredOffset = defaultOffset;
-        
+        else DesiredOffset = defaultOffset;
+
         SpringFollow();
 
     }
@@ -98,6 +98,10 @@ public class CameraController : MonoBehaviour
     {
         float desiredDistance = Vector3.Distance(cameraHelper.position, SpringCamera.transform.position); // what is distance between target and desired camera position
 
+        //int stepCount = 4;                                                          // how many raycast "crosses" there will be - one more added later
+        //float stepIncremental = desiredDistance / stepCount / 10;                   // distance between steps
+
+
         RaycastHit hit;
         Vector3 rayDir = SpringCamera.transform.position - cameraHelper.position;
 
@@ -112,24 +116,46 @@ public class CameraController : MonoBehaviour
             Vector3 colDirection = cameraHelper.position - hit.point;
             Vector3 wallNormalDirection = cameraHelper.position - newPos;
 
-            // get positive or negative angle between colDirection vector and wallnormaldirection vector
-            float angleToRotate = Vector3.SignedAngle(colDirection, wallNormalDirection, Vector3.up);
-            angleToRotate = Mathf.Clamp(angleToRotate, -85, 85);
-
-            if (angleToRotate < 0)   angleToRotate -= 5;
-            
-            else if (angleToRotate > 0)  angleToRotate += 5;
-            
-            else angleToRotate = 45;
-            
-            cameraHelper.Rotate(0, angleToRotate * Time.deltaTime * 20, 0);
+            transform.position = (hit.point - cameraHelper.position) * 0.8f + cameraHelper.position;
         }
         else
         {
             WallCheck();
 
-            //reset cameraHelpers rotation
-            if (!isColliding) cameraHelper.rotation = target.rotation;
+            //for (int i = 0; i < stepCount + 1; i++)
+            //{
+            //    for (int j = 0; j < 4; j++)
+            //    {
+            //        Vector3 dir = Vector3.zero;
+            //        Vector3 secondOrigin = target.position + rayDir * i * stepIncremental;
+
+            //        switch (j)
+            //        {
+            //            case 0:
+            //                dir = transform.up;
+            //                break;
+            //            case 1:
+            //                dir = -transform.up;
+            //                break;
+            //            case 2:
+            //                dir = transform.right;
+            //                break;
+            //            case 3:
+            //                dir = -transform.right;
+            //                break;
+            //            default:
+            //                break;
+            //        }
+
+            //        Debug.DrawRay(secondOrigin, dir * 1, Color.blue);
+
+            //        if (Physics.Raycast(target.position, rayDir, out hit, desiredDistance, collisionMask))
+            //        {
+            //            transform.position = hit.point * wallPush;
+            //        }
+            //    }
+
+            //}
         }
     }
 
