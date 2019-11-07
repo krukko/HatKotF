@@ -50,10 +50,10 @@ public class EmotionList : MonoBehaviour
             string printFace = GiveExpression(randomEmotion);
             string printNro = GiveID(randomEmotion).ToString();
 
-            //dialogueText.text = printLine;
-            //faceText.text = printFace;
+        dialogueText.text = printLine;
+        //faceText.text = printFace;
 
-            Sprite showThisSprite = GiveFace(randomEmotion);
+        Sprite showThisSprite = GiveFace(randomEmotion);
             shownSprite.GetComponent<SpriteRenderer>().sprite = showThisSprite;
     }
 
