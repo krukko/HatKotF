@@ -27,10 +27,11 @@ public class DatabaseManager : MonoBehaviour
 
             using (IDbCommand dbCmd = dbConnection.CreateCommand())
             {
-                int column = UnityEngine.Random.Range(5, 7);
+                int column = UnityEngine.Random.Range(6, 8);
                 int row = UnityEngine.Random.Range(2, 31);
 
-                string sqlQuery = "SELECT " + column + " FROM EmotionListFull WHERE field1 = " + row;
+                //Use field2 because that has the IDAuto!!!
+                string sqlQuery = "SELECT " + column + " FROM EmotionListFull WHERE field2 = " + row;
 
                 dbCmd.CommandText = sqlQuery;
 
@@ -38,11 +39,12 @@ public class DatabaseManager : MonoBehaviour
                 {
                     while (reader.Read())
                     {
-                        Debug.Log("aaaaaaaaaaaaaaa");
+                        //Gives column's name/number
+                        string meToo = reader.GetName(0);
+
+                        //Give's cells content. Use GetInt32 if you need an integer
                         string toPrint = reader.GetString(0);
-                        Debug.Log(toPrint);
-                        //Debug.Log(reader.GetString(0) + " " + reader.GetString(4));
-                        //Debug.Log("I'm working, I just don't understand.");
+                        Debug.Log(toPrint + " I am result");
                     }
 
                     dbConnection.Close();
