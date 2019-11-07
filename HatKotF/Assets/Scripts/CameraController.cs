@@ -116,12 +116,24 @@ public class CameraController : MonoBehaviour
             Vector3 colDirection = cameraHelper.position - hit.point;
             Vector3 wallNormalDirection = cameraHelper.position - newPos;
 
-            transform.position = (hit.point - cameraHelper.position) * 0.8f + cameraHelper.position;
+            //transform.position = (hit.point - cameraHelper.position) * 0.8f + cameraHelper.position;
+            // get positive or negative angle between colDirection vector and wallnormaldirection vector
+            float angleToRotate = Vector3.SignedAngle(colDirection, wallNormalDirection, Vector3.up);
+            angleToRotate = Mathf.Clamp(angleToRotate, -85, 85);
+
+            if (angleToRotate < 0) angleToRotate -= 5;
+
+            else if (angleToRotate > 0) angleToRotate += 5;
+
+            else angleToRotate = 45;
+
+            cameraHelper.Rotate(0, angleToRotate * Time.deltaTime * 20, 0);
         }
         else
         {
             WallCheck();
 
+            cameraHelper.rotation = target.rotation;
             //for (int i = 0; i < stepCount + 1; i++)
             //{
             //    for (int j = 0; j < 4; j++)

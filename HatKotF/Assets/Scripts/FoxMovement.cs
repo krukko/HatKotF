@@ -24,35 +24,33 @@ public class FoxMovement : MonoBehaviour
 
     private void Awake()
     {
-        playerMovementScript = targetToFollow.GetComponent<PlayerMovement>();
+        playerMovementScript = targetToFollow.GetComponentInParent<PlayerMovement>();
         animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        if (targetToFollow)
+
+        targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
+
+        if (targetDistance > followDistance)
         {
-            targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
+            isFollowing = true;
+        }
 
-            if (targetDistance > followDistance)
-            {
-                isFollowing = true;
-            }
+        if (targetDistance < waitingDistance)
+        {
+            isFollowing = false;
+        }
 
-            if (targetDistance < waitingDistance)
-            {
-                isFollowing = false;
-            }
-
-            if (isFollowing)
-            {
-                animator.SetBool("isWaiting", false);
-                Follow();
-            }
-            else
-            {
-                Idle();
-            }
+        if (isFollowing)
+        {
+            animator.SetBool("isWaiting", false);
+            Follow();
+        }
+        else
+        {
+            Idle();
         }
     }
 
@@ -60,7 +58,7 @@ public class FoxMovement : MonoBehaviour
     {
         speed = playerMovementScript.GetAcceleration() + baseSpeed;
 
-        if (speed == (playerMovementScript.walkingSpeed + baseSpeed))
+        if (speed == (playerMovementScript.walkingSpeed + baseSpeed) || speed == (playerMovementScript.slowWalkSpeed + baseSpeed))
         {
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", false);

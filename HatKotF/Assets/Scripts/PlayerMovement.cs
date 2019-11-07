@@ -20,8 +20,6 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     public LayerMask collisionMask;
 
-    public bool isRunning, isSneaking;
-
     private void Awake()
     {
         col = GetComponent<CapsuleCollider>();
@@ -54,11 +52,13 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isWalking", false);
             animator.SetBool("isRunning", false);
             animator.SetBool("isSneaking", false);
+            acceleration = 0;
         }
         else
         {
             animator.SetBool("isWalking", true);
             animator.SetFloat("speedMultiplier", _inputVertical);
+            acceleration = walkingSpeed;
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
