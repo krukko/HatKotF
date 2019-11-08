@@ -23,7 +23,6 @@ public class CameraController : MonoBehaviour
     private Vector3 desiredPosition = Vector3.zero;
     private Vector3 cameraVelocity = Vector3.zero;
 
-    private bool isColliding = false;
     public bool rotateAroundPlayer = true;
 
     private void Awake()
@@ -39,8 +38,7 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (rotateAroundPlayer && Input.GetKey(KeyCode.Mouse1))
-        {
+        if (rotateAroundPlayer && Input.GetKey(KeyCode.Mouse1)){
             Quaternion cameraTurnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
 
             DesiredOffset = cameraTurnAngle * DesiredOffset;
@@ -74,7 +72,7 @@ public class CameraController : MonoBehaviour
 
         SpringCamera.transform.LookAt(lookAt, cameraHelper.up);
 
-        desiredDistance = Vector3.Distance(target.position, DesiredOffset);
+        desiredDistance = Vector3.Distance(target.position, DesiredOffset);         
     }
 
     Vector3 TransformNormal(Vector3 normal, Matrix4x4 matrix)
@@ -98,90 +96,16 @@ public class CameraController : MonoBehaviour
     {
         float desiredDistance = Vector3.Distance(cameraHelper.position, SpringCamera.transform.position); // what is distance between target and desired camera position
 
-        //int stepCount = 4;                                                          // how many raycast "crosses" there will be - one more added later
-        //float stepIncremental = desiredDistance / stepCount / 10;                   // distance between steps
-
-
         RaycastHit hit;
         Vector3 rayDir = SpringCamera.transform.position - cameraHelper.position;
 
         //Check if anything occluding player
         if (Physics.SphereCast(cameraHelper.position, 0.5f, rayDir, out hit, desiredDistance, collisionMask))
         {
-            isColliding = true;
-
             Vector3 wallNormal = hit.normal * wallPush;
             Vector3 newPos = hit.point + wallNormal;
 
-            Vector3 colDirection = cameraHelper.position - hit.point;
-            Vector3 wallNormalDirection = cameraHelper.position - newPos;
-
-            //transform.position = (hit.point - cameraHelper.position) * 0.8f + cameraHelper.position;
-            // get positive or negative angle between colDirection vector and wallnormaldirection vector
-            float angleToRotate = Vector3.SignedAngle(colDirection, wallNormalDirection, Vector3.up);
-            angleToRotate = Mathf.Clamp(angleToRotate, -85, 85);
-
-            if (angleToRotate < 0) angleToRotate -= 5;
-
-            else if (angleToRotate > 0) angleToRotate += 5;
-
-            else angleToRotate = 45;
-
-            cameraHelper.Rotate(0, angleToRotate * Time.deltaTime * 20, 0);
-        }
-        else
-        {
-            WallCheck();
-
-            cameraHelper.rotation = target.rotation;
-            //for (int i = 0; i < stepCount + 1; i++)
-            //{
-            //    for (int j = 0; j < 4; j++)
-            //    {
-            //        Vector3 dir = Vector3.zero;
-            //        Vector3 secondOrigin = target.position + rayDir * i * stepIncremental;
-
-            //        switch (j)
-            //        {
-            //            case 0:
-            //                dir = transform.up;
-            //                break;
-            //            case 1:
-            //                dir = -transform.up;
-            //                break;
-            //            case 2:
-            //                dir = transform.right;
-            //                break;
-            //            case 3:
-            //                dir = -transform.right;
-            //                break;
-            //            default:
-            //                break;
-            //        }
-
-            //        Debug.DrawRay(secondOrigin, dir * 1, Color.blue);
-
-            //        if (Physics.Raycast(target.position, rayDir, out hit, desiredDistance, collisionMask))
-            //        {
-            //            transform.position = hit.point * wallPush;
-            //        }
-            //    }
-
-            //}
-        }
-    }
-
-    private void WallCheck()
-    {
-        Ray ray = new Ray(target.position, -target.forward);
-
-        if (Physics.SphereCast(ray, 0.7f, desiredDistance, collisionMask))
-        {
-            isColliding = true;
-        }
-        else
-        {
-            isColliding = false;
+            transform.position = newPos;    
         }
     }
 }

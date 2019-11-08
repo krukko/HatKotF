@@ -31,7 +31,6 @@ public class FoxMovement : MonoBehaviour
 
     private void Update()
     {
-        CheckCollision();
 
         targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
 
@@ -80,24 +79,26 @@ public class FoxMovement : MonoBehaviour
             animator.SetFloat("speedMultiplier", walkAnimationSpeed);
         }
 
-        Vector3 direction = targetToFollow.position - (transform.position - offset);
-        if(direction != Vector3.zero){
+        Vector3 direction = targetToFollow.position - (transform.position);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+        if(direction - offset != Vector3.zero){
+            Quaternion rotation = Quaternion.LookRotation(direction - offset, transform.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.1f);
 
-            if (targetDistance > waitingDistance) {
+            if (targetDistance > waitingDistance){
                 float step = speed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position + offset, step);
+                transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position - offset, step);
 
-                Debug.DrawLine(transform.position, targetToFollow.position + offset, Color.green);
+                Debug.DrawLine(transform.position, targetToFollow.position - offset, Color.green);
             }
-        }     
+        } 
     }
 
     private void Idle()
     {
         objectivePosition = objective.transform.position - targetToFollow.position;
         objectivePosition = Vector3.Normalize(objectivePosition);
+
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(objectivePosition), 0.1f);
 
         if (targetDistance < waitingDistance){
@@ -114,8 +115,9 @@ public class FoxMovement : MonoBehaviour
 
     private void CheckCollision()
     {
+        //check where player is
 
 
-       
+
     }
 }
