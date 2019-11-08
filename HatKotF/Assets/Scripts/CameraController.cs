@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
     private bool isColliding = false;
     public bool rotateAroundPlayer = true;
 
-    private void Start()
+    private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
 

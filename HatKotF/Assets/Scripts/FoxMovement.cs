@@ -12,6 +12,7 @@ public class FoxMovement : MonoBehaviour
     public float waitingDistance;
     private float targetDistance;
 
+    public Vector3 offset;
     private Vector3 objectivePosition;
     private bool isFollowing = false;
 
@@ -30,6 +31,7 @@ public class FoxMovement : MonoBehaviour
 
     private void Update()
     {
+        CheckCollision();
 
         targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
 
@@ -58,39 +60,38 @@ public class FoxMovement : MonoBehaviour
     {
         speed = playerMovementScript.GetAcceleration() + baseSpeed;
 
-        if (speed == (playerMovementScript.walkingSpeed + baseSpeed) || speed == (playerMovementScript.slowWalkSpeed + baseSpeed))
-        {
+        if (speed == (playerMovementScript.walkingSpeed + baseSpeed) || speed == (playerMovementScript.slowWalkSpeed + baseSpeed)){
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", false);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
+        if (Input.GetKey(KeyCode.LeftShift)){
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", true);
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
+        if (Input.GetKeyUp(KeyCode.LeftShift)){
             animator.SetBool("isRunning", false);
         }
 
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
+        if (Input.GetKey(KeyCode.LeftControl)){
             animator.SetFloat("speedMultiplier", sneakAnimationSpeed);
         }
-        else
-        {
+        else{
             animator.SetFloat("speedMultiplier", walkAnimationSpeed);
         }
 
-        Vector3 direction = targetToFollow.position - transform.position;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+        Vector3 direction = targetToFollow.position - (transform.position - offset);
+        if(direction != Vector3.zero){
 
-        if (targetDistance > waitingDistance)
-        {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position, step);
-        }
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+
+            if (targetDistance > waitingDistance) {
+                float step = speed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position + offset, step);
+
+                Debug.DrawLine(transform.position, targetToFollow.position + offset, Color.green);
+            }
+        }     
     }
 
     private void Idle()
@@ -99,17 +100,22 @@ public class FoxMovement : MonoBehaviour
         objectivePosition = Vector3.Normalize(objectivePosition);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(objectivePosition), 0.1f);
 
-        if (targetDistance < waitingDistance)
-        {
+        if (targetDistance < waitingDistance){
             Vector3 waitingPosition = transform.position + (4f * new Vector3(objectivePosition.x, 0, objectivePosition.x));
 
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, waitingPosition, step);
         }
-        else
-        {
+        else{
             animator.SetBool("isWalking", false);
             animator.SetBool("isWaiting", true);
         }
+    }
+
+    private void CheckCollision()
+    {
+
+
+       
     }
 }
