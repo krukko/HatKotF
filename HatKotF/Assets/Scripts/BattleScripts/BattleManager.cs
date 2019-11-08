@@ -11,7 +11,7 @@ public class BattleManager : MonoBehaviour
     public Player player = new Player();
     public Enemy enemy = new Enemy();
     BattleButton battleButton; //this is the reference to the BattleButton script in the scene
-    public EmotionList emotionList;
+    public EmotionListCopy emotionList;
     public GameManager gameManager;
     public IdentifyWords identify;
     public Timer timer;

@@ -13,7 +13,7 @@ public class BattleButton : MonoBehaviour
     public string name;
     internal object onClick;
     
-    public EmotionList emotionList;
+    public EmotionListCopy emotionList;
     public BattleManager battleManager;
 
     GameManager gameManager;

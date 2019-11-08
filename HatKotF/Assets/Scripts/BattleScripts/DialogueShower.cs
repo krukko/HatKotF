@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueShower : MonoBehaviour
 {
-    public EmotionList emotionList = new EmotionList();
+    public EmotionListCopy emotionList = new EmotionListCopy();
     public Text dialogueText;
 
     public void Start()
