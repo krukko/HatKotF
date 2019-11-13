@@ -12,6 +12,7 @@ public class FoxMovement : MonoBehaviour
     public float waitingDistance;
     private float targetDistance;
 
+    Vector3 direction;
     public Vector3 offset;
     private Vector3 objectivePosition;
     private bool isFollowing = false;
@@ -31,26 +32,21 @@ public class FoxMovement : MonoBehaviour
 
     private void Update()
     {
+        direction = targetToFollow.position - transform.position - offset;
 
-        targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
-
-        if (targetDistance > followDistance)
-        {
+        if (direction.sqrMagnitude > followDistance*followDistance) {
             isFollowing = true;
         }
 
-        if (targetDistance < waitingDistance)
-        {
+        if (direction.sqrMagnitude < waitingDistance*waitingDistance) {
             isFollowing = false;
         }
 
-        if (isFollowing)
-        {
+        if (isFollowing) {
             animator.SetBool("isWaiting", false);
             Follow();
         }
-        else
-        {
+        else {
             Idle();
         }
     }
@@ -59,65 +55,57 @@ public class FoxMovement : MonoBehaviour
     {
         speed = playerMovementScript.GetAcceleration() + baseSpeed;
 
-        if (speed == (playerMovementScript.walkingSpeed + baseSpeed) || speed == (playerMovementScript.slowWalkSpeed + baseSpeed)){
+        if (speed == (playerMovementScript.walkingSpeed + baseSpeed) || speed == (playerMovementScript.slowWalkSpeed + baseSpeed)) {
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", false);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift)){
+        if (Input.GetKey(KeyCode.LeftShift)) {
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", true);
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift)){
+        if (Input.GetKeyUp(KeyCode.LeftShift)) {
             animator.SetBool("isRunning", false);
         }
 
-        if (Input.GetKey(KeyCode.LeftControl)){
+        if (Input.GetKey(KeyCode.LeftControl)) {
             animator.SetFloat("speedMultiplier", sneakAnimationSpeed);
         }
-        else{
+        else {
             animator.SetFloat("speedMultiplier", walkAnimationSpeed);
         }
 
-        Vector3 direction = targetToFollow.position - (transform.position);
+        Quaternion rotation = Quaternion.LookRotation(direction, transform.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.1f);
 
-        if(direction - offset != Vector3.zero){
-            Quaternion rotation = Quaternion.LookRotation(direction - offset, transform.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.1f);
-
-            if (targetDistance > waitingDistance){
-                float step = speed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position - offset, step);
-
-                Debug.DrawLine(transform.position, targetToFollow.position - offset, Color.green);
-            }
-        } 
+        if (direction.sqrMagnitude > waitingDistance*waitingDistance) {
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position - offset, step);
+        }
     }
 
     private void Idle()
     {
-        objectivePosition = objective.transform.position - targetToFollow.position;
-        objectivePosition = Vector3.Normalize(objectivePosition);
+        objectivePosition = objective.transform.position - (targetToFollow.position - offset);
+        objectivePosition = Vector3.Normalize(objectivePosition);  
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(objectivePosition), 0.1f);
-
-        if (targetDistance < waitingDistance){
+        if (direction.sqrMagnitude < waitingDistance * waitingDistance) {
             Vector3 waitingPosition = transform.position + (4f * new Vector3(objectivePosition.x, 0, objectivePosition.x));
 
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, waitingPosition, step);
         }
-        else{
+        else {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(objectivePosition), 0.1f);
             animator.SetBool("isWalking", false);
             animator.SetBool("isWaiting", true);
         }
     }
 
-    private void CheckCollision()
+    private void OnCollisionEnter(Collision collision)
     {
-        //check where player is
-
-
-
+        if(collision.gameObject.tag == "Player") {
+            // move away
+        }
     }
 }

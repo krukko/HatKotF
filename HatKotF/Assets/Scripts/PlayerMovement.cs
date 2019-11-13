@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isSneaking", false);
             acceleration = 0;
         } 
-        else{
+        else {
             animator.SetBool("isWalking", true);
             animator.SetFloat("speedMultiplier", _inputVertical);
             acceleration = walkingSpeed;
@@ -63,11 +63,11 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isRunning", true);
             acceleration = runningSpeed;
         } 
-        else if (Input.GetKey(KeyCode.LeftControl)){
+        else if (Input.GetKey(KeyCode.LeftControl)) {
             animator.SetBool("isSneaking", true);
             acceleration = slowWalkSpeed;
         } 
-        else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)){
+        else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)) {
             animator.SetBool("isSneaking", false);
             animator.SetBool("isRunning", true);
             acceleration = runningSpeed;
@@ -76,17 +76,17 @@ public class PlayerMovement : MonoBehaviour
             acceleration = walkingSpeed;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift)){
+        if (Input.GetKeyUp(KeyCode.LeftShift)) {
             animator.SetBool("isRunning", false);
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl)){
+        if (Input.GetKeyUp(KeyCode.LeftControl)) {
             animator.SetBool("isSneaking", false);
         }
 
-        if (rb.velocity.x >= maxVelocity || rb.velocity.x <= -maxVelocity){
+        if (rb.velocity.x >= maxVelocity || rb.velocity.x <= -maxVelocity) {
             rb.velocity = new Vector3(Mathf.Sign(rb.velocity.x) * maxVelocity, rb.velocity.y, rb.velocity.z);
         }
-        if (rb.velocity.z >= maxVelocity || rb.velocity.z <= -maxVelocity){
+        if (rb.velocity.z >= maxVelocity || rb.velocity.z <= -maxVelocity) {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, Mathf.Sign(rb.velocity.z) * maxVelocity);
         }
 
@@ -94,8 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddRelativeForce(movement * acceleration, ForceMode.Impulse);
 
-        if (!Input.GetKey(KeyCode.Mouse1))
-        {
+        if (!Input.GetKey(KeyCode.Mouse1)) {
             Quaternion deltaRotation = Quaternion.Euler(new Vector3(0f, turningSpeed * Input.GetAxis("Mouse X"), 0f) * Time.deltaTime);
             rb.MoveRotation(rb.rotation * deltaRotation);
         }

@@ -67,6 +67,7 @@ MonoBehaviour:
   baseSpeed: 8
   followDistance: 10
   waitingDistance: 6
+  offset: {x: 0, y: 0, z: 0}
   collisionMask:
     serializedVersion: 2
     m_Bits: 1048887
@@ -83,8 +84,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 3.7, z: 4.5}
-  m_Center: {x: 0, y: 2, z: 0.3}
+  m_Size: {x: 1.5, y: 3.7, z: 5}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1001 &8409186383714327512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,16 +173,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 25fa4c5d9e66d404e84c81eda8668ec7, type: 2}
-    - target: {fileID: 4930884645937569850, guid: 14fd44218fe9d4644a421c16f65f8685,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0c24a421e1681344fbf78129843618fe, type: 2}
     - target: {fileID: -716772130454646536, guid: 14fd44218fe9d4644a421c16f65f8685,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: eda208940bfdd844da1a37ca3641f5fc, type: 2}
+    - target: {fileID: 4930884645937569850, guid: 14fd44218fe9d4644a421c16f65f8685,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c24a421e1681344fbf78129843618fe, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14fd44218fe9d4644a421c16f65f8685, type: 3}
 --- !u!4 &3587639065522057410 stripped
