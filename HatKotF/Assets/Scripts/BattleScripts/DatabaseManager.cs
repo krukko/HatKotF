@@ -27,19 +27,24 @@ public class DatabaseManager : MonoBehaviour
 
             using (IDbCommand dbCmd = dbConnection.CreateCommand())
             {
-                string sqlQuery = "SELECT * FROM EmotionListFull";
-                //string sqlQueryTwo = "SELECT field5 FROM EmotionListFull WHERE field1 = '93'";
+                int column = UnityEngine.Random.Range(6, 8);
+                int row = UnityEngine.Random.Range(2, 31);
+
+                //Use field2 because that has the IDAuto!!!
+                string sqlQuery = "SELECT " + column + " FROM EmotionListFull WHERE field2 = " + row;
 
                 dbCmd.CommandText = sqlQuery;
-                //dbCmd.CommandText = sqlQueryTwo;
 
                 using (IDataReader reader = dbCmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        //Debug.Log(reader.GetString(0) + " " + reader.GetString(4));
-                        ReadSingleRow((IDataRecord)reader);
-                        //Debug.Log("I'm working, I just don't understand.");
+                        //Gives column's name/number
+                        string meToo = reader.GetName(0);
+
+                        //Give's cells content. Use GetInt32 if you need an integer
+                        string toPrint = reader.GetString(0);
+                        Debug.Log(toPrint + " I am result");
                     }
 
                     dbConnection.Close();
@@ -49,9 +54,4 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    private static void ReadSingleRow(IDataRecord record)
-    {
-        //Make a list that contains all of these List(string ID, string dialogue)
-        //Debug.Log(String.Format("{0}, {1}", record[0], record[4]));
-    }
 }
