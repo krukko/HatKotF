@@ -49,13 +49,6 @@ public class FoxMovement : MonoBehaviour
             isFollowing = false;
         }
 
-        //switch (foxStates)
-        //{
-        //    case FOXSTATES.RUN:
-        //        print("run");
-        //        break;
-        //}
-
         if (isFollowing) {
             animator.SetBool("isWaiting", false);
             Follow();
@@ -63,7 +56,6 @@ public class FoxMovement : MonoBehaviour
         else {
             Idle();
         }
-
      
     }
 
@@ -74,25 +66,27 @@ public class FoxMovement : MonoBehaviour
         if (speed == (playerMovementScript.walkingSpeed + baseSpeed) || speed == (playerMovementScript.slowWalkSpeed + baseSpeed)) {
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", false);
-
-            foxStates = FOXSTATES.WALK;
+            animator.SetFloat("speedMultiplier", walkAnimationSpeed);
+            foxStates = FOXSTATES.WALK;            
         }
 
-        if (speed == (playerMovementScript.runningSpeed + baseSpeed)) {
+        if (Input.GetKey(KeyCode.LeftShift)) {
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", true);
 
-            print("here");
-
             foxStates = FOXSTATES.RUN;
         }
+        if (Input.GetKeyUp(KeyCode.LeftShift)) {
+            animator.SetBool("isRunning", false);
+            foxStates = FOXSTATES.WALK;
+        }
 
-        if (speed == (playerMovementScript.slowWalkSpeed + baseSpeed)) {
+        if (Input.GetKey(KeyCode.LeftControl)) {
             animator.SetFloat("speedMultiplier", sneakAnimationSpeed);
             foxStates = FOXSTATES.SNEAK;
         }
-        else {
-            animator.SetFloat("speedMultiplier", walkAnimationSpeed);
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
             foxStates = FOXSTATES.WALK;
         }
 
