@@ -5,8 +5,8 @@ using UnityEngine;
 public class ClickManager : MonoBehaviour
 {
     public BattleManager battleManager;
-    BattleButton battleButton;
     public Timer timer;
+    public GameManager gameManager;
 
     [SerializeField]
     private ClickTarget[] targets;
@@ -33,9 +33,9 @@ public class ClickManager : MonoBehaviour
 
         if(expectedTargetIndex == targets.Length)       //after clicking all required words in correct order, unlock emotion.
             {
-                //battleManager.UnlockEmotion();
                 battleManager.BackClicked();
                 timer.timeLeft = timer.maxTime;
+                gameManager.UnlockTier();
             }
         }
         else
