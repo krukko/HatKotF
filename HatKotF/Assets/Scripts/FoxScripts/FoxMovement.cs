@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum FOXSTATES
+{
+    IDLE, WALK, RUN, SNEAK, MOVE_TO_IDLE, DODGE
+}
+
 public class FoxMovement : MonoBehaviour
 {
     private float speed;
@@ -22,6 +27,8 @@ public class FoxMovement : MonoBehaviour
     public GameObject objective; // objective of the player
     private Animator animator;
 
+    public FOXSTATES foxStates;
+   
     PlayerMovement playerMovementScript;
 
     private void Awake()
@@ -42,6 +49,13 @@ public class FoxMovement : MonoBehaviour
             isFollowing = false;
         }
 
+        //switch (foxStates)
+        //{
+        //    case FOXSTATES.RUN:
+        //        print("run");
+        //        break;
+        //}
+
         if (isFollowing) {
             animator.SetBool("isWaiting", false);
             Follow();
@@ -49,6 +63,8 @@ public class FoxMovement : MonoBehaviour
         else {
             Idle();
         }
+
+     
     }
 
     private void Follow()
@@ -58,21 +74,26 @@ public class FoxMovement : MonoBehaviour
         if (speed == (playerMovementScript.walkingSpeed + baseSpeed) || speed == (playerMovementScript.slowWalkSpeed + baseSpeed)) {
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", false);
+
+            foxStates = FOXSTATES.WALK;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift)) {
+        if (speed == (playerMovementScript.runningSpeed + baseSpeed)) {
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", true);
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift)) {
-            animator.SetBool("isRunning", false);
+
+            print("here");
+
+            foxStates = FOXSTATES.RUN;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl)) {
+        if (speed == (playerMovementScript.slowWalkSpeed + baseSpeed)) {
             animator.SetFloat("speedMultiplier", sneakAnimationSpeed);
+            foxStates = FOXSTATES.SNEAK;
         }
         else {
             animator.SetFloat("speedMultiplier", walkAnimationSpeed);
+            foxStates = FOXSTATES.WALK;
         }
 
         Quaternion rotation = Quaternion.LookRotation(direction, transform.up);
@@ -86,6 +107,8 @@ public class FoxMovement : MonoBehaviour
 
     private void Idle()
     {
+        foxStates = FOXSTATES.IDLE;
+
         objectivePosition = objective.transform.position - (targetToFollow.position - offset);
         objectivePosition = Vector3.Normalize(objectivePosition);  
 
@@ -102,10 +125,5 @@ public class FoxMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Player") {
-            // move away
-        }
-    }
+ 
 }
