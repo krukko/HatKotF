@@ -1601,7 +1601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299802470}
   m_LocalRotation: {x: 0.49237317, y: -0, z: -0, w: 0.8703842}
-  m_LocalPosition: {x: 15.395, y: -28.71, z: -0.27}
+  m_LocalPosition: {x: -152.5, y: -28.71, z: -0.27}
   m_LocalScale: {x: 8.55, y: 12.16, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1776,7 +1776,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444481006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -24.9, z: -25.6}
+  m_LocalPosition: {x: 0, y: -24.9, z: -79.164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2469,7 +2469,7 @@ PrefabInstance:
     - target: {fileID: 1995289161714820514, guid: 8a109331dd6c35541b4d0a94cce90f3a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -56.7
       objectReference: {fileID: 0}
     - target: {fileID: 1995289161714820514, guid: 8a109331dd6c35541b4d0a94cce90f3a,
         type: 3}
@@ -2963,7 +2963,7 @@ PrefabInstance:
     - target: {fileID: 8409186382592888015, guid: 5e136738c70edd149be4f61234d3feaf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.11
+      value: -54.7
       objectReference: {fileID: 0}
     - target: {fileID: 8409186382592888015, guid: 5e136738c70edd149be4f61234d3feaf,
         type: 3}
@@ -3039,6 +3039,41 @@ PrefabInstance:
         type: 3}
       propertyPath: offset.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409186382592888001, guid: 5e136738c70edd149be4f61234d3feaf,
+        type: 3}
+      propertyPath: foxStates
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409186382592888001, guid: 5e136738c70edd149be4f61234d3feaf,
+        type: 3}
+      propertyPath: waitingDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409186382592888001, guid: 5e136738c70edd149be4f61234d3feaf,
+        type: 3}
+      propertyPath: followDistance
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409186382592888001, guid: 5e136738c70edd149be4f61234d3feaf,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409186382592888001, guid: 5e136738c70edd149be4f61234d3feaf,
+        type: 3}
+      propertyPath: playerMask.m_Bits
+      value: 1048576
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409186382592888001, guid: 5e136738c70edd149be4f61234d3feaf,
+        type: 3}
+      propertyPath: evadeDistance
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409186382592888001, guid: 5e136738c70edd149be4f61234d3feaf,
+        type: 3}
+      propertyPath: fleeFromMask.m_Bits
+      value: 1048576
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e136738c70edd149be4f61234d3feaf, type: 3}

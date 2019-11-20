@@ -15,14 +15,14 @@ public class FoxMovement : MonoBehaviour
     public float baseSpeed;
     public float followDistance;
     public float waitingDistance;
-    private float targetDistance;
+    public float evadeDistance;
 
     Vector3 direction;
     public Vector3 offset;
     private Vector3 objectivePosition;
-    private bool isFollowing = false;
+    private bool isFollowing = false, isFleeing = false;
 
-    public LayerMask collisionMask;
+    public LayerMask collisionMask, fleeFromMask;
     public Transform targetToFollow;
     public GameObject objective; // objective of the player
     private Animator animator;
@@ -53,10 +53,11 @@ public class FoxMovement : MonoBehaviour
             animator.SetBool("isWaiting", false);
             Follow();
         }
-        else {
+        else
+        {
+            foxStates = FOXSTATES.IDLE;
             Idle();
         }
-     
     }
 
     private void Follow()
@@ -101,8 +102,6 @@ public class FoxMovement : MonoBehaviour
 
     private void Idle()
     {
-        foxStates = FOXSTATES.IDLE;
-
         objectivePosition = objective.transform.position - (targetToFollow.position - offset);
         objectivePosition = Vector3.Normalize(objectivePosition);  
 
@@ -117,7 +116,5 @@ public class FoxMovement : MonoBehaviour
             animator.SetBool("isWalking", false);
             animator.SetBool("isWaiting", true);
         }
-    }
-
- 
+    } 
 }

@@ -110,7 +110,6 @@ public class PlayerMovement : MonoBehaviour
         return Physics.CheckCapsule(col.bounds.center, new Vector3(col.bounds.center.x, col.bounds.min.y - 0.1f, col.bounds.center.z), 0.18f, collisionMask);
     }
 
-    //Use to get Player's acceleration from another script
     public float GetAcceleration()
     {
         return acceleration;
