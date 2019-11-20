@@ -17,7 +17,11 @@ public class IdentifyWords : MonoBehaviour
         if (words == null)
         {
             words = GameObject.FindGameObjectsWithTag("IdentifyText");
+            Debug.Log("Words null.");
         }
-        GameObject.Instantiate(wordPrefab, spawnposition, Quaternion.identity);
+        else
+        {
+            Debug.Log("Words not null.");
+        }
     }
 }
