@@ -15,6 +15,8 @@ public class DatabaseManager : MonoBehaviour
         //Tells the connection string which file is the database
         connectionString = "URI=file:" + Application.dataPath + "/EmotionDataFull.db";
         GetID();
+
+        PrintRow();
     }
 
     //Function name irrelevant here
@@ -31,7 +33,7 @@ public class DatabaseManager : MonoBehaviour
                 int row = UnityEngine.Random.Range(2, 31);
 
                 //Use field2 because that has the IDAuto!!!
-                string sqlQuery = "SELECT " + column + " FROM EmotionListFull WHERE field2 = " + row;
+                string sqlQuery = "SELECT " + column + " FROM EmotionListNew WHERE field2 = " + row;
 
                 dbCmd.CommandText = sqlQuery;
 
@@ -42,9 +44,37 @@ public class DatabaseManager : MonoBehaviour
                         //Gives column's name/number
                         string meToo = reader.GetName(0);
 
-                        //Give's cells content. Use GetInt32 if you need an integer
+                        //Gives cells content. Use GetInt32 if you need an integer
                         string toPrint = reader.GetString(0);
                         Debug.Log(toPrint + " I am result");
+                    }
+                    //Close connection to Database
+                    dbConnection.Close();
+                    reader.Close();
+                }
+            }
+        }
+    }
+
+    public void PrintRow()
+    {
+        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        {
+            dbConnection.Open();
+
+            using (IDbCommand dbCmd = dbConnection.CreateCommand())
+            {
+                int row = 3;
+
+                //string sqlQuery = "SELECT " + 4 + " FROM EmotionListNew WHERE field1 = " + 23;
+                string sqlQuery = "SELECT field4 FROM EmotionListNew WHERE field2 = " + row;
+
+                using (IDataReader reader = dbCmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string returnedRow = reader.GetString(0);
+                        Debug.Log(returnedRow);
                     }
 
                     dbConnection.Close();
