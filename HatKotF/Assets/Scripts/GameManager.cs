@@ -10,14 +10,11 @@ public class GameManager : MonoBehaviour
     public bool angryUnlocked = false;
     public bool fearfulUnlocked = false;
     public bool disgustUnlocked = false;
+
+    public bool tier2Unlocked = false;
     
-    void Start()
+    public void UnlockTier()
     {
-        
-    }
-    
-    void Update()
-    {
-        
+        tier2Unlocked = true;
     }
 }

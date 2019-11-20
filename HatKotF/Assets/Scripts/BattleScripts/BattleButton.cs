@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class BattleButton : MonoBehaviour
 {
@@ -13,16 +14,19 @@ public class BattleButton : MonoBehaviour
     public string name;
     internal object onClick;
     
-    public EmotionList emotionList;
+    public EmotionListCopy emotionList;
     public BattleManager battleManager;
 
-    GameManager gameManager;
+    public GameManager gameManager;
 
     public GameObject resetButton;
+    public GameObject tier1Menu;
+    public GameObject tier2; //place the appropriate tier2 button.
 
     protected bool endGame;
     public bool winGame;
     public bool loseGame;
+    bool tier2Menu;
 
     public int currentEmotionID;
 
@@ -68,18 +72,6 @@ public class BattleButton : MonoBehaviour
         }
     }
 
-    //Check whether the emotion tier2 has been unlocked.
-    public void CheckEmotionState()
-    {
-        if(emotionList.currentEmotionID == 0)
-        {
-            if (gameManager.happyUnlocked)
-            {
-
-            }
-        }
-    }
-
     public void Attack(BattleButton button)
     {
         int buttonNumber = button.giveButtonID();
@@ -91,7 +83,14 @@ public class BattleButton : MonoBehaviour
 
         //TakeNDigits(emotionList.currentEmotionID, NofDigits);
 
-        if(battleManager.battleTier == 1)
+        if (gameManager.tier2Unlocked && !tier2Menu)
+        {
+            tier2.SetActive(true);
+            tier2Menu = true;
+            tier1Menu.SetActive(false);
+        }
+
+        if (!gameManager.tier2Unlocked && !tier2Menu) //battleManager.battleTier == 1
         {
             comparableEmotionID = TakeNDigits(comparableEmotionID, battleManager.battleTier);
 
@@ -110,7 +109,8 @@ public class BattleButton : MonoBehaviour
                 else
                 {
                     emotionList.GameRoundEmotions();
-                    battleManager.emotionButtons.SetActive(true);
+                    //battleManager.emotionButtons.SetActive(true);
+                    battleManager.BackClicked();
                 }
             }
             else
@@ -127,73 +127,66 @@ public class BattleButton : MonoBehaviour
                 {
                     emotionList.GameRoundEmotions();
                     //BattleStatus();
+                    battleManager.BackClicked();
                 }
                 emotionList.GameRoundEmotions();
             }
         }
-        else
-        {
+        //else
+        //{
 
-            int CompareTier1 = TakeNDigits(comparableEmotionID, 1); //the base emotion
-            int compareButton1 = TakeNDigits(comparableEmotionID, buttonNumber); //the int for the first number of the button (to compare with the base emotion)
-            comparableEmotionID = TakeNDigits(comparableEmotionID, battleManager.battleTier);
+        //    int CompareTier1 = TakeNDigits(comparableEmotionID, 1); //the base emotion
+        //    int compareButton1 = TakeNDigits(comparableEmotionID, buttonNumber); //the int for the first number of the button (to compare with the base emotion)
+        //    comparableEmotionID = TakeNDigits(comparableEmotionID, battleManager.battleTier);
 
-            if(compareButton1 == CompareTier1)
-            {
-                if(comparableEmotionID == buttonNumber)
-                {
-                     if(battleManager.enemy.AmIAlive() == true)
-                    {
-                        battleManager.DamageToEnemy();
-                    }
-                    if(battleManager.enemy.AmIAlive() == false)
-                    {
-                        winGame = true;
-                        endGame = true;
-                        battleManager.Win();
-                    }
-                    else
-                    {
-                        emotionList.GameRoundEmotions();
-                        battleManager.emotionButtons.SetActive(true);
-                    }
-                }
+        //    if (compareButton1 == CompareTier1)
+        //    {
+        //        if (comparableEmotionID == buttonNumber)
+        //        {
+        //            if (battleManager.enemy.AmIAlive() == true)
+        //            {
+        //                battleManager.DamageToEnemy();
+        //            }
+        //            if (battleManager.enemy.AmIAlive() == false)
+        //            {
+        //                winGame = true;
+        //                endGame = true;
+        //                battleManager.Win();
+        //            }
+        //            else
+        //            {
+        //                emotionList.GameRoundEmotions();
+        //                battleManager.emotionButtons.SetActive(true);
+        //            }
+        //        }
 
-                if(comparableEmotionID != buttonNumber)
-                {
-                    battleManager.damageModifier = 0.75f;
-                }
-                else
-                {
-                    battleManager.DamageToPlayer();
+        //        if (comparableEmotionID != buttonNumber)
+        //        {
+        //            battleManager.damageModifier = 0.75f;
+        //        }
+        //        else
+        //        {
+        //            battleManager.DamageToPlayer();
 
-                    if(battleManager.player.AmIAlive() == false)
-                    {
-                        loseGame = true;
-                        endGame = true;
-                        battleManager.GameOver();
-                    }
-                    else
-                    {
-                        emotionList.GameRoundEmotions();
-                    }
-                }
-            }
-        }
+        //            if (battleManager.player.AmIAlive() == false)
+        //            {
+        //                loseGame = true;
+        //                endGame = true;
+        //                battleManager.GameOver();
+        //            }
+        //            else
+        //            {
+        //                emotionList.GameRoundEmotions();
+        //            }
+        //        }
+        //    }
+        //}
         
     }
 
     public void ResetClick(Button button)
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("ForestEdge");
-    }
-
-    public void OpenHappy()
-    {
-        if(gameManager.happyUnlocked)
-        {
-            battleManager.happyButtons.SetActive(true);
-        }
     }
 }
 

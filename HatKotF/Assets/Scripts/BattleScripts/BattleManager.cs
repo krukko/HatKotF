@@ -11,7 +11,7 @@ public class BattleManager : MonoBehaviour
     public Player player = new Player();
     public Enemy enemy = new Enemy();
     BattleButton battleButton; //this is the reference to the BattleButton script in the scene
-    public EmotionList emotionList;
+    public EmotionListCopy emotionList;
     public GameManager gameManager;
     public IdentifyWords identify;
     public Timer timer;
@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour
     public GameObject identifyMenu; //opens the identify-mini game.
 
     //Buttonlists for Tier 2 emotions in emotionwheel
+    public GameObject tierParent;
     public GameObject happyButtons;
     public GameObject fearButtons;
     public GameObject sadButtons;
@@ -43,16 +44,6 @@ public class BattleManager : MonoBehaviour
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-
-        //if (battleTier == 1)
-        //{
-        //    battleButton.NofDigits = 1;
-        //}
-        //else
-        //{
-        //    battleButton.NofDigits = 2;
-        //}
-
     }
 
     public void Win()
@@ -88,9 +79,8 @@ public class BattleManager : MonoBehaviour
 
     public void FightClicked()
     {
-        emotionButtons.SetActive(true);
         menuButtons.SetActive(false);
-
+        emotionButtons.SetActive(true);
     }
 
     public void PalClicked()
