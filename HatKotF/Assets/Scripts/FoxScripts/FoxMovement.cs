@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum FOXSTATES
+{
+    IDLE, WALK, RUN, SNEAK, MOVE_TO_IDLE, DODGE
+}
+
 public class FoxMovement : MonoBehaviour
 {
     private float speed;
@@ -12,6 +17,8 @@ public class FoxMovement : MonoBehaviour
     public float waitingDistance;
     private float targetDistance;
 
+    Vector3 direction;
+    public Vector3 offset;
     private Vector3 objectivePosition;
     private bool isFollowing = false;
 
@@ -20,6 +27,8 @@ public class FoxMovement : MonoBehaviour
     public GameObject objective; // objective of the player
     private Animator animator;
 
+    public FOXSTATES foxStates;
+   
     PlayerMovement playerMovementScript;
 
     private void Awake()
@@ -30,86 +39,91 @@ public class FoxMovement : MonoBehaviour
 
     private void Update()
     {
+        direction = targetToFollow.position - transform.position - offset;
 
-        targetDistance = Vector3.Distance(transform.position, targetToFollow.position);
-
-        if (targetDistance > followDistance)
-        {
+        if (direction.sqrMagnitude > followDistance*followDistance) {
             isFollowing = true;
         }
 
-        if (targetDistance < waitingDistance)
-        {
+        if (direction.sqrMagnitude < waitingDistance*waitingDistance) {
             isFollowing = false;
         }
 
-        if (isFollowing)
-        {
+        //switch (foxStates)
+        //{
+        //    case FOXSTATES.RUN:
+        //        print("run");
+        //        break;
+        //}
+
+        if (isFollowing) {
             animator.SetBool("isWaiting", false);
             Follow();
         }
-        else
-        {
+        else {
             Idle();
         }
+
+     
     }
 
     private void Follow()
     {
         speed = playerMovementScript.GetAcceleration() + baseSpeed;
 
-        if (speed == (playerMovementScript.walkingSpeed + baseSpeed) || speed == (playerMovementScript.slowWalkSpeed + baseSpeed))
-        {
+        if (speed == (playerMovementScript.walkingSpeed + baseSpeed) || speed == (playerMovementScript.slowWalkSpeed + baseSpeed)) {
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", false);
+
+            foxStates = FOXSTATES.WALK;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
+        if (speed == (playerMovementScript.runningSpeed + baseSpeed)) {
             animator.SetBool("isWalking", true);
             animator.SetBool("isRunning", true);
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            animator.SetBool("isRunning", false);
+
+            print("here");
+
+            foxStates = FOXSTATES.RUN;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
+        if (speed == (playerMovementScript.slowWalkSpeed + baseSpeed)) {
             animator.SetFloat("speedMultiplier", sneakAnimationSpeed);
+            foxStates = FOXSTATES.SNEAK;
         }
-        else
-        {
+        else {
             animator.SetFloat("speedMultiplier", walkAnimationSpeed);
+            foxStates = FOXSTATES.WALK;
         }
 
-        Vector3 direction = targetToFollow.position - transform.position;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+        Quaternion rotation = Quaternion.LookRotation(direction, transform.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.1f);
 
-        if (targetDistance > waitingDistance)
-        {
+        if (direction.sqrMagnitude > waitingDistance*waitingDistance) {
             float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position, step);
+            transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position - offset, step);
         }
     }
 
     private void Idle()
     {
-        objectivePosition = objective.transform.position - targetToFollow.position;
-        objectivePosition = Vector3.Normalize(objectivePosition);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(objectivePosition), 0.1f);
+        foxStates = FOXSTATES.IDLE;
 
-        if (targetDistance < waitingDistance)
-        {
+        objectivePosition = objective.transform.position - (targetToFollow.position - offset);
+        objectivePosition = Vector3.Normalize(objectivePosition);  
+
+        if (direction.sqrMagnitude < waitingDistance * waitingDistance) {
             Vector3 waitingPosition = transform.position + (4f * new Vector3(objectivePosition.x, 0, objectivePosition.x));
 
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, waitingPosition, step);
         }
-        else
-        {
+        else {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(objectivePosition), 0.1f);
             animator.SetBool("isWalking", false);
             animator.SetBool("isWaiting", true);
         }
     }
+
+ 
 }
