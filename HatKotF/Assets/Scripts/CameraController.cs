@@ -34,6 +34,8 @@ public class CameraController : MonoBehaviour
         cameraHelper.rotation = target.rotation;
 
         defaultOffset = DesiredOffset;
+
+        SpringFollow();
     }
 
     private void LateUpdate()

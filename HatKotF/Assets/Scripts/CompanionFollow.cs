@@ -6,7 +6,7 @@ public class CompanionFollow : MonoBehaviour
 {
     private float speed;
 
-    private void Start()
+    private void Awake()
     {
         
     }

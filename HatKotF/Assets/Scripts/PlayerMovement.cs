@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PLAYERSTATE { IDLE, WALK, RUN, SNEAK }
+
 public class PlayerMovement : MonoBehaviour
 {
     private float acceleration;
@@ -12,8 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxVelocity = 10;
     public float turningSpeed = 30;
 
-    private float distToGround;
-    private Vector2 input;
+    public PLAYERSTATE playerState;
 
     private Rigidbody rb;
     private CapsuleCollider col;
@@ -26,8 +27,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
     }
-
-    //TODO: add animations
 
     private void FixedUpdate()
     {
@@ -52,25 +51,30 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isRunning", false);
             animator.SetBool("isSneaking", false);
             acceleration = 0;
+            playerState = PLAYERSTATE.IDLE;
         } 
         else {
             animator.SetBool("isWalking", true);
             animator.SetFloat("speedMultiplier", _inputVertical);
             acceleration = walkingSpeed;
+            playerState = PLAYERSTATE.WALK;
         }
 
         if (Input.GetKey(KeyCode.LeftShift)) {
             animator.SetBool("isRunning", true);
             acceleration = runningSpeed;
+            playerState = PLAYERSTATE.RUN;
         } 
         else if (Input.GetKey(KeyCode.LeftControl)) {
             animator.SetBool("isSneaking", true);
             acceleration = slowWalkSpeed;
+            playerState = PLAYERSTATE.SNEAK;
         } 
-        else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)) {
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)) {
             animator.SetBool("isSneaking", false);
             animator.SetBool("isRunning", true);
             acceleration = runningSpeed;
+            playerState = PLAYERSTATE.RUN;
         } 
         else{
             acceleration = walkingSpeed;
