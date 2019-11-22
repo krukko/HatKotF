@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PLAYERSTATE { IDLE, WALK, RUN, SNEAK }
+public enum PLAYERSTATE { IDLE, WALK, RUN, SNEAK, JUMP, FOLLOW }
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider col;
     private Animator animator;
     public LayerMask collisionMask;
+    private float inputHorizontal; 
+    private float inputVertical;
+    private float distanceToFollower;
+    private Transform follower;
+    
 
     private void Awake()
     {
@@ -28,10 +33,15 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+    private void Update()
+    {
+       
+    }
+
     private void FixedUpdate()
     {
-        float inputHorizontal = Input.GetAxis("Horizontal"); ;
-        float inputVertical = Input.GetAxis("Vertical");
+        inputHorizontal = Input.GetAxis("Horizontal"); ;
+        inputVertical = Input.GetAxis("Vertical");
 
         Move(inputHorizontal, inputVertical);
 
@@ -46,45 +56,44 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(float _inputHorizontal, float _inputVertical)
     {
-        if (_inputHorizontal == 0 && _inputVertical == 0) {
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isSneaking", false);
+        if (_inputHorizontal == 0 && _inputVertical == 0)
+        {
             acceleration = 0;
-            playerState = PLAYERSTATE.IDLE;
-        } 
-        else {
-            animator.SetBool("isWalking", true);
-            animator.SetFloat("speedMultiplier", _inputVertical);
+            SetPlayerState(PLAYERSTATE.IDLE);
+        }
+        else
+        {
             acceleration = walkingSpeed;
-            playerState = PLAYERSTATE.WALK;
+            SetPlayerState(PLAYERSTATE.WALK);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift)) {
-            animator.SetBool("isRunning", true);
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
             acceleration = runningSpeed;
-            playerState = PLAYERSTATE.RUN;
-        } 
-        else if (Input.GetKey(KeyCode.LeftControl)) {
-            animator.SetBool("isSneaking", true);
+            SetPlayerState(PLAYERSTATE.RUN);
+        }
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
             acceleration = slowWalkSpeed;
-            playerState = PLAYERSTATE.SNEAK;
-        } 
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)) {
-            animator.SetBool("isSneaking", false);
-            animator.SetBool("isRunning", true);
-            acceleration = runningSpeed;
-            playerState = PLAYERSTATE.RUN;
-        } 
-        else{
-            acceleration = walkingSpeed;
+            SetPlayerState(PLAYERSTATE.SNEAK);
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift)) {
-            animator.SetBool("isRunning", false);
+        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+           _inputHorizontal = 0;
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl)) {
-            animator.SetBool("isSneaking", false);
+        else
+        {
+            _inputHorizontal = inputHorizontal;
+        }
+
+        Vector3 directionToFollower = (follower.transform.position - transform.position).normalized;
+        float dotproductOfDirectionToFollower = Vector3.Dot(directionToFollower, transform.forward);
+
+        if (dotproductOfDirectionToFollower > 0.9f)
+        {
+            Debug.Log("moving towards follower");
+            SetPlayerState(PLAYERSTATE.FOLLOW);
         }
 
         if (rb.velocity.x >= maxVelocity || rb.velocity.x <= -maxVelocity) {
@@ -117,5 +126,55 @@ public class PlayerMovement : MonoBehaviour
     public float GetAcceleration()
     {
         return acceleration;
+    }
+
+    private void SetPlayerState(PLAYERSTATE newState)
+    {
+        if(playerState != newState) {
+            playerState = newState;
+        }
+
+        SetAnimations();
+    }
+
+    public PLAYERSTATE GetPlayerState()
+    {
+        return playerState;
+    }
+
+    private void SetAnimations()
+    {
+        switch(playerState)
+        {
+            case PLAYERSTATE.IDLE:
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isSneaking", false);
+                break;
+            case PLAYERSTATE.WALK:
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isSneaking", false);
+                animator.SetFloat("speedMultiplier", inputVertical);
+                break;
+            case PLAYERSTATE.RUN:
+                animator.SetBool("isSneaking", false);
+                animator.SetBool("isRunning", true);
+                break;
+            case PLAYERSTATE.SNEAK:
+                animator.SetBool("isSneaking", true);
+                break;
+            case PLAYERSTATE.JUMP:
+                break;
+            case PLAYERSTATE.FOLLOW:
+                print("following");
+                break;
+        }
+    }
+
+    public void SetFollower(Transform newFollower)
+    {
+        follower = newFollower;
+        Debug.Log("Follower set: " + follower.name);
     }
 }

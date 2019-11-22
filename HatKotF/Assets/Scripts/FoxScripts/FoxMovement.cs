@@ -7,16 +7,17 @@ using UnityEngine.AI;
 public class FoxMovement : MonoBehaviour
 {
     private float speed;
+    private float distanceToPlayer;
     public float sneakAnimationSpeed, walkAnimationSpeed;
     public float baseSpeed;
     public float followDistance;
     public float waitingDistance;
 
-    Vector3 direction;
+    public Vector3 offset;
     private Vector3 objectivePosition;
 
     public Transform targetToFollow, playerTransform;
-    public GameObject objective; // objective of the player
+    public GameObject objective;
     private Animator animator;
     public FOXSTATES foxState;
     PlayerMovement playerMovementScript;
@@ -24,96 +25,139 @@ public class FoxMovement : MonoBehaviour
     private void Awake()
     {
         playerMovementScript = targetToFollow.GetComponentInParent<PlayerMovement>();
-        animator = GetComponentInChildren<Animator>();      
+        playerMovementScript.SetFollower(this.transform);
+        animator = GetComponentInChildren<Animator>();
+
+        targetToFollow.position = playerTransform.position + offset;
     }
 
     private void Update()
     {
-        direction = targetToFollow.position - transform.position;
+        distanceToPlayer = Vector3.Distance(targetToFollow.position, transform.position);
 
-        if (direction.sqrMagnitude > followDistance * followDistance) {
-            if (playerMovementScript.playerState == PLAYERSTATE.IDLE) {
-                SetFoxState(FOXSTATES.IDLE);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.WALK) {
-                SetFoxState(FOXSTATES.WALK);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.RUN) {
-                SetFoxState(FOXSTATES.RUN);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.SNEAK) {
-                SetFoxState(FOXSTATES.WALK);
-            }
-        }
-        else if (direction.sqrMagnitude > waitingDistance * waitingDistance && direction.sqrMagnitude < followDistance * followDistance) {
-            if (playerMovementScript.playerState == PLAYERSTATE.IDLE) {
-                SetFoxState(FOXSTATES.IDLE);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.WALK) {
-                SetFoxState(FOXSTATES.WALK);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.RUN) {
-                SetFoxState(FOXSTATES.RUN);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.SNEAK) {
-                SetFoxState(FOXSTATES.SNEAK);
-            }
-        }
-        else if (direction.sqrMagnitude < waitingDistance * waitingDistance) {
-            if (playerMovementScript.playerState == PLAYERSTATE.IDLE) {
+        if (distanceToPlayer > followDistance)
+        {
+            if (playerMovementScript.playerState == PLAYERSTATE.IDLE)
+            {
                 SetFoxState(FOXSTATES.MOVE_TO_IDLE);
             }
-            else if (playerMovementScript.playerState == PLAYERSTATE.WALK) {
+            else if (playerMovementScript.playerState == PLAYERSTATE.WALK)
+            {
                 SetFoxState(FOXSTATES.WALK);
             }
-            else if (playerMovementScript.playerState == PLAYERSTATE.RUN) {
+            else if (playerMovementScript.playerState == PLAYERSTATE.RUN)
+            {
                 SetFoxState(FOXSTATES.RUN);
             }
+            else if (playerMovementScript.playerState == PLAYERSTATE.SNEAK)
+            {
+                SetFoxState(FOXSTATES.WALK);
+            }
         }
+        else if (distanceToPlayer > waitingDistance && distanceToPlayer < followDistance)
+        {
+            if (playerMovementScript.playerState == PLAYERSTATE.IDLE)
+            {
+                SetFoxState(FOXSTATES.MOVE_TO_IDLE);
+            }
+            else if (playerMovementScript.playerState == PLAYERSTATE.WALK)
+            {
+                SetFoxState(FOXSTATES.WALK);
+            }
+            else if (playerMovementScript.playerState == PLAYERSTATE.RUN)
+            {
+                SetFoxState(FOXSTATES.RUN);
+            }
+            else if (playerMovementScript.playerState == PLAYERSTATE.SNEAK)
+            {
+                SetFoxState(FOXSTATES.SNEAK);
+            }
+            else if (playerMovementScript.playerState == PLAYERSTATE.FOLLOW)
+            {
+                SetFoxState(FOXSTATES.EVADE);
+            }
+        }
+        else if (distanceToPlayer < waitingDistance)
+        {
+            if (playerMovementScript.playerState == PLAYERSTATE.IDLE)
+            {
+                SetFoxState(FOXSTATES.IDLE);
+            }
+            else if (playerMovementScript.playerState == PLAYERSTATE.WALK)
+            {
+                SetFoxState(FOXSTATES.WALK);
+            }
+            else if (playerMovementScript.playerState == PLAYERSTATE.RUN)
+            {
+                SetFoxState(FOXSTATES.RUN);
+            }
+            else if (playerMovementScript.playerState == PLAYERSTATE.SNEAK)
+            {
+                SetFoxState(FOXSTATES.SNEAK);
+            }
+
+        }
+
     }
 
     private void Follow()
     {
         speed = playerMovementScript.GetAcceleration() + baseSpeed;
 
-        Quaternion rotation = Quaternion.LookRotation(direction, transform.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.1f);
+        transform.LookAt(targetToFollow);
 
-        if (direction.sqrMagnitude > waitingDistance * waitingDistance) {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, targetToFollow.position, step);
+        if (distanceToPlayer > waitingDistance)
+        {
+            Vector3 directionNormalized = (targetToFollow.position - transform.position).normalized;
+            transform.position = transform.position + directionNormalized * speed * Time.deltaTime;
         }
     }
 
     private void MoveToIdle()
     {
-        objectivePosition = objective.transform.position - targetToFollow.position;
-        objectivePosition = Vector3.Normalize(objectivePosition);
+        objectivePosition = objective.transform.position;
+        Vector3 objectiveDirection = (objectivePosition - transform.position).normalized;
+        Vector3 waitingPosition = transform.position + (objectiveDirection * 0.2f);
 
-        if (direction.sqrMagnitude < waitingDistance * waitingDistance) {
-            Vector3 waitingPosition = transform.position + (4f * new Vector3(objectivePosition.x, 0, objectivePosition.x));
+        Vector3 newRotationDirection = Vector3.RotateTowards(transform.forward, waitingPosition - transform.position, 2 * Time.deltaTime, 0.0f);
+        transform.rotation = Quaternion.LookRotation(newRotationDirection);
 
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, waitingPosition, step);
+        if (distanceToPlayer > waitingDistance && distanceToPlayer < followDistance)
+        {
+            transform.position = waitingPosition;
+            transform.LookAt(waitingPosition);
         }
-        else {
-            Quaternion newRotation = Quaternion.LookRotation(objectivePosition, transform.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, 0.1f);
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isWaiting", true);
+        else
+        {
+            SetFoxState(FOXSTATES.IDLE);
         }
+    }
+
+    private void Idle()
+    {
+        Vector3 newRotationDirection = Vector3.RotateTowards(transform.forward, objectivePosition - transform.position, 2 * Time.deltaTime, 0.0f);
+        transform.rotation = Quaternion.LookRotation(newRotationDirection);
+    }
+
+    private void Evade()
+    {
+        print("evading player");
+
     }
 
     private void SetFoxState(FOXSTATES newFoxState)
     {
-        if(foxState != newFoxState) {
+        if (foxState != newFoxState)
+        {
             foxState = newFoxState;
         }
 
-        switch (foxState) {
+        switch (foxState)
+        {
             case FOXSTATES.IDLE:
                 animator.SetBool("isWalking", false);
                 animator.SetBool("isWaiting", true);
+                Idle();
                 break;
             case FOXSTATES.WALK:
                 animator.SetBool("isWalking", true);
@@ -141,8 +185,13 @@ public class FoxMovement : MonoBehaviour
                 animator.SetBool("isRunning", false);
                 MoveToIdle();
                 break;
+            case FOXSTATES.EVADE:
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isRunning", false);
+                animator.SetFloat("speedMultiplier", walkAnimationSpeed);
+                animator.SetBool("isWaiting", false);
+                Evade();
+                break;
         }
-
-        print(foxState);
     }
 }

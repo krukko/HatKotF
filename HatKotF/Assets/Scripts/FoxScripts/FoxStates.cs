@@ -4,6 +4,6 @@ using UnityEngine;
 
 public enum FOXSTATES
 {
-    IDLE, WALK, RUN, SNEAK, MOVE_TO_IDLE, DODGE
+    IDLE, WALK, RUN, SNEAK, MOVE_TO_IDLE, EVADE
 }
 
