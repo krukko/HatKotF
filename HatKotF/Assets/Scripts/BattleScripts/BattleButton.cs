@@ -14,7 +14,7 @@ public class BattleButton : MonoBehaviour
     public string name;
     internal object onClick;
     
-    public EmotionListCopy emotionList;
+    public EmotionList emotionList;
     public BattleManager battleManager;
 
     public GameManager gameManager;
@@ -26,7 +26,7 @@ public class BattleButton : MonoBehaviour
     protected bool endGame;
     public bool winGame;
     public bool loseGame;
-    bool tier2Menu;
+    public bool tier2Menu;
 
     public int currentEmotionID;
 
@@ -83,7 +83,7 @@ public class BattleButton : MonoBehaviour
 
         //TakeNDigits(emotionList.currentEmotionID, NofDigits);
 
-        if (gameManager.tier2Unlocked && !tier2Menu)
+        if (gameManager.tier2Unlocked && !this.tier2Menu)
         {
             tier2.SetActive(true);
             tier2Menu = true;
@@ -132,61 +132,16 @@ public class BattleButton : MonoBehaviour
                 emotionList.GameRoundEmotions();
             }
         }
-        //else
-        //{
-
-        //    int CompareTier1 = TakeNDigits(comparableEmotionID, 1); //the base emotion
-        //    int compareButton1 = TakeNDigits(comparableEmotionID, buttonNumber); //the int for the first number of the button (to compare with the base emotion)
-        //    comparableEmotionID = TakeNDigits(comparableEmotionID, battleManager.battleTier);
-
-        //    if (compareButton1 == CompareTier1)
-        //    {
-        //        if (comparableEmotionID == buttonNumber)
-        //        {
-        //            if (battleManager.enemy.AmIAlive() == true)
-        //            {
-        //                battleManager.DamageToEnemy();
-        //            }
-        //            if (battleManager.enemy.AmIAlive() == false)
-        //            {
-        //                winGame = true;
-        //                endGame = true;
-        //                battleManager.Win();
-        //            }
-        //            else
-        //            {
-        //                emotionList.GameRoundEmotions();
-        //                battleManager.emotionButtons.SetActive(true);
-        //            }
-        //        }
-
-        //        if (comparableEmotionID != buttonNumber)
-        //        {
-        //            battleManager.damageModifier = 0.75f;
-        //        }
-        //        else
-        //        {
-        //            battleManager.DamageToPlayer();
-
-        //            if (battleManager.player.AmIAlive() == false)
-        //            {
-        //                loseGame = true;
-        //                endGame = true;
-        //                battleManager.GameOver();
-        //            }
-        //            else
-        //            {
-        //                emotionList.GameRoundEmotions();
-        //            }
-        //        }
-        //    }
-        //}
-        
     }
 
     public void ResetClick(Button button)
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("ForestEdge");
+    }
+
+    public void TwoIsTrue()
+    {
+        this.tier2Menu = true;
     }
 }
 

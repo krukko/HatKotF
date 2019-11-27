@@ -8,6 +8,8 @@ public class IdentifyWords : MonoBehaviour
     public GameObject wordPrefab;
     public GameObject[] words;
 
+    private int randomPrefab;
+
     public void SpawnWords()
     {
         int spawnpointX = Random.Range(-300, 300);
@@ -22,6 +24,7 @@ public class IdentifyWords : MonoBehaviour
         else
         {
             Debug.Log("Words not null.");
+            Instantiate(words[randomPrefab], spawnposition, Quaternion.identity);
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿//Emotionlist for Tonttu.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EmotionList : MonoBehaviour
+public class TonttuEmotionList : MonoBehaviour
 {
     public List<Emotion> emotions = new List<Emotion>();
 

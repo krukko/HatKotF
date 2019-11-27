@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿//This script should only have material related straight to the emotion list and emotion
+//generation during battle.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EmotionList : MonoBehaviour
+public class OldEmotionList : MonoBehaviour
 {
     public List<Emotion> emotions = new List<Emotion>();
 
@@ -40,19 +43,18 @@ public class EmotionList : MonoBehaviour
 
     public void GameRoundEmotions()
     {
-        Emotion randomEmotion = EmotionRandomiser();
-        currentEmotionID = GiveID(randomEmotion);
+            Emotion randomEmotion = EmotionRandomiser();
+            currentEmotionID = GiveID(randomEmotion);
 
-        string printLine = GiveDialogue(randomEmotion);
-        string printFace = GiveExpression(randomEmotion);
-        string printNro = GiveID(randomEmotion).ToString();
+            string printLine = GiveDialogue(randomEmotion);
+            string printFace = GiveExpression(randomEmotion);
+            string printNro = GiveID(randomEmotion).ToString();
 
         dialogueText.text = printLine;
         //faceText.text = printFace;
 
         Sprite showThisSprite = GiveFace(randomEmotion);
-        shownSprite.GetComponent<Image>().sprite = showThisSprite;
-        //shownSprite.GetComponent<SpriteRenderer>().sprite = showThisSprite;
+            shownSprite.GetComponent<SpriteRenderer>().sprite = showThisSprite;
     }
 
     //Create the emotions
@@ -61,13 +63,13 @@ public class EmotionList : MonoBehaviour
         happy = new Emotion("happy", 0, ":)", happySprite);
         emotions.Add(happy);
 
-        sad = new Emotion("sad", 1, ":(", sadSprite);
+        sad = new Emotion ("sad", 1, ":(", sadSprite);
         emotions.Add(sad);
 
-        angry = new Emotion("angry", 2, ">:(", angrySprite);
+        angry = new Emotion ("angry", 2, ">:(", angrySprite);
         emotions.Add(angry);
 
-        fearful = new Emotion("fearful", 3, ":{", fearfulSprite);
+        fearful = new Emotion ("fearful", 3, ":{", fearfulSprite);
         emotions.Add(fearful);
 
         surprised = new Emotion("surprised", 4, ":O", surprisedSprite);
@@ -125,7 +127,7 @@ public class EmotionList : MonoBehaviour
     {
         int number = emotion.GiveID();
         return number;
-
+        
     }
 
     //Get choose a random emotion

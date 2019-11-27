@@ -10,7 +10,7 @@ public class Tt_BattleButton : MonoBehaviour
     public string name;
     internal object onClick;
 
-    public EmotionListCopy emotionList;
+    public EmotionList emotionList;
     public BattleManager battleManager;
 
     protected bool endGame;

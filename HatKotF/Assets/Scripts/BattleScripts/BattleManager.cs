@@ -11,14 +11,13 @@ public class BattleManager : MonoBehaviour
     public Player player = new Player();
     public Enemy enemy = new Enemy();
     BattleButton battleButton; //this is the reference to the BattleButton script in the scene
-    public EmotionListCopy emotionList;
+    public EmotionList emotionList;
     public GameManager gameManager;
     public IdentifyWords identify;
     public Timer timer;
 
     //Buttonlists
     public GameObject emotionButtons; //reference to the parent object under which the emotion buttons are
-    public GameObject companionActions; //reference to companion buttons
     public GameObject menuButtons; //all buttons that are open when the battle starts ("main menu")
     public GameObject identifyMenu; //opens the identify-mini game.
 
@@ -83,12 +82,6 @@ public class BattleManager : MonoBehaviour
         emotionButtons.SetActive(true);
     }
 
-    public void PalClicked()
-    {
-        menuButtons.SetActive(false);
-        companionActions.SetActive(true);
-    }
-
     public void BackClicked()
     {
         happyButtons.SetActive(false);
@@ -98,7 +91,6 @@ public class BattleManager : MonoBehaviour
         surpriseButtons.SetActive(false);
         disgustButtons.SetActive(false);
         emotionButtons.SetActive(false);
-        companionActions.SetActive(false);
         identifyMenu.SetActive(false);
         menuButtons.SetActive(true);
     }
@@ -125,19 +117,12 @@ public class BattleManager : MonoBehaviour
         surpriseButtons.SetActive(false);
         disgustButtons.SetActive(false);
         emotionButtons.SetActive(false);
-        companionActions.SetActive(false);
         menuButtons.SetActive(false);
         identifyMenu.SetActive(true);
 
         identify.SpawnWords();
         timer.active = true;
         
-    }
-
-    public void HappyUnlock()
-    {
-        emotionButtons.SetActive(false);
-        happyButtons.SetActive(true);
     }
 
     public void BackToEmotions() //return from tier2 to tier1 list.

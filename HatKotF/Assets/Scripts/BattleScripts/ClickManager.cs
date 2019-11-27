@@ -7,6 +7,7 @@ public class ClickManager : MonoBehaviour
     public BattleManager battleManager;
     public Timer timer;
     public GameManager gameManager;
+    public EmotionList emotionList;
 
     [SerializeField]
     private ClickTarget[] targets;
@@ -36,6 +37,31 @@ public class ClickManager : MonoBehaviour
                 battleManager.BackClicked();
                 timer.timeLeft = timer.maxTime;
                 gameManager.UnlockTier();
+
+                if(emotionList.currentEmotionID == 1 && gameManager.happyUnlocked == false)
+                {
+                    gameManager.UnlockHappy();
+                }
+                if(emotionList.currentEmotionID == 2)
+                {
+                    gameManager.UnlockSad();
+                }
+                if (emotionList.currentEmotionID == 3)
+                {
+                    gameManager.UnlockAngry();
+                }
+                if (emotionList.currentEmotionID == 4)
+                {
+                    gameManager.UnlockSurprise();
+                }
+                if (emotionList.currentEmotionID == 5)
+                {
+                    gameManager.UnlockFear();
+                }
+                if (emotionList.currentEmotionID == 6)
+                {
+                    gameManager.UnlockDisgust();
+                }
             }
         }
         else
