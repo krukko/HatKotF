@@ -90,9 +90,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 directionToFollower = (follower.transform.position - transform.position).normalized;
         float dotproductOfDirectionToFollower = Vector3.Dot(directionToFollower, transform.forward);
 
-        if (dotproductOfDirectionToFollower > 0.9f)
+        if (dotproductOfDirectionToFollower > 0.4f)
         {
-            Debug.Log("moving towards follower");
             SetPlayerState(PLAYERSTATE.FOLLOW);
         }
 
@@ -175,6 +174,5 @@ public class PlayerMovement : MonoBehaviour
     public void SetFollower(Transform newFollower)
     {
         follower = newFollower;
-        Debug.Log("Follower set: " + follower.name);
     }
 }
