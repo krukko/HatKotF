@@ -95,9 +95,11 @@ public class FoxMovement : MonoBehaviour
             {
                 SetFoxState(FOXSTATES.SNEAK);
             }
-
+            else if (playerMovementScript.playerState == PLAYERSTATE.FOLLOW)
+            {
+                SetFoxState(FOXSTATES.EVADE);
+            }
         }
-
     }
 
     private void Follow()

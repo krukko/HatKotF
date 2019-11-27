@@ -79,11 +79,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Kettu_Run
-      takeName: Kettu_Run
+      name: Kettu_Armature|Kettu_Run
+      takeName: Kettu_Armature|Kettu_Run
       internalID: 5649927631477354792
-      firstFrame: -1
-      lastFrame: 79
+      firstFrame: 0
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -108,11 +108,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Kettu_SitDown
-      takeName: Kettu_SitDown
+      name: Kettu_Armature|Kettu_SitDown
+      takeName: Kettu_Armature|Kettu_SitDown
       internalID: 6984660083021476260
-      firstFrame: -1
-      lastFrame: 79
+      firstFrame: 0
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -137,11 +137,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Kettu_SitIdle
-      takeName: Kettu_SitIdle
+      name: Kettu_Armature|Kettu_SitIdle
+      takeName: Kettu_Armature|Kettu_SitIdle
       internalID: 2453451250761430857
-      firstFrame: -1
-      lastFrame: 239
+      firstFrame: 0
+      lastFrame: 240
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -195,11 +195,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Kettu_Walk
-      takeName: Kettu_Walk
+      name: Kettu_Armature|Kettu_Walk
+      takeName: Kettu_Armature|Kettu_Walk
       internalID: -1597120711009218663
-      firstFrame: -1
-      lastFrame: 79
+      firstFrame: 0
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
