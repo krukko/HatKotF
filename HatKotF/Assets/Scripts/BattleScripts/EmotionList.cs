@@ -81,23 +81,23 @@ public class EmotionList : MonoBehaviour
     //Give the emotions dialogue options
     public void NewDialogue()
     {
-        happy.AddDialogue("This works now.");
-        happy.AddDialogue("My code works!");
+        happy.AddDialogue("Don't worry. With my guidance, we'll get you home in no time.");
+        happy.AddDialogue("I'm the most cunning creature in this entire forest. Feel free to admire me.");
 
-        sad.AddDialogue("My code doesn't work...");
-        sad.AddDialogue("I don't have any more cookies.");
+        sad.AddDialogue("It's a shame you lost that treasure…");
+        sad.AddDialogue("Boy, what have I gotten myself into...");
 
-        angry.AddDialogue("My code doesn't work!!!!");
-        angry.AddDialogue("RAAAAAAAHHHHHHH!!!!");
+        angry.AddDialogue("When I finally catch the Rabbit, that fluffy cheater will get what's coming to him.");
+        angry.AddDialogue("Hey, I know perfectly well where we're going!");
 
-        fearful.AddDialogue("What if the code doesn't work?!");
-        fearful.AddDialogue("Did I leave the stove on?");
+        fearful.AddDialogue("Say, you haven't seen any bears around here, have you?");
+        fearful.AddDialogue("There are some pretty shady places between this forest and the King's palace...");
 
-        surprised.AddDialogue("It's Tuesday already?!");
-        surprised.AddDialogue("Someone is playing this?!");
+        surprised.AddDialogue("A black cat? You've seen one?");
+        surprised.AddDialogue("Did you just try to pet me?!");
 
-        disgusted.AddDialogue("This code is subpar!");
-        disgusted.AddDialogue("What an ugly screen.");
+        disgusted.AddDialogue("Did you know rowanberries taste terrible?");
+        disgusted.AddDialogue("I hope that daft Owl isn't anywhere nearby.");
     }
 
     //Get a dialogue line for chosen emotion
