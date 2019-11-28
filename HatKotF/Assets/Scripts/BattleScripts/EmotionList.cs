@@ -58,22 +58,22 @@ public class EmotionList : MonoBehaviour
     //Create the emotions
     public void NewEmotions()
     {
-        happy = new Emotion("happy", 0, ":)", happySprite);
+        happy = new Emotion("happy", 1, ":)", happySprite);
         emotions.Add(happy);
 
-        sad = new Emotion("sad", 1, ":(", sadSprite);
+        sad = new Emotion("sad", 2, ":(", sadSprite);
         emotions.Add(sad);
 
-        angry = new Emotion("angry", 2, ">:(", angrySprite);
+        angry = new Emotion("angry", 3, ">:(", angrySprite);
         emotions.Add(angry);
 
-        fearful = new Emotion("fearful", 3, ":{", fearfulSprite);
+        fearful = new Emotion("fearful", 4, ":{", fearfulSprite);
         emotions.Add(fearful);
 
-        surprised = new Emotion("surprised", 4, ":O", surprisedSprite);
+        surprised = new Emotion("surprised", 5, ":O", surprisedSprite);
         emotions.Add(surprised);
 
-        disgusted = new Emotion("disgusted", 5, "XP", disgustedSprite);
+        disgusted = new Emotion("disgusted", 6, "XP", disgustedSprite);
         emotions.Add(disgusted);
         //Debug.Log("Emotions created and added to list.");
     }
