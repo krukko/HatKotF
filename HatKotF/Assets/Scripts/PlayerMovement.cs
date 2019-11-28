@@ -65,18 +65,18 @@ public class PlayerMovement : MonoBehaviour
         {
             acceleration = walkingSpeed;
             SetPlayerState(PLAYERSTATE.WALK);
-        }
 
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            acceleration = runningSpeed;
-            SetPlayerState(PLAYERSTATE.RUN);
-        }
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            acceleration = slowWalkSpeed;
-            SetPlayerState(PLAYERSTATE.SNEAK);
-        }
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                acceleration = runningSpeed;
+                SetPlayerState(PLAYERSTATE.RUN);
+            }
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                acceleration = slowWalkSpeed;
+                SetPlayerState(PLAYERSTATE.SNEAK);
+            }
+        }      
 
         if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {

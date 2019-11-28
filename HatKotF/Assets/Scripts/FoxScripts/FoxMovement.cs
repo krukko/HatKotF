@@ -7,12 +7,13 @@ using UnityEngine.AI;
 public class FoxMovement : MonoBehaviour
 {
     private float speed;
-    private float distanceToPlayer;
+    private float distanceToTarget;
     public float sneakAnimationSpeed, walkAnimationSpeed;
     public float baseSpeed;
     public float followDistance;
     public float waitingDistance;
 
+    public LayerMask layerMask;
     public Vector3 offset;
     private Vector3 objectivePosition, followTargetPosition, evadeTargetPosition;
 
@@ -29,95 +30,67 @@ public class FoxMovement : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         targetToFollow.position = playerTransform.position + offset;
+        followTargetPosition = targetToFollow.position;
     }
 
     private void Update()
     {
-        distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
+        distanceToTarget = Vector3.Distance(playerTransform.position, transform.position);
 
-        if (distanceToPlayer > followDistance)
+        if (playerMovementScript.playerState == PLAYERSTATE.IDLE)
         {
-            if (playerMovementScript.playerState == PLAYERSTATE.IDLE)
+            if (distanceToTarget > waitingDistance)
             {
                 SetFoxState(FOXSTATES.MOVE_TO_IDLE);
             }
-            else if (playerMovementScript.playerState == PLAYERSTATE.WALK)
-            {
-                SetFoxState(FOXSTATES.WALK);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.RUN)
-            {
-                SetFoxState(FOXSTATES.RUN);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.SNEAK)
-            {
-                SetFoxState(FOXSTATES.WALK);
-            }
-        }
-        else if (distanceToPlayer > waitingDistance && distanceToPlayer < followDistance)
-        {
-            if (playerMovementScript.playerState == PLAYERSTATE.IDLE)
-            {
-                SetFoxState(FOXSTATES.MOVE_TO_IDLE);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.WALK)
-            {
-                SetFoxState(FOXSTATES.WALK);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.RUN)
-            {
-                SetFoxState(FOXSTATES.RUN);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.SNEAK)
-            {
-                SetFoxState(FOXSTATES.SNEAK);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.FOLLOW)
-            {
-                SetFoxState(FOXSTATES.EVADE);
-            }
-        }
-        else if (distanceToPlayer < waitingDistance)
-        {
-            if (playerMovementScript.playerState == PLAYERSTATE.IDLE)
+            else
             {
                 SetFoxState(FOXSTATES.IDLE);
             }
-            else if (playerMovementScript.playerState == PLAYERSTATE.WALK)
-            {
-                SetFoxState(FOXSTATES.WALK);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.RUN)
-            {
-                SetFoxState(FOXSTATES.RUN);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.SNEAK)
-            {
-                SetFoxState(FOXSTATES.SNEAK);
-            }
-            else if (playerMovementScript.playerState == PLAYERSTATE.FOLLOW)
+        }
+        else if (playerMovementScript.playerState == PLAYERSTATE.WALK)
+        {
+            SetFoxState(FOXSTATES.WALK);
+        }
+        else if (playerMovementScript.playerState == PLAYERSTATE.RUN)
+        {
+            SetFoxState(FOXSTATES.RUN);
+        }
+        else if (playerMovementScript.playerState == PLAYERSTATE.SNEAK)
+        {
+            SetFoxState(FOXSTATES.SNEAK);
+        }
+        else if (playerMovementScript.playerState == PLAYERSTATE.FOLLOW)
+        {
+            if (playerMovementScript.playerState != PLAYERSTATE.IDLE)
             {
                 SetFoxState(FOXSTATES.EVADE);
+            }
+            else
+            {
+                SetFoxState(FOXSTATES.IDLE);
             }
         }
 
         CheckState();
-            
-        if(foxState == FOXSTATES.WALK || foxState == FOXSTATES.RUN || foxState == FOXSTATES.SNEAK)
+
+        if (foxState == FOXSTATES.WALK || foxState == FOXSTATES.RUN || foxState == FOXSTATES.SNEAK)
         {
-            evadeTargetPosition = Vector3.zero;
-            if(targetToFollow.position != playerTransform.position + offset)
+            if(evadeTargetPosition != Vector3.zero)
             {
-                targetToFollow.position = playerTransform.position + offset;
+                print("setting position");
+                evadeTargetPosition = Vector3.zero;
+                targetToFollow.position = playerTransform.TransformPoint(Vector3.right * offset.x) + playerTransform.TransformPoint(Vector3.forward * offset.z);
             }
+
             Follow();
         }
-        else if(foxState == FOXSTATES.MOVE_TO_IDLE)
+        else if (foxState == FOXSTATES.MOVE_TO_IDLE)
         {
             evadeTargetPosition = Vector3.zero;
             MoveToIdle();
         }
-        else if(foxState == FOXSTATES.EVADE)
+        else if (foxState == FOXSTATES.EVADE)
         {
             Evade();
         }
@@ -129,6 +102,7 @@ public class FoxMovement : MonoBehaviour
         {
             case FOXSTATES.IDLE:
                 animator.SetBool("isWalking", false);
+                animator.SetBool("isRunning", false);
                 animator.SetBool("isWaiting", true);
                 break;
             case FOXSTATES.WALK:
@@ -155,7 +129,7 @@ public class FoxMovement : MonoBehaviour
                 break;
             case FOXSTATES.EVADE:
                 animator.SetBool("isWalking", true);
-                animator.SetBool("isRunning", false);
+                animator.SetBool("isRunning", true);
                 animator.SetBool("isWaiting", false);
                 animator.SetFloat("speedMultiplier", walkAnimationSpeed);
                 break;
@@ -164,14 +138,26 @@ public class FoxMovement : MonoBehaviour
 
     private void Follow()
     {
-        speed = playerMovementScript.GetAcceleration() + baseSpeed;
+        if(foxState != FOXSTATES.EVADE)
+        {
+            speed = playerMovementScript.GetAcceleration() + baseSpeed;
+        }
+        else
+        {
+            speed = baseSpeed * 2;
+        }
 
         transform.LookAt(targetToFollow);
 
-        if (distanceToPlayer > waitingDistance)
+        if (Vector3.Distance(transform.position, targetToFollow.position) > waitingDistance)
         {
             Vector3 directionNormalized = (targetToFollow.position - transform.position).normalized;
             transform.position = transform.position + directionNormalized * speed * Time.deltaTime;
+        }
+        else
+        {
+            SetFoxState(FOXSTATES.IDLE);
+            CheckState();
         }
     }
 
@@ -184,7 +170,7 @@ public class FoxMovement : MonoBehaviour
         Vector3 newRotationDirection = Vector3.RotateTowards(transform.forward, waitingPosition - transform.position, 2 * Time.deltaTime, 0.0f);
         transform.rotation = Quaternion.LookRotation(newRotationDirection);
 
-        if (distanceToPlayer > waitingDistance && distanceToPlayer < followDistance)
+        if (distanceToTarget > waitingDistance && distanceToTarget < followDistance)
         {
             transform.position = waitingPosition;
             transform.LookAt(waitingPosition);
@@ -192,21 +178,31 @@ public class FoxMovement : MonoBehaviour
         else
         {
             SetFoxState(FOXSTATES.IDLE);
+            CheckState();
         }
     }
 
     private void Evade()
     {
-        if(evadeTargetPosition == Vector3.zero)
+        if (evadeTargetPosition == Vector3.zero)
         {
-            //check if targeted area is low enough for fox to walk
-            //check that targeted area is above ground
+            objectivePosition = objective.transform.position;
+            Vector3 objectiveDirection = (objectivePosition - transform.position).normalized;
+            Vector3 evadePosition = transform.position + (objectiveDirection * 10f);
 
-            Vector3 evadePosition = Random.insideUnitSphere * 15 + transform.position;
-            evadePosition.y = 2;
+            Ray ray = new Ray(targetToFollow.position + Vector3.up * 50, Vector3.down);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            {
+                evadePosition.y = hit.point.y + 2;
+            }
+
             evadeTargetPosition = evadePosition;
-            targetToFollow.position = evadePosition;
-        } 
+            targetToFollow.position = evadeTargetPosition;
+        }
+
+        Follow();
     }
 
     private void SetFoxState(FOXSTATES newFoxState)
@@ -214,6 +210,6 @@ public class FoxMovement : MonoBehaviour
         if (foxState != newFoxState)
         {
             foxState = newFoxState;
-        }   
+        }
     }
 }

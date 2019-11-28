@@ -1510,7 +1510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299802470}
   m_LocalRotation: {x: 0.49237317, y: -0, z: -0, w: 0.8703842}
-  m_LocalPosition: {x: -152.5, y: -28.71, z: -0.27}
+  m_LocalPosition: {x: -189.25, y: 5.65, z: 3.76}
   m_LocalScale: {x: 8.55, y: 12.16, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1824,7 +1824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1615628454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2484,6 +2484,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartPos
       objectReference: {fileID: 0}
+    - target: {fileID: 5636133372680570265, guid: 929d0f1c81390cb4998918b14443f9fa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4005466317458467195, guid: 929d0f1c81390cb4998918b14443f9fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2694,17 +2699,32 @@ PrefabInstance:
       objectReference: {fileID: 1299802470}
     - target: {fileID: 3600796709833138950, guid: 48ce9ca10f653c146bf02d94def00dc6,
         type: 3}
-      propertyPath: offset.x
-      value: 9
+      propertyPath: layerMask.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 3600796709833138950, guid: 48ce9ca10f653c146bf02d94def00dc6,
         type: 3}
-      propertyPath: offset.y
-      value: 1.5
+      propertyPath: followDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600796709833138950, guid: 48ce9ca10f653c146bf02d94def00dc6,
+        type: 3}
+      propertyPath: waitingDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600796709833138950, guid: 48ce9ca10f653c146bf02d94def00dc6,
+        type: 3}
+      propertyPath: offset.x
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3600796709833138950, guid: 48ce9ca10f653c146bf02d94def00dc6,
         type: 3}
       propertyPath: offset.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600796709833138950, guid: 48ce9ca10f653c146bf02d94def00dc6,
+        type: 3}
+      propertyPath: offset.y
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
