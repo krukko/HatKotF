@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour
     public GameManager gameManager;
     public IdentifyWords identify;
     public Timer timer;
+    public EmotionList CatEmotionList;
 
     public GameObject emoList;
 

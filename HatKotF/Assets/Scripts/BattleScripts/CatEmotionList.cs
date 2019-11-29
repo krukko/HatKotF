@@ -7,138 +7,138 @@ using UnityEngine.UI;
 
 public class CatEmotionList : MonoBehaviour
 {
-    //public List<Emotion> emotions = new List<Emotion>();
+    public List<Emotion> emotions = new List<Emotion>();
 
-    //public Emotion happy;
-    //public Emotion sad;
-    //public Emotion angry;
-    //public Emotion fearful;
-    //public Emotion surprised;
-    //public Emotion disgusted;
+    public Emotion happy;
+    public Emotion sad;
+    public Emotion angry;
+    public Emotion fearful;
+    public Emotion surprised;
+    public Emotion disgusted;
 
-    //public Sprite happySprite;
-    //public Sprite sadSprite;
-    //public Sprite angrySprite;
-    //public Sprite fearfulSprite;
-    //public Sprite surprisedSprite;
-    //public Sprite disgustedSprite;
+    public Sprite happySprite;
+    public Sprite sadSprite;
+    public Sprite angrySprite;
+    public Sprite fearfulSprite;
+    public Sprite surprisedSprite;
+    public Sprite disgustedSprite;
 
-    //public GameObject shownSprite;
+    public GameObject shownSprite;
 
-    //public Text dialogueText;
-    //public Text faceText;
+    public Text dialogueText;
+    public Text faceText;
 
-    //public int currentEmotionID;
+    public int currentEmotionID;
 
-    //BattleManager battleManager;
+    BattleManager battleManager;
 
-    //void Start()
-    //{
-    //    NewEmotions();
-    //    NewDialogue();
+    void Start()
+    {
+        NewEmotions();
+        NewDialogue();
 
-    //    GameRoundEmotions();
-    //}
+        GameRoundEmotions();
+    }
 
-    //public void GameRoundEmotions()
-    //{
-    //    Emotion randomEmotion = EmotionRandomiser();
-    //    currentEmotionID = GiveID(randomEmotion);
+    public void GameRoundEmotions()
+    {
+        Emotion randomEmotion = EmotionRandomiser();
+        currentEmotionID = GiveID(randomEmotion);
 
-    //    string printLine = GiveDialogue(randomEmotion);
-    //    string printFace = GiveExpression(randomEmotion);
-    //    string printNro = GiveID(randomEmotion).ToString();
+        string printLine = GiveDialogue(randomEmotion);
+        string printFace = GiveExpression(randomEmotion);
+        string printNro = GiveID(randomEmotion).ToString();
 
-    //    dialogueText.text = printLine;
-    //    //faceText.text = printFace;
+        dialogueText.text = printLine;
+        //faceText.text = printFace;
 
-    //    Sprite showThisSprite = GiveFace(randomEmotion);
-    //    shownSprite.GetComponent<Image>().sprite = showThisSprite;
-    //    //shownSprite.GetComponent<SpriteRenderer>().sprite = showThisSprite;
-    //}
+        Sprite showThisSprite = GiveFace(randomEmotion);
+        shownSprite.GetComponent<Image>().sprite = showThisSprite;
+        //shownSprite.GetComponent<SpriteRenderer>().sprite = showThisSprite;
+    }
 
-    ////Create the emotions
-    //public void NewEmotions()
-    //{
-    //    happy = new Emotion("happy", 0, ":)", happySprite);
-    //    emotions.Add(happy);
+    //Create the emotions
+    public void NewEmotions()
+    {
+        happy = new Emotion("happy", 1, ":)", happySprite);
+        emotions.Add(happy);
 
-    //    sad = new Emotion("sad", 1, ":(", sadSprite);
-    //    emotions.Add(sad);
+        sad = new Emotion("sad", 2, ":(", sadSprite);
+        emotions.Add(sad);
 
-    //    angry = new Emotion("angry", 2, ">:(", angrySprite);
-    //    emotions.Add(angry);
+        angry = new Emotion("angry", 3, ">:(", angrySprite);
+        emotions.Add(angry);
 
-    //    fearful = new Emotion("fearful", 3, ":{", fearfulSprite);
-    //    emotions.Add(fearful);
+        fearful = new Emotion("fearful", 4, ":{", fearfulSprite);
+        emotions.Add(fearful);
 
-    //    surprised = new Emotion("surprised", 4, ":O", surprisedSprite);
-    //    emotions.Add(surprised);
+        surprised = new Emotion("surprised", 5, ":O", surprisedSprite);
+        emotions.Add(surprised);
 
-    //    disgusted = new Emotion("disgusted", 5, "XP", disgustedSprite);
-    //    emotions.Add(disgusted);
-    //    //Debug.Log("Emotions created and added to list.");
-    //}
+        disgusted = new Emotion("disgusted", 6, "XP", disgustedSprite);
+        emotions.Add(disgusted);
+        //Debug.Log("Emotions created and added to list.");
+    }
 
-    ////Give the emotions dialogue options
-    //public void NewDialogue()
-    //{
-    //    happy.AddDialogue("This works now.");
-    //    happy.AddDialogue("My code works!");
+    //Give the emotions dialogue options
+    public void NewDialogue()
+    {
+        happy.AddDialogue("Yup, I’m a witch’s familiar. The real deal.");
+        happy.AddDialogue("I’m just runnin’ this treasure errand for an old friend.");
 
-    //    sad.AddDialogue("My code doesn't work...");
-    //    sad.AddDialogue("I don't have any more cookies.");
+        sad.AddDialogue("I can’t help ya with the treasure nor the curse, kid.");
+        sad.AddDialogue("No one has managed to find that treasure yet, so don’t feel too bad.");
 
-    //    angry.AddDialogue("My code doesn't work!!!!");
-    //    angry.AddDialogue("RAAAAAAAHHHHHHH!!!!");
+        angry.AddDialogue("I didn’t run off! You’re the one who stopped followin’ me!");
+        angry.AddDialogue("Don’t blame me! Ya were told not to look back!");
 
-    //    fearful.AddDialogue("What if the code doesn't work?!");
-    //    fearful.AddDialogue("Did I leave the stove on?");
+        fearful.AddDialogue("My master doesn’t actually know I’m here.");
+        fearful.AddDialogue("Cats like me don’t have many other places to go.");
 
-    //    surprised.AddDialogue("It's Tuesday already?!");
-    //    surprised.AddDialogue("Someone is playing this?!");
+        surprised.AddDialogue("Ya heard voices on the field? But there was nobody there.");
+        surprised.AddDialogue("Ya got cursed? Well, that’s what you get for not listenin’ to directions.");
 
-    //    disgusted.AddDialogue("This code is subpar!");
-    //    disgusted.AddDialogue("What an ugly screen.");
-    //}
+        disgusted.AddDialogue("Humans don’t usually treat my kind that well.");
+        disgusted.AddDialogue("Oh I’m bad luck? The bad luck is sittin’ right next to ya!");
+    }
 
-    ////Get a dialogue line for chosen emotion
-    //public string GiveDialogue(Emotion emotion)
-    //{
-    //    string givenDialogue = emotion.GiveLine();
-    //    return givenDialogue;
-    //}
+    //Get a dialogue line for chosen emotion
+    public string GiveDialogue(Emotion emotion)
+    {
+        string givenDialogue = emotion.GiveLine();
+        return givenDialogue;
+    }
 
-    ////Get a face for chosen emotion
-    //public string GiveExpression(Emotion emotion)
-    //{
-    //    string givenExpression = emotion.GiveFace();
-    //    return givenExpression;
-    //}
+    //Get a face for chosen emotion
+    public string GiveExpression(Emotion emotion)
+    {
+        string givenExpression = emotion.GiveFace();
+        return givenExpression;
+    }
 
-    //public Sprite GiveFace(Emotion emotion)
-    //{
-    //    Sprite givenFace = emotion.ReturnSprite();
-    //    return givenFace;
-    //}
+    public Sprite GiveFace(Emotion emotion)
+    {
+        Sprite givenFace = emotion.ReturnSprite();
+        return givenFace;
+    }
 
-    ////Get ID number for chosen emotion
-    //public int GiveID(Emotion emotion)
-    //{
-    //    int number = emotion.GiveID();
-    //    return number;
+    //Get ID number for chosen emotion
+    public int GiveID(Emotion emotion)
+    {
+        int number = emotion.GiveID();
+        return number;
 
-    //}
+    }
 
-    ////Get choose a random emotion
-    //public Emotion EmotionRandomiser()
-    //{
-    //    Emotion chosenEmotion = emotions[Random.Range(0, emotions.Count)];
-    //    return chosenEmotion;
-    //}
+    //Get choose a random emotion
+    public Emotion EmotionRandomiser()
+    {
+        Emotion chosenEmotion = emotions[Random.Range(0, emotions.Count)];
+        return chosenEmotion;
+    }
 
-    //public void OnResetClick()
-    //{
-    //    Start();
-    //}
+    public void OnResetClick()
+    {
+        Start();
+    }
 }
