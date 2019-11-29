@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManager : MonoBehaviour
+public class NewSceneSwitch : MonoBehaviour
 {
     public bool foxFight;
     public bool catFight;
     public bool tonttuFight;
     public bool neitoFight;
 
-    void ChooseScene(Collider ChangeScene)
+    void OnTriggerEnter(Collider ChangeScene)
     {
+        Debug.Log("I'm functional!");
         if (ChangeScene.gameObject.CompareTag("Player"))
         {
 
@@ -21,14 +22,12 @@ public class SceneManager : MonoBehaviour
             }
             if (catFight)
             {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("CatBattleScene");
             }
             if (tonttuFight)
             {
                 Debug.Log("Ya done goofed.");
             }
         }
-        
     }
-
 }

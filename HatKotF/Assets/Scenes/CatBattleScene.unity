@@ -847,7 +847,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 6
   name: Disgusted
-  emotionList: {fileID: 0}
+  tierTwo: 0
+  emotionList: {fileID: 569894007}
   battleManager: {fileID: 1698897372}
   gameManager: {fileID: 295387876}
   resetButton: {fileID: 368598854}
@@ -1282,7 +1283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 4
   name: Fearful
-  emotionList: {fileID: 0}
+  tierTwo: 0
+  emotionList: {fileID: 569894007}
   battleManager: {fileID: 1698897372}
   gameManager: {fileID: 295387876}
   resetButton: {fileID: 761360514}
@@ -2484,6 +2486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   name: Return
+  tierTwo: 0
   emotionList: {fileID: 0}
   battleManager: {fileID: 1698897372}
   gameManager: {fileID: 0}
@@ -2640,7 +2643,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2
   name: Sad
-  emotionList: {fileID: 0}
+  tierTwo: 0
+  emotionList: {fileID: 569894007}
   battleManager: {fileID: 1698897372}
   gameManager: {fileID: 295387876}
   resetButton: {fileID: 368598854}
@@ -2796,7 +2800,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 3
   name: Angry
-  emotionList: {fileID: 0}
+  tierTwo: 0
+  emotionList: {fileID: 569894007}
   battleManager: {fileID: 1698897372}
   gameManager: {fileID: 295387876}
   resetButton: {fileID: 368598854}
@@ -3501,7 +3506,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 569894003}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cbfb5cef7e2b424b84de2255c40b723, type: 3}
+  m_Script: {fileID: 11500000, guid: 110e77eb33763a447aa8a0f7fb24e42e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   emotions: []
@@ -3521,6 +3526,9 @@ MonoBehaviour:
   dialogueText: {fileID: 2141462860}
   faceText: {fileID: 0}
   currentEmotionID: 0
+  foxFight: 0
+  catFight: 1
+  tonttuFight: 0
 --- !u!1001 &593683957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4446,7 +4454,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 5
   name: Surprised
-  emotionList: {fileID: 0}
+  tierTwo: 0
+  emotionList: {fileID: 569894007}
   battleManager: {fileID: 1698897372}
   gameManager: {fileID: 295387876}
   resetButton: {fileID: 368598854}
@@ -5616,6 +5625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 21
   name: Proud
+  tierTwo: 0
   emotionList: {fileID: 0}
   battleManager: {fileID: 1698897372}
   gameManager: {fileID: 0}
@@ -6034,6 +6044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   name: back
+  tierTwo: 0
   emotionList: {fileID: 0}
   battleManager: {fileID: 1698897372}
   gameManager: {fileID: 0}
@@ -7510,6 +7521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 5
   name: Disgusted
+  tierTwo: 0
   emotionList: {fileID: 0}
   battleManager: {fileID: 1698897372}
   gameManager: {fileID: 0}
@@ -9426,7 +9438,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 1
   name: Happy
-  emotionList: {fileID: 0}
+  tierTwo: 0
+  emotionList: {fileID: 569894007}
   battleManager: {fileID: 1698897372}
   gameManager: {fileID: 295387876}
   resetButton: {fileID: 942199560}
@@ -10600,7 +10613,7 @@ MonoBehaviour:
   battleManager: {fileID: 1698897372}
   timer: {fileID: 1591704595}
   gameManager: {fileID: 295387876}
-  emotionList: {fileID: 0}
+  emotionList: {fileID: 569894007}
   targets:
   - {fileID: 997062887}
   - {fileID: 286518106}
@@ -10995,7 +11008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 687343118}
   enemy: {fileID: 1082380468}
-  emotionList: {fileID: 0}
+  emotionList: {fileID: 569894007}
   gameManager: {fileID: 295387876}
   identify: {fileID: 1698897374}
   timer: {fileID: 1591704595}
@@ -11012,6 +11025,9 @@ MonoBehaviour:
   damageModifier: 1
   isBoss: 0
   battleTier: 1
+  foxFight: 0
+  catFight: 0
+  tonttuFight: 0
 --- !u!4 &1698897373
 Transform:
   m_ObjectHideFlags: 0

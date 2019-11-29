@@ -123,23 +123,23 @@ public class EmotionList : MonoBehaviour
 
     public void CatNewDialogue()
     {
-        happy.AddDialogue("Don't worry. With my guidance, we'll get you home in no time.");
-        happy.AddDialogue("I'm the most cunning creature in this entire forest. Feel free to admire me.");
+        happy.AddDialogue("Yup, I’m a witch’s familiar. The real deal.");
+        happy.AddDialogue("I’m just runnin’ this treasure errand for an old friend.");
 
-        sad.AddDialogue("It's a shame you lost that treasure…");
-        sad.AddDialogue("Boy, what have I gotten myself into...");
+        sad.AddDialogue("I can’t help ya with the treasure nor the curse, kid.");
+        sad.AddDialogue("No one has managed to find that treasure yet, so don’t feel too bad.");
 
-        angry.AddDialogue("When I finally catch the Rabbit, that fluffy cheater will get what's coming to him.");
-        angry.AddDialogue("Hey, I know perfectly well where we're going!");
+        angry.AddDialogue("I didn’t run off! You’re the one who stopped followin’ me!");
+        angry.AddDialogue("Don’t blame me! Ya were told not to look back!");
 
-        fearful.AddDialogue("Say, you haven't seen any bears around here, have you?");
-        fearful.AddDialogue("There are some pretty shady places between this forest and the King's palace...");
+        fearful.AddDialogue("My master doesn’t actually know I’m here.");
+        fearful.AddDialogue("Cats like me don’t have many other places to go.");
 
-        surprised.AddDialogue("A black cat? You've seen one?");
-        surprised.AddDialogue("Did you just try to pet me?!");
+        surprised.AddDialogue("Ya heard voices on the field? But there was nobody there.");
+        surprised.AddDialogue("Ya got cursed? Well, that’s what you get for not listenin’ to directions.");
 
-        disgusted.AddDialogue("Did you know rowanberries taste terrible?");
-        disgusted.AddDialogue("I hope that daft Owl isn't anywhere nearby.");
+        disgusted.AddDialogue("Humans don’t usually treat my kind that well.");
+        disgusted.AddDialogue("Oh I’m bad luck? The bad luck is sittin’ right next to ya!");
     }
 
     public void TonttuNewDialogue()
