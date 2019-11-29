@@ -30,12 +30,32 @@ public class EmotionList : MonoBehaviour
 
     BattleManager battleManager;
 
+    public bool foxFight;
+    public bool catFight;
+    public bool tonttuFight;
+
     void Start()
     {
         NewEmotions();
-        NewDialogue();
+        ChooseDialogue();
 
         GameRoundEmotions();
+    }
+
+    public void ChooseDialogue()
+    {
+        if (foxFight)
+        {
+            FoxNewDialogue();
+        }
+        if (catFight)
+        {
+            CatNewDialogue();
+        }
+        if (tonttuFight)
+        {
+            TonttuNewDialogue();
+        }
     }
 
     public void GameRoundEmotions()
@@ -58,28 +78,71 @@ public class EmotionList : MonoBehaviour
     //Create the emotions
     public void NewEmotions()
     {
-        happy = new Emotion("happy", 0, ":)", happySprite);
+        happy = new Emotion("happy", 1, ":)", happySprite, false);
         emotions.Add(happy);
 
-        sad = new Emotion("sad", 1, ":(", sadSprite);
+        sad = new Emotion("sad", 2, ":(", sadSprite, false);
         emotions.Add(sad);
 
-        angry = new Emotion("angry", 2, ">:(", angrySprite);
+        angry = new Emotion("angry", 3, ">:(", angrySprite, false);
         emotions.Add(angry);
 
-        fearful = new Emotion("fearful", 3, ":{", fearfulSprite);
+        fearful = new Emotion("fearful", 4, ":{", fearfulSprite, false);
         emotions.Add(fearful);
 
-        surprised = new Emotion("surprised", 4, ":O", surprisedSprite);
+        surprised = new Emotion("surprised", 5, ":O", surprisedSprite, false);
         emotions.Add(surprised);
 
-        disgusted = new Emotion("disgusted", 5, "XP", disgustedSprite);
+        disgusted = new Emotion("disgusted", 6, "XP", disgustedSprite, false);
         emotions.Add(disgusted);
         //Debug.Log("Emotions created and added to list.");
     }
 
     //Give the emotions dialogue options
-    public void NewDialogue()
+    public void FoxNewDialogue()
+    {
+        happy.AddDialogue("Don't worry. With my guidance, we'll get you home in no time.");
+        happy.AddDialogue("I'm the most cunning creature in this entire forest. Feel free to admire me.");
+
+        sad.AddDialogue("It's a shame you lost that treasure…");
+        sad.AddDialogue("Boy, what have I gotten myself into...");
+
+        angry.AddDialogue("When I finally catch the Rabbit, that fluffy cheater will get what's coming to him.");
+        angry.AddDialogue("Hey, I know perfectly well where we're going!");
+
+        fearful.AddDialogue("Say, you haven't seen any bears around here, have you?");
+        fearful.AddDialogue("There are some pretty shady places between this forest and the King's palace...");
+
+        surprised.AddDialogue("A black cat? You've seen one?");
+        surprised.AddDialogue("Did you just try to pet me?!");
+
+        disgusted.AddDialogue("Did you know rowanberries taste terrible?");
+        disgusted.AddDialogue("I hope that daft Owl isn't anywhere nearby.");
+    }
+
+
+    public void CatNewDialogue()
+    {
+        happy.AddDialogue("Don't worry. With my guidance, we'll get you home in no time.");
+        happy.AddDialogue("I'm the most cunning creature in this entire forest. Feel free to admire me.");
+
+        sad.AddDialogue("It's a shame you lost that treasure…");
+        sad.AddDialogue("Boy, what have I gotten myself into...");
+
+        angry.AddDialogue("When I finally catch the Rabbit, that fluffy cheater will get what's coming to him.");
+        angry.AddDialogue("Hey, I know perfectly well where we're going!");
+
+        fearful.AddDialogue("Say, you haven't seen any bears around here, have you?");
+        fearful.AddDialogue("There are some pretty shady places between this forest and the King's palace...");
+
+        surprised.AddDialogue("A black cat? You've seen one?");
+        surprised.AddDialogue("Did you just try to pet me?!");
+
+        disgusted.AddDialogue("Did you know rowanberries taste terrible?");
+        disgusted.AddDialogue("I hope that daft Owl isn't anywhere nearby.");
+    }
+
+    public void TonttuNewDialogue()
     {
         happy.AddDialogue("Don't worry. With my guidance, we'll get you home in no time.");
         happy.AddDialogue("I'm the most cunning creature in this entire forest. Feel free to admire me.");
@@ -125,7 +188,6 @@ public class EmotionList : MonoBehaviour
     {
         int number = emotion.GiveID();
         return number;
-
     }
 
     //Get choose a random emotion
@@ -133,6 +195,13 @@ public class EmotionList : MonoBehaviour
     {
         Emotion chosenEmotion = emotions[Random.Range(0, emotions.Count)];
         return chosenEmotion;
+    }
+
+    //add the tier2 bool returning.
+    public bool GiveTier(Emotion emotion)
+    {
+        bool newTier = emotion.GiveBool();
+        return newTier;
     }
 
     public void OnResetClick()

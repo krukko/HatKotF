@@ -10,13 +10,15 @@ public class Emotion : MonoBehaviour
     List<string> dialogue = new List<string>();
     string face;
     Sprite expression;
+    bool tierTwo;
 
-    public Emotion(string newName, int newID, string newFace, Sprite sprite)
+    public Emotion(string newName, int newID, string newFace, Sprite sprite, bool highEmotion)
     {
         this.name = newName;
         this.ID = newID;
         this.face = newFace;
         this.expression = sprite;
+        this.tierTwo = highEmotion;
     }
 
     public void AddDialogue(string newDialogue)
@@ -48,5 +50,10 @@ public class Emotion : MonoBehaviour
     {
         string givenLine = dialogue[Random.Range(0, dialogue.Count)];
         return givenLine;
+    }
+
+    public bool GiveBool()
+    {
+        return tierTwo;
     }
 }

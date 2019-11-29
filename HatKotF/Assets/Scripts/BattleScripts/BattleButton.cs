@@ -13,6 +13,7 @@ public class BattleButton : MonoBehaviour
     public int ID;
     public string name;
     internal object onClick;
+    public bool tierTwo;
     
     public EmotionList emotionList;
     public BattleManager battleManager;
@@ -56,12 +57,17 @@ public class BattleButton : MonoBehaviour
         return this.name;
     }
 
+    public bool giveTier()
+    {
+        return this.tierTwo;
+    }
+
     //for calculating the base emotion in tier2
     public int TakeNDigits(int emotionID, int N)
     {
         //N = NofDigits;
         //emotionID = emotionList.currentEmotionID;
-
+        
         if (emotionList.currentEmotionID <= N)
         {
             return (int)Mathf.FloorToInt((emotionList.currentEmotionID / Mathf.Pow(10, N - N)));

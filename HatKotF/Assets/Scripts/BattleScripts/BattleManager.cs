@@ -1,5 +1,5 @@
 ﻿//This script is looking over the general status of the battle, such as Win/Loss/Reset/Damage,
-//as well as looking after the choice buttons. Buttons might be moved to their own manager later on.
+//as well as looking after the choice buttons.
 
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +15,8 @@ public class BattleManager : MonoBehaviour
     public GameManager gameManager;
     public IdentifyWords identify;
     public Timer timer;
+
+    public GameObject emoList;
 
     //Buttonlists
     public GameObject emotionButtons; //reference to the parent object under which the emotion buttons are
@@ -33,6 +35,10 @@ public class BattleManager : MonoBehaviour
     public float damageModifier = 1.0f;
     public bool isBoss;
     public int battleTier = 1;
+
+    public bool foxFight;
+    public bool catFight;
+    public bool tonttuFight;
 
     public void Start()
     {

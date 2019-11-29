@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class DialogueShower : MonoBehaviour
 {
-    public OldEmotionList emotionList = new OldEmotionList();
+    public EmotionList emotionList = new EmotionList();
     public Text dialogueText;
 
     public void Start()
     {
         emotionList.NewEmotions();
-        emotionList.NewDialogue();
+        emotionList.ChooseDialogue();
     }
 }

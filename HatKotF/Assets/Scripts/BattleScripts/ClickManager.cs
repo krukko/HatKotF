@@ -38,6 +38,8 @@ public class ClickManager : MonoBehaviour
                 timer.timeLeft = timer.maxTime;
                 gameManager.UnlockTier();
 
+                
+
                 if(emotionList.currentEmotionID == 1 && gameManager.happyUnlocked == false)
                 {
                     gameManager.UnlockHappy();
