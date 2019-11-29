@@ -9,9 +9,10 @@ public class CatBehavior : MonoBehaviour
     public int wayPointAmount;
 
     public float waitTime;
-    public float walkingSpeed, runningSpeed, speed;
+    public float walkingSpeed, runningSpeed;
+    private float speed;
 
-    private bool isWaiting = false, isAtWaypoint = true;
+    private bool isWaiting = false;
 
     public Transform waypointMarker;
     public Transform startingPoint;
@@ -26,13 +27,10 @@ public class CatBehavior : MonoBehaviour
 
         waypointPositions = new Vector3[wayPointAmount];
         waypointPositions[0] = startingPoint.position;
+       
         SetWaypoints();
-
-        currentWaypoint = 0;
-
         SetState(CATSTATES.SIT);
         SetAnimations();
-        Debug.Log("cat sits starting: " + Time.time);
     }
 
     private void Update()
@@ -58,6 +56,8 @@ public class CatBehavior : MonoBehaviour
 
             Instantiate(waypointMarker, waypointPositions[i], Quaternion.identity);
         }
+
+        currentWaypoint = 0;
     }
 
     private void SetState(CATSTATES newState)
@@ -78,11 +78,13 @@ public class CatBehavior : MonoBehaviour
                 catAnimator.SetBool("isRunning", false);
                 break;
             case CATSTATES.WALK:
+                speed = walkingSpeed;
                 catAnimator.SetBool("isWaiting", false);
                 catAnimator.SetBool("isWalking", true);
                 catAnimator.SetBool("isRunning", false);
                 break;
             case CATSTATES.RUN:
+                speed = runningSpeed;
                 catAnimator.SetBool("isWalking", true);
                 catAnimator.SetBool("isRunning", true);
                 break;

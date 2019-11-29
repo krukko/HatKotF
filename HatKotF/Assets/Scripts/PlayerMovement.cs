@@ -168,7 +168,6 @@ public class PlayerMovement : MonoBehaviour
             case PLAYERSTATE.JUMP:
                 break;
             case PLAYERSTATE.FOLLOW:
-                print("following");
                 break;
         }
     }
