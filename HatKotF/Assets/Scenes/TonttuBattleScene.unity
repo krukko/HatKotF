@@ -3526,9 +3526,9 @@ MonoBehaviour:
   dialogueText: {fileID: 2141462860}
   faceText: {fileID: 0}
   currentEmotionID: 0
-  foxFight: 1
+  foxFight: 0
   catFight: 0
-  tonttuFight: 0
+  tonttuFight: 1
 --- !u!1001 &593683957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9567,13 +9567,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370531823}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 15.900001}
   m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children: []
   m_Father: {fileID: 1114728847}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 274.9, y: -56.4}
@@ -9599,7 +9599,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 69a01cbae02655e4e9c277ed6399837d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9c568b4a5874189489c26215db879eaa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11027,7 +11027,7 @@ MonoBehaviour:
   battleTier: 1
   foxFight: 0
   catFight: 0
-  tonttuFight: 0
+  tonttuFight: 1
 --- !u!4 &1698897373
 Transform:
   m_ObjectHideFlags: 0
