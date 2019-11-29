@@ -8,6 +8,7 @@ public class ClickManager : MonoBehaviour
     public Timer timer;
     public GameManager gameManager;
     public EmotionList emotionList;
+    public CatEmotionList catEmotion;
 
     [SerializeField]
     private ClickTarget[] targets;

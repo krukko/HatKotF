@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour
     public GameManager gameManager;
     public IdentifyWords identify;
     public Timer timer;
+    public EmotionList CatEmotionList;
 
     //Buttonlists
     public GameObject emotionButtons; //reference to the parent object under which the emotion buttons are
