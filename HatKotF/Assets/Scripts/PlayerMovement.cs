@@ -156,10 +156,13 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetFloat("speedMultiplier", inputVertical);
                 break;
             case PLAYERSTATE.RUN:
+                animator.SetBool("isWalking", true);
                 animator.SetBool("isSneaking", false);
                 animator.SetBool("isRunning", true);
                 break;
             case PLAYERSTATE.SNEAK:
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isRunning", false);
                 animator.SetBool("isSneaking", true);
                 break;
             case PLAYERSTATE.JUMP:

@@ -129,7 +129,7 @@ public class FoxMovement : MonoBehaviour
                 break;
             case FOXSTATES.EVADE:
                 animator.SetBool("isWalking", true);
-                animator.SetBool("isRunning", true);
+                animator.SetBool("isRunning", false);
                 animator.SetBool("isWaiting", false);
                 animator.SetFloat("speedMultiplier", walkAnimationSpeed);
                 break;
@@ -145,6 +145,14 @@ public class FoxMovement : MonoBehaviour
         else
         {
             speed = evadeSpeed;
+        }
+
+        Ray ray = new Ray(targetToFollow.position + Vector3.up * 50, Vector3.down);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        {
+            targetToFollow.position = new Vector3(targetToFollow.position.x, hit.point.y + 2, targetToFollow.position.z);
         }
 
         transform.LookAt(targetToFollow);
@@ -182,15 +190,7 @@ public class FoxMovement : MonoBehaviour
         if (evadeTargetPosition == Vector3.zero)
         {
             Vector3 objectiveDirection = (transform.position - playerTransform.position).normalized;
-            Vector3 evadePosition = transform.position + (objectiveDirection * evadeDistance);
-
-            Ray ray = new Ray(targetToFollow.position + Vector3.up * 50, Vector3.down);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
-            {
-                evadePosition.y = hit.point.y + 2;
-            }
+            Vector3 evadePosition = transform.position + (objectiveDirection * evadeDistance);           
 
             evadeTargetPosition = evadePosition;
             targetToFollow.position = evadeTargetPosition;
