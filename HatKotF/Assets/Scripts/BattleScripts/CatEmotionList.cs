@@ -60,22 +60,22 @@ public class CatEmotionList : MonoBehaviour
     //Create the emotions
     public void NewEmotions()
     {
-        happy = new Emotion("happy", 0, ":)", happySprite);
+        happy = new Emotion("happy", 1, ":)", happySprite);
         emotions.Add(happy);
 
-        sad = new Emotion("sad", 1, ":(", sadSprite);
+        sad = new Emotion("sad", 2, ":(", sadSprite);
         emotions.Add(sad);
 
-        angry = new Emotion("angry", 2, ">:(", angrySprite);
+        angry = new Emotion("angry", 3, ">:(", angrySprite);
         emotions.Add(angry);
 
-        fearful = new Emotion("fearful", 3, ":{", fearfulSprite);
+        fearful = new Emotion("fearful", 4, ":{", fearfulSprite);
         emotions.Add(fearful);
 
-        surprised = new Emotion("surprised", 4, ":O", surprisedSprite);
+        surprised = new Emotion("surprised", 5, ":O", surprisedSprite);
         emotions.Add(surprised);
 
-        disgusted = new Emotion("disgusted", 5, "XP", disgustedSprite);
+        disgusted = new Emotion("disgusted", 6, "XP", disgustedSprite);
         emotions.Add(disgusted);
         //Debug.Log("Emotions created and added to list.");
     }
@@ -83,23 +83,23 @@ public class CatEmotionList : MonoBehaviour
     //Give the emotions dialogue options
     public void NewDialogue()
     {
-        happy.AddDialogue("This works now.");
-        happy.AddDialogue("My code works!");
+        happy.AddDialogue("Yup, I’m a witch’s familiar. The real deal.");
+        happy.AddDialogue("I’m just runnin’ this treasure errand for an old friend.");
 
-        sad.AddDialogue("My code doesn't work...");
-        sad.AddDialogue("I don't have any more cookies.");
+        sad.AddDialogue("I can’t help ya with the treasure nor the curse, kid.");
+        sad.AddDialogue("No one has managed to find that treasure yet, so don’t feel too bad.");
 
-        angry.AddDialogue("My code doesn't work!!!!");
-        angry.AddDialogue("RAAAAAAAHHHHHHH!!!!");
+        angry.AddDialogue("I didn’t run off! You’re the one who stopped followin’ me!");
+        angry.AddDialogue("Don’t blame me! Ya were told not to look back!");
 
-        fearful.AddDialogue("What if the code doesn't work?!");
-        fearful.AddDialogue("Did I leave the stove on?");
+        fearful.AddDialogue("My master doesn’t actually know I’m here.");
+        fearful.AddDialogue("Cats like me don’t have many other places to go.");
 
-        surprised.AddDialogue("It's Tuesday already?!");
-        surprised.AddDialogue("Someone is playing this?!");
+        surprised.AddDialogue("Ya heard voices on the field? But there was nobody there.");
+        surprised.AddDialogue("Ya got cursed? Well, that’s what you get for not listenin’ to directions.");
 
-        disgusted.AddDialogue("This code is subpar!");
-        disgusted.AddDialogue("What an ugly screen.");
+        disgusted.AddDialogue("Humans don’t usually treat my kind that well.");
+        disgusted.AddDialogue("Oh I’m bad luck? The bad luck is sittin’ right next to ya!");
     }
 
     //Get a dialogue line for chosen emotion
