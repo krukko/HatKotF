@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
+    public Dialogue dialogue;
     public Player player = new Player();
     public Enemy enemy = new Enemy();
     BattleButton battleButton; //this is the reference to the BattleButton script in the scene
@@ -15,9 +16,6 @@ public class BattleManager : MonoBehaviour
     public GameManager gameManager;
     public IdentifyWords identify;
     public Timer timer;
-    public EmotionList CatEmotionList;
-
-    public GameObject emoList;
 
     //Buttonlists
     public GameObject emotionButtons; //reference to the parent object under which the emotion buttons are
@@ -160,5 +158,10 @@ public class BattleManager : MonoBehaviour
     public void ResetButton()
     {
         Start();
+    }
+
+    public void TriggerDialogue()
+    {
+        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
     }
 }
