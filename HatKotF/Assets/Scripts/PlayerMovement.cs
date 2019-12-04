@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Move(float _inputHorizontal, float _inputVertical)
-    {      
+    {
        if (Input.GetKey(KeyCode.LeftShift))
         {
             acceleration = runningSpeed;
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 directionToFollower = (follower.transform.position - transform.position).normalized;
         float dotproductOfDirectionToFollower = Vector3.Dot(directionToFollower, transform.forward);
 
-        if (dotproductOfDirectionToFollower > 0.4f)
+        if (dotproductOfDirectionToFollower > 0.9f)
         {
             SetPlayerState(PLAYERSTATE.FOLLOW);
         }
@@ -99,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 movement = new Vector3(_inputHorizontal, 0.0f, _inputVertical);
         rb.AddRelativeForce(movement * acceleration, ForceMode.Impulse);
+
     }
 
     private void Rotate()
