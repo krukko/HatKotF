@@ -33,6 +33,7 @@ public class EmotionList : MonoBehaviour
     public bool foxFight;
     public bool catFight;
     public bool tonttuFight;
+    public bool neitoFight;
 
     void Start()
     {
@@ -55,6 +56,10 @@ public class EmotionList : MonoBehaviour
         if (tonttuFight)
         {
             TonttuNewDialogue();
+        }
+        if (neitoFight)
+        {
+            NeitoNewDialogue();
         }
     }
 
@@ -82,10 +87,7 @@ public class EmotionList : MonoBehaviour
         emotions.Add(happy);
 
         sad = new Emotion("sad", 2, ":(", sadSprite, false);
-        emotions.Add(sad);
-
-        angry = new Emotion("angry", 3, ">:(", angrySprite, false);
-        emotions.Add(angry);
+        emotions.Add(sad);  
 
         fearful = new Emotion("fearful", 4, ":{", fearfulSprite, false);
         emotions.Add(fearful);
@@ -93,8 +95,18 @@ public class EmotionList : MonoBehaviour
         surprised = new Emotion("surprised", 5, ":O", surprisedSprite, false);
         emotions.Add(surprised);
 
-        disgusted = new Emotion("disgusted", 6, "XP", disgustedSprite, false);
-        emotions.Add(disgusted);
+        if (!neitoFight)
+        {
+            angry = new Emotion("angry", 3, ">:(", angrySprite, false);
+            emotions.Add(angry);
+        }
+
+        if (!tonttuFight)
+        {
+            disgusted = new Emotion("disgusted", 6, "XP", disgustedSprite, false);
+            emotions.Add(disgusted);
+        }
+
         //Debug.Log("Emotions created and added to list.");
     }
 
@@ -144,23 +156,38 @@ public class EmotionList : MonoBehaviour
 
     public void TonttuNewDialogue()
     {
-        happy.AddDialogue("Don't worry. With my guidance, we'll get you home in no time.");
-        happy.AddDialogue("I'm the most cunning creature in this entire forest. Feel free to admire me.");
+        happy.AddDialogue("I’m so glad at least you are safe.");
+        happy.AddDialogue("I loved your family's sauna a lot...");
 
-        sad.AddDialogue("It's a shame you lost that treasure…");
-        sad.AddDialogue("Boy, what have I gotten myself into...");
+        sad.AddDialogue("What will become of you now?");
+        sad.AddDialogue("sssssssss");
 
-        angry.AddDialogue("When I finally catch the Rabbit, that fluffy cheater will get what's coming to him.");
-        angry.AddDialogue("Hey, I know perfectly well where we're going!");
+        angry.AddDialogue("I tried to warn everyone. But I was too late!");
+        angry.AddDialogue("aaaaaaaaaaa");
 
-        fearful.AddDialogue("Say, you haven't seen any bears around here, have you?");
-        fearful.AddDialogue("There are some pretty shady places between this forest and the King's palace...");
+        fearful.AddDialogue("I couldn’t do anything to help anyone…");
+        fearful.AddDialogue("Don’t go back home now, Hilja! Promise you won’t!");
 
-        surprised.AddDialogue("A black cat? You've seen one?");
-        surprised.AddDialogue("Did you just try to pet me?!");
+        surprised.AddDialogue("Little Hilja? Here all alone?");
+        surprised.AddDialogue("Only your farmhand has seen me before.");
+    }
 
-        disgusted.AddDialogue("Did you know rowanberries taste terrible?");
-        disgusted.AddDialogue("I hope that daft Owl isn't anywhere nearby.");
+    public void NeitoNewDialogue()
+    {
+        happy.AddDialogue("I’m sure the King will be happy to help you.");
+        happy.AddDialogue("I'm a forest maiden. We decorate the woods for Mistress Mielikki.");
+
+        sad.AddDialogue("So you have been forest covered? Poor child.");
+        sad.AddDialogue("Children get lost here all the time, but forest covering is another thing.");
+
+        fearful.AddDialogue("I saw an upset gnome running past. I hope everything is okay.");
+        fearful.AddDialogue("Stay safe on your travels. The forest is a dangerous place.");
+
+        surprised.AddDialogue("You’re travelling with Kettu? Willingly?");
+        surprised.AddDialogue("What a polite little human!");
+
+        disgusted.AddDialogue("I hope Kettu is not up to his old tricks again.");
+        disgusted.AddDialogue("Kettu tends to trick people just for fun. Be careful.");
     }
 
     //Get a dialogue line for chosen emotion

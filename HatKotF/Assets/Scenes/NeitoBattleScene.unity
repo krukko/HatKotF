@@ -3516,12 +3516,12 @@ MonoBehaviour:
   fearful: {fileID: 0}
   surprised: {fileID: 0}
   disgusted: {fileID: 0}
-  happySprite: {fileID: 21300000, guid: 69a01cbae02655e4e9c277ed6399837d, type: 3}
-  sadSprite: {fileID: 21300000, guid: 4bbc9b3e5dbf3f14c8b288d883e1458d, type: 3}
-  angrySprite: {fileID: 21300000, guid: cdb18e225e287924ab2092409a852025, type: 3}
-  fearfulSprite: {fileID: 21300000, guid: 7ef5e08d05c3c5e4ba8df0020a895c9d, type: 3}
-  surprisedSprite: {fileID: 21300000, guid: b50f9494aaa737f4bb9f5f8d0ac4fac1, type: 3}
-  disgustedSprite: {fileID: 21300000, guid: 5d4abef7aba47c74b96ae5b96cc56eab, type: 3}
+  happySprite: {fileID: 21300000, guid: 2b4e28ff7c9985a49b91cb856059e93c, type: 3}
+  sadSprite: {fileID: 21300000, guid: 9a165f152937458489ea039e04edeaa5, type: 3}
+  angrySprite: {fileID: 21300000, guid: ae4e02af5bd71814fb3f67629405ad35, type: 3}
+  fearfulSprite: {fileID: 21300000, guid: decf78c8b5801454a95a619e1bf9fec3, type: 3}
+  surprisedSprite: {fileID: 21300000, guid: 7a2ee4d208b02f241aa4c8876ba836a9, type: 3}
+  disgustedSprite: {fileID: 21300000, guid: ae4e02af5bd71814fb3f67629405ad35, type: 3}
   shownSprite: {fileID: 1370531823}
   dialogueText: {fileID: 2141462860}
   faceText: {fileID: 0}
@@ -3529,6 +3529,7 @@ MonoBehaviour:
   foxFight: 0
   catFight: 0
   tonttuFight: 0
+  neitoFight: 1
 --- !u!1001 &593683957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9576,7 +9577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 274.9, y: -56.4}
+  m_AnchoredPosition: {x: 274.9, y: -53.3}
   m_SizeDelta: {x: 17.5, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1370531825
@@ -9599,7 +9600,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ef4dec85e0b38e747b32a2700beb38e9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b4e28ff7c9985a49b91cb856059e93c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11028,6 +11029,7 @@ MonoBehaviour:
   foxFight: 0
   catFight: 0
   tonttuFight: 0
+  neitoFight: 1
 --- !u!4 &1698897373
 Transform:
   m_ObjectHideFlags: 0
