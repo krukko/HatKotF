@@ -5,17 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
-    public UnityEngine.SceneManagement.Scene scene;
+    public bool foxFight;
+    public bool catFight;
+    public bool tonttuFight;
+    public bool neitoFight;
 
-    // Start is called before the first frame update
-    void Start()
+    void ChooseScene(Collider ChangeScene)
     {
+        if (ChangeScene.gameObject.CompareTag("Player"))
+        {
+
+            if (foxFight)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
+            }
+            if (catFight)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
+            }
+            if (tonttuFight)
+            {
+                Debug.Log("Ya done goofed.");
+            }
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
