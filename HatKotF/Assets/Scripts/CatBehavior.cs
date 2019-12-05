@@ -13,8 +13,7 @@ public class CatBehavior : MonoBehaviour
                waypointRange; // how far from each other waypoints are
     private int nextWaypoint, currentWaypoint;
 
-
-    private bool isMoving = false;
+    private bool bIsMoving = false;
 
     public Transform waypointMarker;
     public Transform startingPoint;
@@ -50,7 +49,7 @@ public class CatBehavior : MonoBehaviour
         else
         {
             SetState(CATSTATES.SIT);
-            isMoving = false;
+            bIsMoving = false;
             Invoke("FindNextWaypoint", waitTime);
         }
     }
@@ -79,9 +78,9 @@ public class CatBehavior : MonoBehaviour
     }
     private void FindNextWaypoint()
     {
-        if (!isMoving)
+        if (!bIsMoving)
         {
-            isMoving = true;
+            bIsMoving = true;
             nextWaypoint = Random.Range(0, waypointPositions.Length - 1);
 
             if (nextWaypoint != currentWaypoint)

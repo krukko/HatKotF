@@ -6,21 +6,25 @@ public enum PLAYERSTATE { IDLE, WALK, RUN, SNEAK, JUMP, FOLLOW }
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float walkingSpeed = 10;
-    public float runningSpeed = 15;
-    public float slowWalkSpeed = 5;
-    public float jumpSpeed = 10;
-    public float maxVelocity = 10;
-    public float turningSpeed = 30;
-    private float inputHorizontal;
-    private float inputVertical;
-    private float acceleration;
+    public float walkingSpeed = 10,
+                 runningSpeed = 15,
+                 slowWalkSpeed = 5,
+                 jumpSpeed = 10,
+                 maxVelocity = 10,
+                 turningSpeed = 30;
+
+    private float inputHorizontal,
+                  inputVertical,
+                  acceleration;
 
     public PLAYERSTATE playerState;
 
+    public bool bRotatingClockwise;
+
+    public LayerMask collisionMask;
+
     private Animator animator;
     private CapsuleCollider col;
-    public LayerMask collisionMask;
     private Rigidbody rb;
     private Transform follower;
 
@@ -83,9 +87,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 directionToFollower = (follower.transform.position - transform.position).normalized;
         float dotproductOfDirectionToFollower = Vector3.Dot(directionToFollower, transform.forward);
 
-        print(dotproductOfDirectionToFollower);
-
-        if (dotproductOfDirectionToFollower > 0.9f)
+        if (dotproductOfDirectionToFollower > 0.6f)
         {
             SetPlayerState(PLAYERSTATE.FOLLOW);
         }
@@ -112,6 +114,20 @@ public class PlayerMovement : MonoBehaviour
         {
             Quaternion deltaRotation = Quaternion.Euler(new Vector3(0f, turningSpeed * Input.GetAxis("Mouse X"), 0f) * Time.deltaTime);
             rb.MoveRotation(rb.rotation * deltaRotation);
+
+            float fromYRotation = rb.rotation.eulerAngles.y;
+            float toYRotation = deltaRotation.eulerAngles.y;
+
+            if(fromYRotation >= toYRotation)
+            {
+                Debug.Log("Rotating clockwise");
+                bRotatingClockwise = true;
+            }
+            else
+            {
+                Debug.Log("Rotating counter-clockwise");
+                bRotatingClockwise = false;
+            }
         }
     }
 
@@ -180,5 +196,10 @@ public class PlayerMovement : MonoBehaviour
     public void SetFollower(Transform newFollower)
     {
         follower = newFollower;
+    }
+
+    public bool GetRotationDirection()
+    {
+        return bRotatingClockwise;
     }
 }
