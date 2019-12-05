@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class FoxMovement : MonoBehaviour
 {
     public float sneakAnimationSpeed, walkAnimationSpeed;
-    public float baseSpeed, evadeSpeed, evadeDistance;
+    public float evadeSpeed, evadeDistance;
     public float followDistance;
     public float waitingDistance;
     private float speed;
@@ -129,7 +129,7 @@ public class FoxMovement : MonoBehaviour
                 break;
             case FOXSTATES.EVADE:
                 animator.SetBool("isWalking", true);
-                animator.SetBool("isRunning", false);
+                animator.SetBool("isRunning", true);
                 animator.SetBool("isWaiting", false);
                 animator.SetFloat("speedMultiplier", walkAnimationSpeed);
                 break;
@@ -140,11 +140,11 @@ public class FoxMovement : MonoBehaviour
     {
         if(foxState != FOXSTATES.EVADE)
         {
-            speed = playerMovementScript.GetAcceleration() + baseSpeed;
+            speed = playerMovementScript.GetAcceleration();
         }
         else
         {
-            speed = evadeSpeed;
+            speed = evadeSpeed + playerMovementScript.GetAcceleration();
         }
 
         Ray ray = new Ray(targetToFollow.position + Vector3.up * 50, Vector3.down);
@@ -152,7 +152,7 @@ public class FoxMovement : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
-            targetToFollow.position = new Vector3(targetToFollow.position.x, hit.point.y + 2, targetToFollow.position.z);
+            targetToFollow.position = new Vector3(targetToFollow.position.x, hit.point.y, targetToFollow.position.z);
         }
 
         transform.LookAt(targetToFollow);

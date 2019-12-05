@@ -43,7 +43,16 @@ public class CatBehavior : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if (Vector3.Distance(transform.position, waypointPositions[currentWaypoint]) >= 2)
+        {
+            Move();
+        }
+        else
+        {
+            SetState(CATSTATES.SIT);
+            isMoving = false;
+            Invoke("FindNextWaypoint", waitTime);
+        }
     }
 
     private void SetSpeed()
@@ -52,7 +61,7 @@ public class CatBehavior : MonoBehaviour
 
         speed = catSpeeds[choice];
 
-        switch(choice)
+        switch (choice)
         {
             case 0:
                 SetState(CATSTATES.WALK);
@@ -65,20 +74,8 @@ public class CatBehavior : MonoBehaviour
 
     private void Move()
     {
-        if (Vector3.Distance(transform.position, waypointPositions[currentWaypoint]) >= 2)
-        {
-            print("moving to waypoint");
-            transform.position = Vector3.MoveTowards(transform.position, waypointPositions[currentWaypoint], Time.deltaTime * speed);
-            transform.LookAt(waypointPositions[currentWaypoint]);
-        }
-
-        if (Vector3.Distance(transform.position, waypointPositions[currentWaypoint]) < 2 && catState != CATSTATES.SIT)
-        {
-            print("at waypoint");
-            SetState(CATSTATES.SIT);
-            isMoving = false;
-            Invoke("FindNextWaypoint", waitTime);
-        }
+        transform.position = Vector3.MoveTowards(transform.position, waypointPositions[currentWaypoint], Time.deltaTime * speed);
+        transform.LookAt(waypointPositions[currentWaypoint]);
     }
     private void FindNextWaypoint()
     {
@@ -95,16 +92,15 @@ public class CatBehavior : MonoBehaviour
             {
                 return;
             }
-        }
 
-        SetSpeed();
+            SetSpeed();
+        }
     }
 
     private void SetState(CATSTATES newState)
     {
         if (catState != newState)
         {
-            Debug.Log(newState);
             catState = newState;
             SetAnimations();
         }

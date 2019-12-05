@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
             acceleration = 0;
             SetPlayerState(PLAYERSTATE.IDLE);
         }
-        else
+        else if(IsGrounded())
         {
             Move(inputHorizontal, inputVertical);
         }
@@ -83,10 +83,14 @@ public class PlayerMovement : MonoBehaviour
         Vector3 directionToFollower = (follower.transform.position - transform.position).normalized;
         float dotproductOfDirectionToFollower = Vector3.Dot(directionToFollower, transform.forward);
 
+        print(dotproductOfDirectionToFollower);
+
         if (dotproductOfDirectionToFollower > 0.9f)
         {
             SetPlayerState(PLAYERSTATE.FOLLOW);
         }
+
+        rb.velocity = Vector3.zero;
 
         if (rb.velocity.x >= maxVelocity || rb.velocity.x <= -maxVelocity)
         {
