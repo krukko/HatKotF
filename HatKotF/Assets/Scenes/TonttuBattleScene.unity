@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a2645c3a8523de64d96fd52f0b6be5e0, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -3413,7 +3413,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e63e4ec546ac85e4a8d3e2f6db1b3603, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd8fa034be2e52843bd1ea46bac6f6de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3516,12 +3516,12 @@ MonoBehaviour:
   fearful: {fileID: 0}
   surprised: {fileID: 0}
   disgusted: {fileID: 0}
-  happySprite: {fileID: 21300000, guid: 69a01cbae02655e4e9c277ed6399837d, type: 3}
-  sadSprite: {fileID: 21300000, guid: 4bbc9b3e5dbf3f14c8b288d883e1458d, type: 3}
-  angrySprite: {fileID: 21300000, guid: cdb18e225e287924ab2092409a852025, type: 3}
-  fearfulSprite: {fileID: 21300000, guid: 7ef5e08d05c3c5e4ba8df0020a895c9d, type: 3}
-  surprisedSprite: {fileID: 21300000, guid: b50f9494aaa737f4bb9f5f8d0ac4fac1, type: 3}
-  disgustedSprite: {fileID: 21300000, guid: 5d4abef7aba47c74b96ae5b96cc56eab, type: 3}
+  happySprite: {fileID: 21300000, guid: 71d6657733c0db544b9b7084c3430dd3, type: 3}
+  sadSprite: {fileID: 21300000, guid: 9d18ee6011d11c94f8a838bc8fcc37ac, type: 3}
+  angrySprite: {fileID: 21300000, guid: 4a8d9417caeb83348a46e17ae8f46b92, type: 3}
+  fearfulSprite: {fileID: 21300000, guid: 058b6afe178775d4ca418f098fa25c4d, type: 3}
+  surprisedSprite: {fileID: 21300000, guid: 216b67816832bea4c9f522da72ee8c39, type: 3}
+  disgustedSprite: {fileID: 21300000, guid: 4a8d9417caeb83348a46e17ae8f46b92, type: 3}
   shownSprite: {fileID: 1370531823}
   dialogueText: {fileID: 2141462860}
   faceText: {fileID: 0}
@@ -3529,6 +3529,7 @@ MonoBehaviour:
   foxFight: 0
   catFight: 0
   tonttuFight: 1
+  neitoFight: 0
 --- !u!1001 &593683957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9567,16 +9568,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370531823}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 15.900001}
   m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children: []
   m_Father: {fileID: 1114728847}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 274.9, y: -56.4}
+  m_AnchoredPosition: {x: 284, y: -64.4}
   m_SizeDelta: {x: 17.5, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1370531825
@@ -9599,7 +9600,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9c568b4a5874189489c26215db879eaa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d18ee6011d11c94f8a838bc8fcc37ac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11028,6 +11029,7 @@ MonoBehaviour:
   foxFight: 0
   catFight: 0
   tonttuFight: 1
+  neitoFight: 0
 --- !u!4 &1698897373
 Transform:
   m_ObjectHideFlags: 0
