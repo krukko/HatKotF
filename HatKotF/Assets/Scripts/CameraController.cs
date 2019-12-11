@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
     private Vector3 desiredPosition = Vector3.zero;
     private Vector3 cameraVelocity = Vector3.zero;
 
-    public bool rotateAroundPlayer = true;
+    public bool bRotateAroundPlayer = true;
 
     private void Awake()
     {
@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (rotateAroundPlayer && Input.GetKey(KeyCode.Mouse1)){
+        if (bRotateAroundPlayer && Input.GetKey(KeyCode.Mouse1)){
             Quaternion cameraTurnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
 
             DesiredOffset = cameraTurnAngle * DesiredOffset;

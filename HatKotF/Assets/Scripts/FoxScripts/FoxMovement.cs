@@ -6,27 +6,47 @@ using UnityEngine.AI;
 
 public class FoxMovement : MonoBehaviour
 {
-    public float sneakAnimationSpeed, walkAnimationSpeed;
-    public float baseSpeed, evadeSpeed, evadeDistance;
-    public float followDistance;
-    public float waitingDistance;
-    private float speed;
-    private float distanceToTarget;
+#region PUBLIC_VARIABLES
+
+    public float sneakAnimationSpeed,
+                 walkAnimationSpeed,        //speed walk animation plays
+                 evadeSpeed,                //speed fox uses when avading player
+                 evadeDistance,             //evade target distance
+                 followDistance,            //distance when fox starts following
+                 waitingDistance;           //distance fox stays idle before starting to move
 
     public LayerMask layerMask;
-    public Vector3 offset;
-    private Vector3 objectivePosition, followTargetPosition, evadeTargetPosition;
 
-    public Transform targetToFollow, playerTransform;
-    public GameObject objective;
+    public Vector3 offset;
+
+    public Transform targetToFollow,        //empty game object which fox follows; child of player
+                     playerTransform;       //player's transform
+
+    public GameObject objective;            //objective towards which player should move
+#endregion
+
+
+#region PRIVATE_VARIABLES
+
+    private float speed,
+                  distanceToTarget;
+
+    private Vector3 objectivePosition,
+                    followTargetPosition,
+                    evadeTargetPosition;
+
     private Animator animator;
-    public FOXSTATES foxState;
+
+    private FOXSTATES foxState;
+
     PlayerMovement playerMovementScript;
+#endregion
+
 
     private void Awake()
     {
-        playerMovementScript = targetToFollow.GetComponentInParent<PlayerMovement>();
-        playerMovementScript.SetFollower(this.transform);
+        playerMovementScript = playerTransform.GetComponent<PlayerMovement>();
+        playerMovementScript.SetFollower(transform);
         animator = GetComponentInChildren<Animator>();
 
         targetToFollow.position = playerTransform.position + offset;
@@ -73,17 +93,10 @@ public class FoxMovement : MonoBehaviour
         }
 
         SetAnimations();
+        SetTargetToFollowPosition();
 
         if (foxState == FOXSTATES.WALK || foxState == FOXSTATES.RUN || foxState == FOXSTATES.SNEAK)
         {
-            if(evadeTargetPosition != Vector3.zero)
-            {
-                evadeTargetPosition = Vector3.zero;
-                Vector3 newOffset = playerTransform.rotation * offset;
-                followTargetPosition = playerTransform.position + newOffset;
-                targetToFollow.position = followTargetPosition;
-            }
-
             Follow();
         }
         else if (foxState == FOXSTATES.MOVE_TO_IDLE)
@@ -129,7 +142,7 @@ public class FoxMovement : MonoBehaviour
                 break;
             case FOXSTATES.EVADE:
                 animator.SetBool("isWalking", true);
-                animator.SetBool("isRunning", false);
+                animator.SetBool("isRunning", true);
                 animator.SetBool("isWaiting", false);
                 animator.SetFloat("speedMultiplier", walkAnimationSpeed);
                 break;
@@ -138,13 +151,13 @@ public class FoxMovement : MonoBehaviour
 
     private void Follow()
     {
-        if(foxState != FOXSTATES.EVADE)
+        if (foxState != FOXSTATES.EVADE)
         {
-            speed = playerMovementScript.GetAcceleration() + baseSpeed;
+            speed = playerMovementScript.GetAcceleration();
         }
         else
         {
-            speed = evadeSpeed;
+            speed = evadeSpeed + playerMovementScript.GetAcceleration();
         }
 
         Ray ray = new Ray(targetToFollow.position + Vector3.up * 50, Vector3.down);
@@ -152,7 +165,7 @@ public class FoxMovement : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
-            targetToFollow.position = new Vector3(targetToFollow.position.x, hit.point.y + 2, targetToFollow.position.z);
+            targetToFollow.position = new Vector3(targetToFollow.position.x, hit.point.y, targetToFollow.position.z);
         }
 
         transform.LookAt(targetToFollow);
@@ -187,16 +200,39 @@ public class FoxMovement : MonoBehaviour
 
     private void Evade()
     {
+
         if (evadeTargetPosition == Vector3.zero)
         {
             Vector3 objectiveDirection = (transform.position - playerTransform.position).normalized;
-            Vector3 evadePosition = transform.position + (objectiveDirection * evadeDistance);           
+            Vector3 evadePosition = transform.position + (objectiveDirection * evadeDistance);
 
             evadeTargetPosition = evadePosition;
             targetToFollow.position = evadeTargetPosition;
         }
-
         Follow();
+    }
+
+    private void SetTargetToFollowPosition()
+    {
+        print("setting targetposition");
+
+        if (evadeTargetPosition != Vector3.zero)
+        {
+            if (playerMovementScript.GetRotationDirection())
+            {
+                evadeTargetPosition = Vector3.zero;
+                Vector3 newOffset = playerTransform.rotation * -offset;
+                followTargetPosition = playerTransform.position + newOffset;
+                targetToFollow.position = followTargetPosition;
+            }
+            else
+            {
+                evadeTargetPosition = Vector3.zero;
+                Vector3 newOffset = playerTransform.rotation * offset;
+                followTargetPosition = playerTransform.position + newOffset;
+                targetToFollow.position = followTargetPosition;
+            }
+        }
     }
 
     private void SetFoxState(FOXSTATES newFoxState)
