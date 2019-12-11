@@ -1237,6 +1237,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1995289162343819602}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1045159433 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1995289161714820541, guid: 8a109331dd6c35541b4d0a94cce90f3a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1995289162343819602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1154216417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,7 +1757,7 @@ MonoBehaviour:
   DesiredOffset: {x: 21.2, y: 10, z: 0}
   defaultOffset: {x: 0, y: 0, z: 0}
   LookAtOffset: {x: 0, y: 2, z: 0}
-  rotateAroundPlayer: 1
+  bRotateAroundPlayer: 1
 --- !u!1 &1503216715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2726,7 +2732,7 @@ PrefabInstance:
         type: 3}
       propertyPath: objective
       value: 
-      objectReference: {fileID: 1299802470}
+      objectReference: {fileID: 1045159433}
     - target: {fileID: 7206491913944504210, guid: dc2e1fffd5fe8f64b9fddb51e254da60,
         type: 3}
       propertyPath: offset.z
@@ -2745,7 +2751,7 @@ PrefabInstance:
     - target: {fileID: 7206491913944504210, guid: dc2e1fffd5fe8f64b9fddb51e254da60,
         type: 3}
       propertyPath: followDistance
-      value: 12
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7206491913944504210, guid: dc2e1fffd5fe8f64b9fddb51e254da60,
         type: 3}

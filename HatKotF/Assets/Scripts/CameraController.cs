@@ -92,22 +92,4 @@ public class CameraController : MonoBehaviour
 
         return transformNormal;
     }
-
-    ////check camera collisions and push away from possible collision
-    //private void CheckCollision(Vector3 _returnPosition)
-    //{
-    //    float desiredDistance = Vector3.Distance(cameraHelper.position, SpringCamera.transform.position); // what is distance between target and desired camera position
-
-    //    RaycastHit hit;
-    //    Vector3 rayDir = SpringCamera.transform.position - cameraHelper.position;
-
-    //    //Check if anything occluding player
-    //    if (Physics.SphereCast(cameraHelper.position, 0.5f, rayDir, out hit, desiredDistance, collisionMask))
-    //    {
-    //        Vector3 wallNormal = hit.normal * wallPush;
-    //        Vector3 newPos = hit.point + wallNormal;
-
-    //        transform.position = newPos;    
-    //    }
-    //}
 }

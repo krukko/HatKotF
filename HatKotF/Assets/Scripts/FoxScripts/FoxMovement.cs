@@ -29,6 +29,7 @@ public class FoxMovement : MonoBehaviour
 #region PRIVATE_VARIABLES
 
     private float speed,
+                  distanceToPlayer,
                   distanceToTarget;
 
     private Vector3 objectivePosition,
@@ -55,11 +56,12 @@ public class FoxMovement : MonoBehaviour
 
     private void Update()
     {
-        distanceToTarget = Vector3.Distance(playerTransform.position, transform.position);
+        distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
+        distanceToTarget = Vector3.Distance(targetToFollow.position, transform.position);
 
         if (playerMovementScript.GetPlayerState() == PLAYERSTATE.IDLE)
         {
-            if (distanceToTarget > waitingDistance)
+            if (distanceToPlayer > waitingDistance)
             {
                 SetFoxState(FOXSTATES.MOVE_TO_IDLE);
             }
@@ -68,35 +70,48 @@ public class FoxMovement : MonoBehaviour
                 SetFoxState(FOXSTATES.IDLE);
             }
         }
-        else if (playerMovementScript.GetPlayerState() == PLAYERSTATE.WALK)
-        {
-            SetFoxState(FOXSTATES.WALK);
-        }
-        else if (playerMovementScript.GetPlayerState() == PLAYERSTATE.RUN)
-        {
-            SetFoxState(FOXSTATES.RUN);
-        }
-        else if (playerMovementScript.GetPlayerState() == PLAYERSTATE.SNEAK)
-        {
-            SetFoxState(FOXSTATES.SNEAK);
-        }
-        else if (playerMovementScript.GetPlayerState() == PLAYERSTATE.FOLLOW)
-        {
-            if (playerMovementScript.GetPlayerState() != PLAYERSTATE.IDLE)
+
+        if (distanceToTarget >= waitingDistance)
+        {          
+            if (playerMovementScript.GetPlayerState() == PLAYERSTATE.WALK)
             {
-                SetFoxState(FOXSTATES.EVADE);
+                SetFoxState(FOXSTATES.WALK);
             }
-            else
+            else if (playerMovementScript.GetPlayerState() == PLAYERSTATE.MOVE_BACK)
             {
-                SetFoxState(FOXSTATES.IDLE);
+                print("player moving backwards");
+                SetFoxState(FOXSTATES.WALK);
             }
+            else if (playerMovementScript.GetPlayerState() == PLAYERSTATE.RUN)
+            {
+                SetFoxState(FOXSTATES.RUN);
+            }
+            else if (playerMovementScript.GetPlayerState() == PLAYERSTATE.SNEAK)
+            {
+                SetFoxState(FOXSTATES.SNEAK);
+            }
+            else if (playerMovementScript.GetPlayerState() == PLAYERSTATE.FOLLOW)
+            {
+                if (playerMovementScript.GetPlayerState() != PLAYERSTATE.IDLE)
+                {
+                    SetFoxState(FOXSTATES.EVADE);
+                }
+                else
+                {
+                    SetFoxState(FOXSTATES.IDLE);
+                }
+            }
+        }
+        else if(distanceToPlayer < waitingDistance)
+        {
+            SetFoxState(FOXSTATES.IDLE);
         }
 
         SetAnimations();
-        SetTargetToFollowPosition();
 
         if (foxState == FOXSTATES.WALK || foxState == FOXSTATES.RUN || foxState == FOXSTATES.SNEAK)
         {
+            SetTargetToFollowPosition();
             Follow();
         }
         else if (foxState == FOXSTATES.MOVE_TO_IDLE)
@@ -186,7 +201,7 @@ public class FoxMovement : MonoBehaviour
         Vector3 newRotationDirection = Vector3.RotateTowards(transform.forward, waitingPosition - transform.position, 2 * Time.deltaTime, 0.0f);
         transform.rotation = Quaternion.LookRotation(newRotationDirection);
 
-        if (distanceToTarget > waitingDistance && distanceToTarget < followDistance)
+        if (distanceToPlayer > waitingDistance && distanceToPlayer < followDistance)
         {
             transform.position = waitingPosition;
             transform.LookAt(waitingPosition);
@@ -200,7 +215,6 @@ public class FoxMovement : MonoBehaviour
 
     private void Evade()
     {
-
         if (evadeTargetPosition == Vector3.zero)
         {
             Vector3 objectiveDirection = (transform.position - playerTransform.position).normalized;

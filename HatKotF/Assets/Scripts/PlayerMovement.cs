@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PLAYERSTATE { IDLE, WALK, RUN, SNEAK, JUMP, FOLLOW }
+public enum PLAYERSTATE { IDLE, WALK, RUN, SNEAK, JUMP, FOLLOW, MOVE_BACK }
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     public LayerMask collisionMask;
 
+    private Vector3 forward;
     private Animator animator;
     private CapsuleCollider col;
     private Rigidbody rb;
@@ -52,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
             acceleration = 0;
             SetPlayerState(PLAYERSTATE.IDLE);
         }
-        else if(IsGrounded())
+        else if (IsGrounded())
         {
             Move(inputHorizontal, inputVertical);
         }
@@ -68,7 +69,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(float _inputHorizontal, float _inputVertical)
     {
-       if (Input.GetKey(KeyCode.LeftShift))
+        Vector3 movement = new Vector3(_inputHorizontal, 0.0f, _inputVertical);
+        rb.velocity = Vector3.zero;
+
+        if (rb.velocity.x >= maxVelocity || rb.velocity.x <= -maxVelocity)
+        {
+            rb.velocity = new Vector3(Mathf.Sign(rb.velocity.x) * maxVelocity, rb.velocity.y, rb.velocity.z);
+        }
+        if (rb.velocity.z >= maxVelocity || rb.velocity.z <= -maxVelocity)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, Mathf.Sign(rb.velocity.z) * maxVelocity);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift) && playerState != PLAYERSTATE.MOVE_BACK)
         {
             acceleration = runningSpeed;
             SetPlayerState(PLAYERSTATE.RUN);
@@ -87,25 +100,19 @@ public class PlayerMovement : MonoBehaviour
         Vector3 directionToFollower = (follower.transform.position - transform.position).normalized;
         float dotproductOfDirectionToFollower = Vector3.Dot(directionToFollower, transform.forward);
 
-        if (dotproductOfDirectionToFollower > 0.6f)
+
+        if (Vector3.Dot(forward, movement) < 0)
+        {
+            print("moving backwards");
+            SetPlayerState(PLAYERSTATE.MOVE_BACK);
+        }
+        if (dotproductOfDirectionToFollower > 0.7f && Vector3.Dot(forward, movement) > 0)
         {
             SetPlayerState(PLAYERSTATE.FOLLOW);
-        }
+        }          
 
-        rb.velocity = Vector3.zero;
-
-        if (rb.velocity.x >= maxVelocity || rb.velocity.x <= -maxVelocity)
-        {
-            rb.velocity = new Vector3(Mathf.Sign(rb.velocity.x) * maxVelocity, rb.velocity.y, rb.velocity.z);
-        }
-        if (rb.velocity.z >= maxVelocity || rb.velocity.z <= -maxVelocity)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, Mathf.Sign(rb.velocity.z) * maxVelocity);
-        }
-
-        Vector3 movement = new Vector3(_inputHorizontal, 0.0f, _inputVertical);
         rb.AddRelativeForce(movement * acceleration, ForceMode.Impulse);
-
+        forward = Vector3.forward;
     }
 
     private void Rotate()
@@ -118,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
             float fromYRotation = rb.rotation.eulerAngles.y;
             float toYRotation = deltaRotation.eulerAngles.y;
 
-            if(fromYRotation >= toYRotation)
+            if (fromYRotation >= toYRotation)
             {
                 Debug.Log("Rotating clockwise");
                 bRotatingClockwise = true;
@@ -186,7 +193,11 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isSneaking", true);
                 break;
-            case PLAYERSTATE.JUMP:
+            case PLAYERSTATE.MOVE_BACK:
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isSneaking", false);
+                animator.SetFloat("speedMultiplier", inputVertical);
                 break;
             case PLAYERSTATE.FOLLOW:
                 break;
