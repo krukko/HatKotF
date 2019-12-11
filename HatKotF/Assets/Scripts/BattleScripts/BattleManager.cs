@@ -64,8 +64,8 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            battleButton.resetButton.SetActive(true);
             UnityEngine.SceneManagement.SceneManager.LoadScene("ForestEdge");
+            Debug.Log("Should be loading");
         }
     }
 

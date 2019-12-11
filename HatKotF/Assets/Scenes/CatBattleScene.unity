@@ -11027,7 +11027,7 @@ MonoBehaviour:
   isBoss: 0
   battleTier: 1
   foxFight: 0
-  catFight: 0
+  catFight: 1
   tonttuFight: 0
   neitoFight: 0
 --- !u!4 &1698897373

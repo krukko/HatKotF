@@ -129,7 +129,6 @@ public class BattleButton : MonoBehaviour
                     loseGame = true;
                     endGame = true;
                     battleManager.GameOver();
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("ForestEdge");
                 }
                 else
                 {

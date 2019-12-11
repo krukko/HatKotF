@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
+    public GameObject quitUI;
+
     public void BeginGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("ForestEdge");
