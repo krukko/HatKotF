@@ -26,7 +26,11 @@ public class NewSceneSwitch : MonoBehaviour
             }
             if (tonttuFight)
             {
-                Debug.Log("Ya done goofed.");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("TonttuBattleScene");
+            }
+            if (neitoFight)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("NeitoBattleScene");
             }
         }
     }

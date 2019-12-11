@@ -37,6 +37,7 @@ public class BattleManager : MonoBehaviour
     public bool foxFight;
     public bool catFight;
     public bool tonttuFight;
+    public bool neitoFight;
 
     public void Start()
     {
