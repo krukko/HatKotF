@@ -93,6 +93,7 @@ public class FoxMovement : MonoBehaviour
         }
 
         SetAnimations();
+        SetTargetToFollowPosition();
 
         if (foxState == FOXSTATES.WALK || foxState == FOXSTATES.RUN || foxState == FOXSTATES.SNEAK)
         {
