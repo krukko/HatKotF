@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class EmotionList : MonoBehaviour
 {
     public List<Emotion> emotions = new List<Emotion>();
-    public DialogueTrigger dialogueTrigger;
 
     public Emotion happy;
     public Emotion sad;
@@ -38,18 +37,10 @@ public class EmotionList : MonoBehaviour
 
     void Start()
     {
-        if(!foxFight)
-        {
             NewEmotions();
             ChooseDialogue();
 
             GameRoundEmotions();
-        }
-        else
-        {
-            dialogueTrigger.TriggerDialogue();
-            Debug.Log("Starting dialogue...");
-        }
     }
 
     public void ChooseDialogue()
