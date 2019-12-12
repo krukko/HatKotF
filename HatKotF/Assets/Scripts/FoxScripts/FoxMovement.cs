@@ -56,7 +56,7 @@ public class FoxMovement : MonoBehaviour
 
     private void Update()
     {
-        distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
+        //distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
         distanceToTarget = Vector3.Distance(targetToFollow.position, transform.position);
 
         if (playerMovementScript.GetPlayerState() == PLAYERSTATE.IDLE)
@@ -101,7 +101,7 @@ public class FoxMovement : MonoBehaviour
                 }
             }
         }
-        else if (distanceToPlayer < waitingDistance)
+        else if (distanceToTarget < waitingDistance)
         {
             SetFoxState(FOXSTATES.IDLE);
         }
@@ -155,10 +155,20 @@ public class FoxMovement : MonoBehaviour
                 animator.SetBool("isRunning", false);
                 break;
             case FOXSTATES.EVADE:
-                animator.SetBool("isWalking", true);
-                animator.SetBool("isRunning", true);
-                animator.SetBool("isWaiting", false);
-                animator.SetFloat("speedMultiplier", walkAnimationSpeed);
+                if (playerMovementScript.GetAcceleration() == playerMovementScript.walkingSpeed)
+                {
+                    animator.SetBool("isWalking", true);
+                    animator.SetBool("isRunning", false);
+                    animator.SetFloat("speedMultiplier", walkAnimationSpeed);
+                    animator.SetBool("isWaiting", false);
+                }
+                else if (playerMovementScript.GetAcceleration() == playerMovementScript.runningSpeed)
+                {
+                    animator.SetBool("isWalking", true);
+                    animator.SetBool("isRunning", true);
+                    animator.SetBool("isWaiting", false);
+                }
+
                 break;
         }
     }
@@ -167,11 +177,11 @@ public class FoxMovement : MonoBehaviour
     {
         if (foxState != FOXSTATES.EVADE)
         {
-            speed = playerMovementScript.GetAcceleration();
+            speed = playerMovementScript.GetAcceleration() -1;
         }
         else
         {
-            speed = evadeSpeed + playerMovementScript.GetAcceleration();
+            speed = playerMovementScript.GetAcceleration();
         }
 
         Ray ray = new Ray(targetToFollow.position + Vector3.up * 50, Vector3.down);
@@ -222,6 +232,7 @@ public class FoxMovement : MonoBehaviour
             evadeTargetPosition = evadePosition;
             targetToFollow.position = evadeTargetPosition;
         }
+
         Follow();
     }
 
