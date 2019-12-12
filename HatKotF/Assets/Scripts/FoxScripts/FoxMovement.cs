@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class FoxMovement : MonoBehaviour
 {
-#region PUBLIC_VARIABLES
+    #region PUBLIC_VARIABLES
 
     public float sneakAnimationSpeed,
                  walkAnimationSpeed,        //speed walk animation plays
@@ -23,10 +23,10 @@ public class FoxMovement : MonoBehaviour
                      playerTransform;       //player's transform
 
     public GameObject objective;            //objective towards which player should move
-#endregion
+    #endregion
 
 
-#region PRIVATE_VARIABLES
+    #region PRIVATE_VARIABLES
 
     private float speed,
                   distanceToPlayer,
@@ -41,7 +41,7 @@ public class FoxMovement : MonoBehaviour
     private FOXSTATES foxState;
 
     PlayerMovement playerMovementScript;
-#endregion
+    #endregion
 
 
     private void Awake()
@@ -72,7 +72,7 @@ public class FoxMovement : MonoBehaviour
         }
 
         if (distanceToTarget >= waitingDistance)
-        {          
+        {
             if (playerMovementScript.GetPlayerState() == PLAYERSTATE.WALK)
             {
                 SetFoxState(FOXSTATES.WALK);
@@ -102,7 +102,7 @@ public class FoxMovement : MonoBehaviour
                 }
             }
         }
-        else if(distanceToPlayer < waitingDistance)
+        else if (distanceToPlayer < waitingDistance)
         {
             SetFoxState(FOXSTATES.IDLE);
         }
@@ -228,8 +228,6 @@ public class FoxMovement : MonoBehaviour
 
     private void SetTargetToFollowPosition()
     {
-        print("setting targetposition");
-
         if (evadeTargetPosition != Vector3.zero)
         {
             if (playerMovementScript.GetRotationDirection())

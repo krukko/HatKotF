@@ -138,13 +138,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866fcbef77f877d4cbbf38c93b2b8421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: 4
-  runningSpeed: 15
-  slowWalkSpeed: 1
-  jumpSpeed: 15
+  walkingSpeed: 15
+  runningSpeed: 25
+  slowWalkSpeed: 15
+  jumpSpeed: 20
   maxVelocity: 8
   turningSpeed: 170
   playerState: 0
+  bRotatingClockwise: 0
   collisionMask:
     serializedVersion: 2
     m_Bits: 311

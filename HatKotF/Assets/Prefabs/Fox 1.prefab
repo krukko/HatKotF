@@ -64,14 +64,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sneakAnimationSpeed: 1.5
   walkAnimationSpeed: 2.5
-  baseSpeed: 8
-  followDistance: 10
+  evadeSpeed: 0
+  evadeDistance: 0
+  followDistance: 8
   waitingDistance: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   offset: {x: 7, y: 0, z: 2}
   targetToFollow: {fileID: 0}
   playerTransform: {fileID: 0}
   objective: {fileID: 0}
-  foxState: 0
 --- !u!65 &8409186382592888002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -97,11 +100,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kettu_new
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: 14fd44218fe9d4644a421c16f65f8685,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 25fa4c5d9e66d404e84c81eda8668ec7, type: 2}
     - target: {fileID: -4216859302048453862, guid: 14fd44218fe9d4644a421c16f65f8685,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -160,18 +158,23 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 14fd44218fe9d4644a421c16f65f8685,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 14fd44218fe9d4644a421c16f65f8685,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 14fd44218fe9d4644a421c16f65f8685,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 14fd44218fe9d4644a421c16f65f8685,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 25fa4c5d9e66d404e84c81eda8668ec7, type: 2}
     - target: {fileID: -716772130454646536, guid: 14fd44218fe9d4644a421c16f65f8685,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

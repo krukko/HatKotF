@@ -46,7 +46,7 @@ public class CatBehavior : MonoBehaviour
         {
             Move();
         }
-        else
+        else if(bIsMoving)
         {
             SetState(CATSTATES.SIT);
             bIsMoving = false;
@@ -122,8 +122,8 @@ public class CatBehavior : MonoBehaviour
                 catAnimator.SetBool("isRunning", false);
                 break;
             case CATSTATES.RUN:
-                catAnimator.SetBool("isWalking", true);
                 catAnimator.SetBool("isRunning", true);
+                catAnimator.SetBool("isWalking", true);
                 catAnimator.SetBool("isWaiting", false);
                 break;
         }

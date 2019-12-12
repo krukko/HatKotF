@@ -127,12 +127,10 @@ public class PlayerMovement : MonoBehaviour
 
             if (fromYRotation >= toYRotation)
             {
-                Debug.Log("Rotating clockwise");
                 bRotatingClockwise = true;
             }
             else
             {
-                Debug.Log("Rotating counter-clockwise");
                 bRotatingClockwise = false;
             }
         }
@@ -184,14 +182,14 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetFloat("speedMultiplier", inputVertical);
                 break;
             case PLAYERSTATE.RUN:
+                animator.SetBool("isRunning", true);
                 animator.SetBool("isWalking", true);
                 animator.SetBool("isSneaking", false);
-                animator.SetBool("isRunning", true);
                 break;
             case PLAYERSTATE.SNEAK:
+                animator.SetBool("isSneaking", true);
                 animator.SetBool("isWalking", true);
                 animator.SetBool("isRunning", false);
-                animator.SetBool("isSneaking", true);
                 break;
             case PLAYERSTATE.MOVE_BACK:
                 animator.SetBool("isWalking", true);

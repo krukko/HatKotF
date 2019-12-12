@@ -15,8 +15,8 @@ public class CameraController : MonoBehaviour
     public float Mass = 50.0f;
     public float wallPush = 0.5f;
     public float rotationSpeed = 5f;
-    private float desiredDistance;
-
+ 
+   private float desiredDistance;
     public Vector3 DesiredOffset = new Vector3(7.5f, 4.5f, 0f);
     public Vector3 defaultOffset;
     public Vector3 LookAtOffset = new Vector3(0.0f, 2f, 0.0f);
