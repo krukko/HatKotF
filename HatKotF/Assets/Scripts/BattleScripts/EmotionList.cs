@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class EmotionList : MonoBehaviour
 {
     public List<Emotion> emotions = new List<Emotion>();
-    public DialogueTrigger dialogueTrigger;
 
     public Emotion happy;
     public Emotion sad;
@@ -38,18 +37,10 @@ public class EmotionList : MonoBehaviour
 
     void Start()
     {
-        if(!foxFight)
-        {
             NewEmotions();
             ChooseDialogue();
 
             GameRoundEmotions();
-        }
-        else
-        {
-            dialogueTrigger.TriggerDialogue();
-            Debug.Log("Starting dialogue...");
-        }
     }
 
     public void ChooseDialogue()
@@ -169,12 +160,12 @@ public class EmotionList : MonoBehaviour
         happy.AddDialogue("I loved your family's sauna a lot...");
 
         sad.AddDialogue("What will become of you now?");
-        sad.AddDialogue("sssssssss");
+        sad.AddDialogue("I couldn’t do anything to help…");
 
         angry.AddDialogue("I tried to warn everyone. But I was too late!");
-        angry.AddDialogue("aaaaaaaaaaa");
+        angry.AddDialogue("Some sauna gnome I am!");
 
-        fearful.AddDialogue("I couldn’t do anything to help anyone…");
+        fearful.AddDialogue("There was a fire...");
         fearful.AddDialogue("Don’t go back home now, Hilja! Promise you won’t!");
 
         surprised.AddDialogue("Little Hilja? Here all alone?");
