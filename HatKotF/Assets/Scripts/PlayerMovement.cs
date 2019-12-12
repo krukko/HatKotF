@@ -103,10 +103,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (Vector3.Dot(forward, movement) < 0)
         {
-            print("moving backwards");
             SetPlayerState(PLAYERSTATE.MOVE_BACK);
         }
-        if (dotproductOfDirectionToFollower > 0.7f && Vector3.Dot(forward, movement) > 0)
+        if (dotproductOfDirectionToFollower > 0.6f && Vector3.Dot(forward, movement) > 0)
         {
             SetPlayerState(PLAYERSTATE.FOLLOW);
         }          

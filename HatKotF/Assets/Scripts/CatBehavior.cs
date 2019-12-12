@@ -42,7 +42,7 @@ public class CatBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, waypointPositions[currentWaypoint]) >= 2)
+        if (Vector3.Distance(transform.position, waypointPositions[currentWaypoint]) > 2)
         {
             Move();
         }

@@ -79,7 +79,6 @@ public class FoxMovement : MonoBehaviour
             }
             else if (playerMovementScript.GetPlayerState() == PLAYERSTATE.MOVE_BACK)
             {
-                print("player moving backwards");
                 SetFoxState(FOXSTATES.WALK);
             }
             else if (playerMovementScript.GetPlayerState() == PLAYERSTATE.RUN)
@@ -233,7 +232,7 @@ public class FoxMovement : MonoBehaviour
             if (playerMovementScript.GetRotationDirection())
             {
                 evadeTargetPosition = Vector3.zero;
-                Vector3 newOffset = playerTransform.rotation * -offset;
+                Vector3 newOffset = playerTransform.rotation * new Vector3(-offset.x, offset.y, offset.z);
                 followTargetPosition = playerTransform.position + newOffset;
                 targetToFollow.position = followTargetPosition;
             }
